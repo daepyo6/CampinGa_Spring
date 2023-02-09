@@ -210,22 +210,13 @@ function mainSearch() {
 	const sido = document.getElementById("sido").value;
 	const gungu = document.getElementById("gungu").value;
 	const cname = document.getElementById("inputText").value;
-    if (cname.length == 0) {
-        if (sido.length == 0) {
-            alert("시/도를 선택해주세요");
-            return;
-        } else if (gungu.length == 0) {
-            alert("시/군/구를 선택해주세요");
-            return;
-        } else {
-			const ad1 = cat1_name[sido-1];
-			console.log(ad1)
-			console.log(gungu)
-            location.href = "mainSearch?address1=" + ad1 + "&address2=" + gungu;
-        }
-    } else {
-        location.href = "searchResult?key=" + cname;
-    }
+	// 검색 조건
+	// 1. 주소 선택 o, 이름 검색 x
+	// 2. 주소 선택 o, 이름 검색 o
+	// 3. 주소 선택 x, 이름 검색 o --
+	
+	const ad1 = cat1_name[sido - 1];
+	location.href = "mainSearch?address1="+ad1+"&address2="+gungu+"&cname="+cname;
 }
 
 function searchCamp(){
