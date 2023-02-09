@@ -125,6 +125,12 @@
 			)
 		}
 	</select>
+	
+	<!-- 예약 추가 -->
+	<insert id="reserveInsert" parameterType="com.campinga.dto.ReservationVO">
+		insert into reservation(reseq, cseq, mid, price, people, chk_in, chk_out)
+		values(reservation_seq.nextval, #{cseq}, #{mid}, #{price}, #{people}, #{chk_in}, #{chk_out})	
+	</insert>
 
 	
 

@@ -2,7 +2,6 @@
 <%@ include file="../../include/header.jsp"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-<script type="text/javascript" src="script/reserve.js"></script>
 <script type="text/javascript">
 	$.datepicker.setDefaults({
 		dateFormat: 'yy-mm-dd',
