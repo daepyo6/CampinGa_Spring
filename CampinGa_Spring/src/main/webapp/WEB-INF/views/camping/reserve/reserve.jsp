@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../../header.jsp"%>
+<%@ include file="../../include/header.jsp"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-<link href="script/reserve.css" rel="stylesheet">
 <script type="text/javascript" src="script/reserve.js"></script>
 <script type="text/javascript">
 	$.datepicker.setDefaults({
@@ -60,7 +59,7 @@
 		var cDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
 
 		if (beginDate && endDate) {
-			const price = parseInt(dif / cDay) * parseInt('${campVO.price}');
+			const price = parseInt(dif / cDay) * parseInt('${campVO.PRICE}');
 			document.getElementById('price').value = price
 			document.getElementById('totalPrice').innerHTML = price
 					.toLocaleString('ko-KR');
@@ -74,9 +73,8 @@
 </script>
 <div class="bar"></div>
 <article>
-   <form method="post" name="reserve">
-         <input type="hidden" name="command" value="reserveInsert" />
-         <input type="hidden" name="mid" value="${loginUser.mid}">
+   <form method="post" name="reserve" action="reservInsert">
+         <input type="hidden" name="mid" value="${loginUser.MID}">
       <!-- 예약자 정보 (예약자, 전화번호, 이메일) -->
       
       <div id="reserveInfo">
@@ -87,34 +85,34 @@
             </tr>
             <tr>
                <th>예약자 이름</th>
-               <td>${loginUser.name}</td>
+               <td>${loginUser.NAME}</td>
             </tr>
             <tr>
                <th>휴대폰 번호</th>
-               <td>${loginUser.mphone}</td>
+               <td>${loginUser.MPHONE}</td>
             </tr>
             <tr>
                <th>이메일</th>
-               <td>${loginUser.email}</td>
+               <td>${loginUser.EMAIL}</td>
             </tr>
          </table>
       </div>
 
       <!-- 캠핑장 정보 (캠핑장이름, 객실정보, 체크인, 체크아웃, 결제금액)-->
       <div id="reserveInfo2">
-      	 <input type="hidden" name="cseq" value="${campVO.cseq}">
-      	 <input type="hidden" name="cname" value="${campVO.cname}">
-         <input type="hidden" name="c_class" value="${campVO.c_class}">
-         <input type="hidden" name="max_people" value="${campVO.max_people}">
+      	 <input type="hidden" name="cseq" value="${campVO.CSEQ}">
+      	 <input type="hidden" name="cname" value="${campVO.CNAME}">
+         <input type="hidden" name="c_class" value="${campVO.C_CLASS}">
+         <input type="hidden" name="max_people" value="${campVO.MAX_PEOPLE}">
          <input type="hidden" id="price" name="price" value="">
          <table>
             <tr>
                <th>캠핑장 이름</th>
-               <td>${campVO.cname}</td>
+               <td>${campVO.CNAME}</td>
             </tr>
             <tr>
                <th>객실정보</th>
-               <td>${campVO.c_class}</td>
+               <td>${campVO.C_CLASS}</td>
             </tr>
             <tr class="chk">
                <th>체크인</th>
@@ -142,4 +140,4 @@
    </form>
 </article>
 
-<%@ include file="../../footer.jsp"%>
+<%@ include file="../../include/footer.jsp"%>

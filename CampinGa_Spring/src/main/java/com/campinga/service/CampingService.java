@@ -112,4 +112,8 @@ public class CampingService {
 		cdao.getSearchResult(paramMap);
 	}
 
+	public void selectCampOne(HashMap<String, Object> paramMap) {
+		cdao.selectCampOne(paramMap);		
+	}
+
 }

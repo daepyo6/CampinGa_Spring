@@ -29,7 +29,7 @@
 						<div><span>${campVO.PRICE}원</span></div>
 					</div>
 					<div class="roomInfo-bar"></div>					
-					<div class="resbtn" onclick="location.href='reserveForm?cseq=${campVO.cseq}'">
+					<div class="resbtn" onclick="location.href='reserveForm?cseq=${campVO.CSEQ}'">
 						<span>예약하기</span>
 					</div>				
 				</div>

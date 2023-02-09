@@ -115,6 +115,16 @@
 			) 
 		}
 	</select>
+	
+	<!-- 객실 하나 조회 -->
+	<select id="selectCampOne" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL selectCampOne(
+				#{cseq},
+				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap}			
+			)
+		}
+	</select>
 
 	
 

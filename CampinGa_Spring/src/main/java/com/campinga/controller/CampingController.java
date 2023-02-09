@@ -134,12 +134,14 @@ public class CampingController {
 		HashMap<String, Object> loginUser
 			= (HashMap<String, Object>)request.getSession().getAttribute("loginUser");
 		if(loginUser!=null) {
-			paramMap.put("myFav", null);
+			paramMap.put("myFav", "");
 			paramMap.put("mid", loginUser.get("MID"));
 			cs.getFav(paramMap);
-			if(paramMap.get("myFav")!=null) {
-				System.out.println("myFav : "+paramMap.get("myFav"));
+			String myFav = (String)paramMap.get("myFav");
+			if(myFav.equals("y")) {
 				mav.addObject("chk_fav", "Y");
+			} else {
+				mav.addObject("chk_fav", "N");
 			}
 		}
 		
@@ -188,6 +190,28 @@ public class CampingController {
 		return mav;
 	}
 	
+	@RequestMapping("/reserveForm")
+	public ModelAndView reserveForm(HttpServletRequest request,
+			@RequestParam("cseq") int cseq) {
+		ModelAndView mav = new ModelAndView();
+		
+		HashMap<String, Object> loginUser
+		= (HashMap<String, Object>)request.getSession().getAttribute("loginUser");
+		if(loginUser==null) {
+			mav.addObject("message", "예약하려면 로그인해주세요.");
+			mav.setViewName("member/login");
+		} else {
+			HashMap<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("cseq", cseq);
+			paramMap.put("ref_cursor", null);
+			cs.selectCampOne(paramMap);
+			ArrayList<HashMap<String, Object>>list
+				= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			mav.addObject("campVO", list.get(0));
+			mav.setViewName("camping/reserve/reserve");
+		}		
+		return mav;
+	}
 	
 	
 
