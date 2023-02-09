@@ -21,7 +21,7 @@
 			<c:choose>
 				<c:when test="${not empty loginUser}">
 					<li><a href="mypage" style="width: 100px;">
-						${loginUser.name}(${loginUser.mid})</a></li>
+						${loginUser.NAME}(${loginUser.MID})</a></li>
 					<li><a href="logout">Logout</a></li>
 				</c:when>
 				<c:when test="${not empty loginBusinessman}">

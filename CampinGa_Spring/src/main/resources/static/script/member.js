@@ -1,30 +1,30 @@
 // member JavaScript 
 
 function idcheck(type){
-    if(document.joinForm.id.value==""){
+    if(document.joinForm.mid.value==""){
         alert("체크할 아이디를 입력해주세요");
-        document.joinForm.id.focus();
+        document.joinForm.mid.focus();
         return;
     }	
-    var id = document.joinForm.id.value;
-    var url = "camp.do?command=idCheckForm&id="+id+"&type="+type;
+    var mid = document.joinForm.mid.value;
+    var url = "idCheckForm?mid="+mid+"&type="+type;
 	var opt = "toolbar=no, menubar=no, resizable=no, width=600, height=400, scrollbars=no";
 	window.open(url, "idCheck", opt);
 }
 
-function idok(id){
-    opener.document.joinForm.id.value=id;
-   	opener.document.joinForm.reid.value=id;
+function idok(mid){
+    opener.document.joinForm.mid.value=mid;
+   	opener.document.joinForm.reid.value=mid;
     self.close();
 }
 
 function joinCheck(){
-    if(document.joinForm.id.value==""){
+    if(document.joinForm.mid.value==""){
         alert('아이디를 입력해주세요');
-        document.joinForm.id.focus();
-    } else if(document.joinForm.reid.value != document.joinForm.id.value){
+        document.joinForm.mid.focus();
+    } else if(document.joinForm.reid.value != document.joinForm.mid.value){
         alert('아이디 중복확인을 하지 않았습니다.');
-        document.joinForm.id.focus();
+        document.joinForm.mid.focus();
     }else if(document.joinForm.pwd.value==""){
         alert('비밀번호를 입력해주세요.');
         document.joinForm.pwd.focus();
@@ -34,14 +34,14 @@ function joinCheck(){
     }else if(document.joinForm.name.value==""){
         alert('이름를 입력해주세요');
         document.joinForm.name.focus();
-    }else if(document.joinForm.phone.value==""){
+    }else if(document.joinForm.mphone.value==""){
         alert('전화번호를 입력해주세요');
-        document.joinForm.phone.focus();
+        document.joinForm.mphone.focus();
    }else if(document.joinForm.email.value==""){
         alert('이메일을 입력해주세요');
         document.joinForm.email.focus();
     }else {
-        document.joinForm.action = "camp.do";
+        document.joinForm.action = "loginForm";
         document.joinForm.submit();
     }
 }

@@ -31,6 +31,7 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	// 멤버 로그인 기능
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login( @ModelAttribute("dto") @Valid MemberVO membervo, BindingResult result,
 			HttpServletRequest request, Model model) {
@@ -66,7 +67,7 @@ public class MemberController {
 		return url;
 	}
 	
-	// Member logout 기능
+	// 멤버 로그아웃 기능
 	@RequestMapping(value="/logout")
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -79,6 +80,77 @@ public class MemberController {
 	public String contract() {
 		return "member/contract";
 	}
+	
+	
+	@RequestMapping(value="/joinForm", method=RequestMethod.POST)
+	public String join_form(@RequestParam("user")String choose) {
+		String url = "";
+		if(choose.equals("1") ) {
+			url = "member/joinForm";
+		}else {
+			url = "business/joinForm";
+		}
+		return url;
+	}
+	
+	@RequestMapping("/idCheckForm")
+	public String idCheckForm(
+			@RequestParam("mid") String mid,
+			Model model,
+			HttpServletRequest request) {
+		
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("mid", mid);
+		paramMap.put("ref_cursor", null);
+		ms.getMemberCam(paramMap);
+		
+		ArrayList<HashMap<String, Object> > list
+			= (ArrayList< HashMap<String, Object> >) paramMap.get("ref_cursor");
+		if( list.size() == 0) {
+           model.addAttribute("result", -1);
+        }else {
+           model.addAttribute("result", 1);
+        }
+           model.addAttribute("mid",mid);
+
+		
+		return "member/idCheck";
+	}
+	
+	// 멤버 회원가입 기능
+	@RequestMapping(value="/join", method=RequestMethod.POST)
+	public ModelAndView join(
+			@ModelAttribute("dto") @Valid MemberVO membervo, BindingResult result,
+			@RequestParam(value="reid", required = false) String reid,
+			@RequestParam(value="pwdCheck", required = false) String pwdCheck
+			) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("member/joinForm");
+		mav.addObject("reid", reid);
+		
+		if( result.getFieldError("mid") != null )
+			mav.addObject("message", result.getFieldError("mid").getDefaultMessage());
+		else if(result.getFieldError("pwd") != null ) 
+			mav.addObject("message", result.getFieldError("pwd").getDefaultMessage());
+		else if(result.getFieldError("name") != null ) 
+			mav.addObject("message", result.getFieldError("name").getDefaultMessage());
+		else if(result.getFieldError("email") != null ) 
+			mav.addObject("message", result.getFieldError("email").getDefaultMessage());
+		else if(result.getFieldError("mphone") != null ) 
+			mav.addObject("message", result.getFieldError("mphone").getDefaultMessage());
+		else if(reid == null || ( reid != null && !reid.equals(membervo.getMid()) ))
+			mav.addObject("message", "아이디 중복체크가 되지 않았습니다");
+		else if(pwdCheck == null || ( pwdCheck != null && !pwdCheck.equals(membervo.getPwd())))
+			mav.addObject("message", "비밀번호 확인이 일치하지 않습니다");
+		else {
+			ms.insertMemberCam( membervo );
+			mav.addObject("message", "회원가입이 완료되었습니다. 로그인하세요");
+			mav.setViewName("member/login");
+		}
+		return mav;
+	}
+	
 	
 	
 	
