@@ -11,13 +11,5 @@ BEGIN
         select cname, image, bseq 
         from businessman where rownum<=8;
 END;
-update businessman set image='Daejeon01.png' where bseq=1;
-update businessman set image='Daejeon02.png' where bseq=2;
-update businessman set image='Daejeon03.png' where bseq=3;
-update businessman set image='Daejeon04.png' where bseq=4;
-update businessman set image='Daejeon05.png' where bseq=5;
-update businessman set image='Daejeon06.png' where bseq=6;
-update businessman set image='Seoul01.png' where bseq=7;
-update businessman set image='Seoul02.png' where bseq=8;
-commit;
+
 select * from businessman;

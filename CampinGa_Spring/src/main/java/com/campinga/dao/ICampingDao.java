@@ -8,5 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ICampingDao {
 
 	void getNewRecoCamping(HashMap<String, Object> paramMap);
+	void getSearchResult(HashMap<String, Object> paramMap);
 
 }

@@ -17,4 +17,8 @@ public class CampingService {
 		cdao.getNewRecoCamping(paramMap);	
 	}
 
+	public void getSearchResult(HashMap<String, Object> paramMap) {
+		cdao.getSearchResult(paramMap);
+	}
+
 }

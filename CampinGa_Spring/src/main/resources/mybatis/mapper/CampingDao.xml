@@ -15,4 +15,12 @@
 			)
 		}
 	</select>
+	<select id="getSearchResult"  statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL getSearchResult(
+				#{address1}, #{address2}, #{address3},
+				#{ref_cursor ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campingMap }
+			)
+		}
+	</select>
 </mapper>
