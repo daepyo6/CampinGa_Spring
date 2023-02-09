@@ -30,8 +30,8 @@
   <select id="getNewRecoCamping"  statementType="CALLABLE" parameterType="java.util.HashMap">
 		{
 			CALL getNewRecoCamping(
-				#{ref_cursor1 ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campingMap },
-				#{ref_cursor2 ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campingMap2}
+				#{ref_cursor1 ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap },
+				#{ref_cursor2 ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap2}
 			)
 		}
 	</select>
@@ -41,7 +41,7 @@
 		{
 			CALL getSearchResult(
 				#{address1}, #{address2}, #{address3},
-				#{ref_cursor ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campingMap }
+				#{ref_cursor ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap }
 			)
 		}
 	</select>
