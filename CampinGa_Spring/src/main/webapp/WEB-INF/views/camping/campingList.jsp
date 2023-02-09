@@ -11,7 +11,7 @@
 	<div id="searchResult">
 		<c:forEach items="${campList}" var="campVO">
 			<div id="campInfo"
-					onclick="location.href='campDetail&bseq=${campVO.BSEQ}'">
+					onclick="location.href='campDetail?bseq=${campVO.BSEQ}'">
 				<c:if test="${campVO.IMAGE != null}">
 					<img id="campInfo_img" src="images/campingImage/${campVO.IMAGE}">
 				</c:if>
