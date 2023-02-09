@@ -20,5 +20,12 @@ public interface ICampingDao {
 
 	void getNewRecoCamping(HashMap<String, Object> paramMap);
 	void getSearchResult(HashMap<String, Object> paramMap);
+	
+	void insertQna(HashMap<String, Object> paramMap);
+	void updateQna(HashMap<String, Object> paramMap);
+	void deleteQna(HashMap<String, Object> paramMap);
+	void insertReview(HashMap<String, Object> paramMap);
+	void updateReview(HashMap<String, Object> paramMap);
+	void deleteReview(HashMap<String, Object> paramMap);
 
 }

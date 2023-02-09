@@ -112,4 +112,28 @@ public class CampingService {
 		cdao.getSearchResult(paramMap);
 	}
 
+	public void insertQna(HashMap<String, Object> paramMap) {
+		cdao.insertQna(paramMap);
+	}
+
+	public void updateQna(HashMap<String, Object> paramMap) {
+		cdao.updateQna(paramMap);
+	}
+
+	public void deleteQna(HashMap<String, Object> paramMap) {
+		cdao.deleteQna(paramMap);
+	}
+
+	public void insertReview(HashMap<String, Object> paramMap) {
+		cdao.insertReview(paramMap);
+	}
+
+	public void updateReview(HashMap<String, Object> paramMap) {
+		cdao.updateReview(paramMap);
+	}
+
+	public void deleteReview(HashMap<String, Object> paramMap) {
+		cdao.deleteReview(paramMap);
+	}
+
 }

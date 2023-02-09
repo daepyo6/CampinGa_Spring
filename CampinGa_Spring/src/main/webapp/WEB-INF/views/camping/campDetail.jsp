@@ -39,7 +39,7 @@
 	<div class="bar2"></div>	
 	
 	<!-- Q&A -->
-	<div class="listBox" id="qnabox">
+	<div class="listBox" id="qnabox" >
 		<div class="detail_title"><span>Q & A</span></div>
 		<table class="view">
 			<tr>
@@ -61,13 +61,15 @@
 							<c:otherwise>답변대기중</c:otherwise>
 						</c:choose></td>
 					<td>
-					<div class="btns">				
+					<div class="btns">		
+		
 						<c:if test="${qnaVO.MID == loginUser.MID}">					
 							<input type="button" value="수정"
-								onclick="location.href='campDetail&qseq=${qnaVO.QSEQ}&bseq=${bseq}#qnabox'">
+								onclick="location.href='campDetail?qseq=${qnaVO.QSEQ}&bseq=${bseq}#qnabox'">
 							<input type="button" value="삭제"
-								onclick="location.href='deleteQna&qseq=${qnaVO.QSEQ}&bseq=${bseq}#qnabox'">
+								onclick="location.href='deleteQna?qseq=${qnaVO.QSEQ}&bseq=${bseq}#qnabox'">
 						</c:if>
+				
 						</div>
 					</td>
 				</tr>
@@ -94,13 +96,12 @@
 			</c:forEach>
 		</table>
 
-		<form name="frm" method="post" action="camp.do">
-			<input type="hidden" name="command" value="insertQna"> 
+		<form name="frm" method="post">
 			<input type="hidden" name="bseq" value="${bseq}">
 			<div class="writeBox">
 				<textarea rows="8" cols="65" name="content"></textarea>
 				<div class="btns">
-					<input class="submit" type="submit" value="QnA쓰기">
+					<input class="submit"  type="submit" value="QnA쓰기" onclick="return qnawriteCheck()">
 				</div>
 			</div>
 		</form>
@@ -123,6 +124,7 @@
 				<a href="campDetail?bseq=${bseq}&page1=${paging1.endPage+1}#qnabox">▶</a>
 			</c:if>
 		</div>
+	
 	</div>
 
 	<div class="bar2"></div>
@@ -147,9 +149,9 @@
 					<td><div class="btns">
 					<c:if test="${ReviewVO.MID==loginUser.MID}">
 							<input type="button" value="수정" class="submit"
-								onclick="location.href='campDetail&rseq=${ReviewVO.RSEQ}&bseq=${bseq}#reviewbox'">
+								onclick="location.href='campDetail?rseq=${ReviewVO.RSEQ}&bseq=${bseq}#reviewbox'">
 							<input type="button" value="삭제" class="submit"
-								onclick="location.href='deleteReview&rseq=${ReviewVO.RSEQ}&bseq=${bseq}#reviewbox'">
+								onclick="location.href='deleteReview?rseq=${ReviewVO.RSEQ}&bseq=${bseq}#reviewbox'">
 						</c:if>	</div>
 				</tr>
 
@@ -169,13 +171,12 @@
 				</c:if>
 			</c:forEach>
 		</table>
-		<form name="form" method="post" action="camp.do">
-			<input type="hidden" name="command" value="insertReview"> 
+		<form name="form" method="post" >
 			<input type="hidden" name="bseq" value="${bseq}">
 			<div class="writeBox">
 				<textarea rows="8" cols="65" name="content"></textarea>
 				<div class="btns">
-					<input type="submit" class="submit" value="리뷰쓰기">
+					<input type="submit" class="submit" value="리뷰쓰기" onclick="return reviewwriteCheck()">
 				</div>
 			</div>
 		</form>
