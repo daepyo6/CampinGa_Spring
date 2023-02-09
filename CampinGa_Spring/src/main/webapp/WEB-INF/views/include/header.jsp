@@ -8,8 +8,8 @@
 <title>CampinGa</title>
 <link href="css/campinga.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="script/main.js"></script> 
-<script src="member/script/member.js"></script>
+<script src="script/campinga.js"></script> 
+<script src="script/member.js"></script>
 <script src="camping/script/camping.js"></script>
 
 </head>
@@ -22,17 +22,17 @@
 			<c:choose>
 				<c:when test="${not empty loginUser}">
 					<li><a href="camp.do?command=mypage" style="width: 100px;">
-						${loginUser.name}(${loginUser.mid})</a></li>
-					<li><a href="camp.do?command=logout">Logout</a></li>
+						${loginUser.NAME}(${loginUser.MID})</a></li>
+					<li><a href="logout">Logout</a></li>
 				</c:when>
 				<c:when test="${not empty loginBusinessman}">
 					<li><a href="camp.do?command=businessmanMypage">
 						${loginBusinessman.name}(${loginBusinessman.bid})</a></li>
-					<li><a href="camp.do?command=logout">Logout</a></li>
+					<li><a href="logout">Logout</a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="camp.do?command=loginForm">Login</a></li>
-					<li><a href="camp.do?command=contractForm">Join</a></li>
+					<li><a href="loginForm">Login</a></li>
+					<li><a href="contract">Join</a></li>
 				</c:otherwise>
 			</c:choose>
 			<li><a href="camp.do?command=noticeList">Notice</a></li>
@@ -40,7 +40,7 @@
 	</nav>
 	
 	<div id="logo"><!-- 로고시작 -->
-		<a href="camp.do?command=index">
+		<a href="index">
 			<img src="images/logoH.png">
 		</a>
 	</div><!-- 로고 끝 -->

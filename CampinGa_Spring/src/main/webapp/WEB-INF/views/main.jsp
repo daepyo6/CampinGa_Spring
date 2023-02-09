@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="include/header.jsp"%>
 <div id="mainSearch">
 	<div id="main_img">
 		<img id="mainImg" src="images/main.png">
@@ -101,4 +100,4 @@
 </div>
 
 
-<%@ include file="footer.jsp"%>
+<%@ include file="include/footer.jsp"%>

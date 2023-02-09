@@ -1,23 +1,7 @@
 // member JavaScript 
 
 
-function loginCheck(){
-   if(document.loginFrm.id.value==""){
-      alert("아이디는 필수입력사항입니다");
-      document.loginFrm.id.focus();
-      return false;
-   }else if(document.loginFrm.pwd.value==""){
-      alert("비밀번호는 필수입력사항입니다");
-      document.loginFrm.pwd.focus();
-      return false;
-   }else if(document.loginFrm.user.value==""){
-      alert("개인/사업자 체크는 필수입력사항입니다");
-      document.loginFrm.user.focus();
-      return false;
-   }else{
-      return true; 
-   }   
-}
+
 
 function idcheck(type){
     if(document.joinForm.id.value==""){
@@ -87,7 +71,7 @@ function go_next(){
     if(document.contractFrm.okon[1].checked==true){
     alert("회원 약관에 동의 하셔야 회원으로 가입이 가능합니다.")
     }else{
-    document.contractFrm.action = "camp.do?command=joinForm";
+    document.contractFrm.action = "joinForm";
     document.contractFrm.submit();
     }
 }
