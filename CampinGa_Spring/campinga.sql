@@ -78,6 +78,12 @@ END;
 
 
 
+select*from reservation;
+
+
+
+
+
 
 
 
