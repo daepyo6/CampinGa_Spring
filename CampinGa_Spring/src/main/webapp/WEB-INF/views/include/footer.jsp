@@ -3,10 +3,10 @@
 <footer>
 	<div class="foot" style="height: 60px">
 		<div id="fLogo">
-			<img src="images/logoF.png">
+			<img src="images/main/logoF.png">
 		</div>
 		<div id="adBtn">
-			<a href="camp.do?command=admin">administrator</a>
+			<a href="admin">administrator</a>
 		</div>
 	</div>
 	<div class="foot" style="height: 100px">

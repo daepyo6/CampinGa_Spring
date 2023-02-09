@@ -2,7 +2,7 @@
 <%@ include file="include/header.jsp"%>
 <div id="mainSearch">
 	<div id="main_img">
-		<img id="mainImg" src="images/main.png">
+		<img id="mainImg" src="images/main/main.png">
 	</div>
 	<div id="main_searchbar">
 		<div id="selects">
@@ -43,14 +43,14 @@
 <div class="newCampings">
 	<c:forEach items="${newCampList}" var="newCamp">
 		<div class="newCampCard">
-			<a href="camp.do?command=campDetail&bseq=${newCamp.bseq}">
+			<a href="campDetail?bseq=${newCamp.BSEQ}">
 				<div class="newCampImgs">
 					<c:choose>
-						<c:when test="${newCamp.image==null}">
-							<img class="campImg" src="images/imgfile.jpg">
+						<c:when test="${newCamp.IMAGE==null}">
+							<img class="campImg" src="images/main/imgfile.jpg">
 						</c:when>
 						<c:otherwise>
-							<img class="campImg" src="campingImage/${newCamp.image}">
+							<img class="campImg" src="images/campingImage/${newCamp.IMAGE}">
 						</c:otherwise>
 					</c:choose>
 					<div class="imgCover">
@@ -59,10 +59,10 @@
 				</div>
 			</a>
 			<div class="newCampName">
-				<span>${newCamp.cname}</span>
+				<span>${newCamp.CNAME}</span>
 			</div>
 			<div class="newCampInfo">
-				<span>${newCamp.content}</span>
+				<span>${newCamp.CONTENT}</span>
 			</div>
 		</div>
 	</c:forEach>
@@ -75,25 +75,25 @@
 		<div class="recoview">
 			<!-- recoCampList -->
 			<div class="btnA" id="btnL">
-				<img src="images/arrL.png">
+				<img src="images/main/arrL.png">
 			</div>
 			<div class="cardView">
 				<div class="cards">
 					<c:forEach items="${recoCampList}" var="recoCamp">
 						<div class="recoCampCard" 
-							onclick="location.href='camp.do?command=campDetail&bseq=${recoCamp.bseq}'">
+							onclick="location.href='campDetail?bseq=${recoCamp.BSEQ}'">
 							<div class="cardHeader">
-								<span>${recoCamp.cname}</span>
+								<span>${recoCamp.CNAME}</span>
 							</div>
 							<div class="recoImg">
-								<img src="campingImage/${recoCamp.image}">
+								<img src="images/campingImage/${recoCamp.IMAGE}">
 							</div>
 						</div>
 					</c:forEach>
 				</div>
 			</div>
 			<div class="btnA" id="btnR">
-				<img src="images/arrR.png">
+				<img src="images/main/arrR.png">
 			</div>
 		</div>
 	</div>

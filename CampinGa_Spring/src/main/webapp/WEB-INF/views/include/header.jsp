@@ -10,7 +10,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="script/campinga.js"></script> 
 <script src="script/member.js"></script>
-<script src="camping/script/camping.js"></script>
 
 </head>
 <body>
@@ -21,12 +20,12 @@
 		<ul>
 			<c:choose>
 				<c:when test="${not empty loginUser}">
-					<li><a href="camp.do?command=mypage" style="width: 100px;">
-						${loginUser.NAME}(${loginUser.MID})</a></li>
+					<li><a href="mypage" style="width: 100px;">
+						${loginUser.name}(${loginUser.mid})</a></li>
 					<li><a href="logout">Logout</a></li>
 				</c:when>
 				<c:when test="${not empty loginBusinessman}">
-					<li><a href="camp.do?command=businessmanMypage">
+					<li><a href="businessmanMypage">
 						${loginBusinessman.name}(${loginBusinessman.bid})</a></li>
 					<li><a href="logout">Logout</a></li>
 				</c:when>
@@ -35,19 +34,19 @@
 					<li><a href="contract">Join</a></li>
 				</c:otherwise>
 			</c:choose>
-			<li><a href="camp.do?command=noticeList">Notice</a></li>
+			<li><a href="noticeList">Notice</a></li>
 		</ul>
 	</nav>
 	
 	<div id="logo"><!-- 로고시작 -->
 		<a href="index">
-			<img src="images/logoH.png">
+			<img src="images/main/logoH.png">
 		</a>
 	</div><!-- 로고 끝 -->
 	
 	<nav id="category_menu">		
-		<div onclick="location.href='camp.do?command=category&kind=1'"><span>ALL</span></div>
-		<div class="icons" onclick="location.href='camp.do?command=category&kind=2'">
+		<div onclick="location.href='category?kind=1'"><span>ALL</span></div>
+		<div class="icons" onclick="category?kind=2'">
 			<div class="iconImg1">
 				<img src="images/icon/autoB.png">
 				<span>오토캠핑</span>
@@ -57,7 +56,7 @@
 				<span>오토캠핑</span>
 			</div>				
 		</div>
-		<div class="icons" onclick="location.href='camp.do?command=category&kind=3'">
+		<div class="icons" onclick="location.href='category?kind=3'">
 			<div class="iconImg1">
 				<img src="images/icon/glamB.png">
 				<span>캠핑</span>
@@ -67,7 +66,7 @@
 				<span>캠핑</span>
 			</div>
 		</div>
-		<div class="icons" onclick="location.href='camp.do?command=category&kind=4'">
+		<div class="icons" onclick="location.href='category?kind=4'">
 			<div class="iconImg1">
 				<img src="images/icon/caraB.png">
 				<span>카라반</span>
@@ -77,7 +76,7 @@
 				<span>카라반</span>
 			</div>
 		</div>
-		<div class="icons" onclick="location.href='camp.do?command=category&kind=5'">
+		<div class="icons" onclick="location.href='category?kind=5'">
 			<div class="iconImg1">
 				<img src="images/icon/picB.png">
 				<span>캠프닉</span>

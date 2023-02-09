@@ -1,8 +1,5 @@
 // member JavaScript 
 
-
-
-
 function idcheck(type){
     if(document.joinForm.id.value==""){
         alert("체크할 아이디를 입력해주세요");
