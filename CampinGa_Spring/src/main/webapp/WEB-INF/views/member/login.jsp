@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 
 <article>
-    <form method="post" action="camp.do" name="loginFrm" id="loginTable">
-      <input type="hidden" name="command" value="login" />
+    <form method="post" action="login" name="loginFrm" id="loginTable">
       <div class="login">
       <h2>로그인</h2>
       <fieldset>
          <legend></legend>
          <div class="login_id">
-            <label>User ID</label><input name="id" type="text"><br> 
+            <label>User ID</label><input name="mid" type="text"><br> 
          </div>
          <div class="login_pwd">
               <label>Password</label><input name="pwd" type="password"><br>
@@ -20,9 +19,9 @@
           </div>
       </fieldset>
       <div class="buttons">
-           <input type="submit" value="login" class="button" onclick="return loginCheck()">
+           <input type="submit" value="login" class="button">
            <input type="button" value="join" class="button" 
-              onclick="location.href='camp.do?command=contractForm'">  
+              onclick="location.href='contractForm'">  
        </div><br><br>
        <div>&nbsp;&nbsp;&nbsp;${message}</div>  
    </div>
@@ -31,4 +30,4 @@
 </article>
 
 
-<%@ include file="../footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>

@@ -5,7 +5,24 @@
 	
 <mapper namespace="com.campinga.dao.IMemberDao">
 
+	<resultMap id="memberMap" type="java.util.HashMap" ></resultMap>
 
+	<select id="getMemberCam" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL getMemberCam(
+				#{mid},
+				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=memberMap}
+			)
+		}
+	</select>
+	
+	<insert id="insertMemberCam" statementType="CALLABLE" parameterType="com.campinga.dto.MemberVO">
+		{
+			CALL insertMemberCam(
+				#{mid}, #{pwd}, #{name}, #{email}, #{mphone}
+			)
+		}
+	</insert>
 
 
 </mapper>

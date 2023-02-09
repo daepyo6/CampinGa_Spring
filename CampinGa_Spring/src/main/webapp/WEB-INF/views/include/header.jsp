@@ -31,7 +31,7 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="loginForm">Login</a></li>
-					<li><a href="contractForm">Join</a></li>
+					<li><a href="contract">Join</a></li>
 				</c:otherwise>
 			</c:choose>
 			<li><a href="noticeList">Notice</a></li>
