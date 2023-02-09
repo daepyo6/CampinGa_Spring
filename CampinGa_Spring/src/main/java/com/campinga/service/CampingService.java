@@ -104,4 +104,12 @@ public class CampingService {
 		cdao.selectReviewByBseq(paramMap);		
 	}
 
+	public void getNewRecoCamping(HashMap<String, Object> paramMap) {
+		cdao.getNewRecoCamping(paramMap);	
+	}
+
+	public void getSearchResult(HashMap<String, Object> paramMap) {
+		cdao.getSearchResult(paramMap);
+	}
+
 }

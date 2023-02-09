@@ -18,4 +18,7 @@ public interface ICampingDao {
 	void selectReviewByBseq(HashMap<String, Object> paramMap);
 	
 
+	void getNewRecoCamping(HashMap<String, Object> paramMap);
+	void getSearchResult(HashMap<String, Object> paramMap);
+
 }

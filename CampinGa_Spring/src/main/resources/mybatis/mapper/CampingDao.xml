@@ -4,7 +4,6 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.campinga.dao.ICampingDao">
-
 	<resultMap id="campMap" type="java.util.HashMap"></resultMap>
 	<resultMap id="campMap2" type="java.util.HashMap"></resultMap>
 	<resultMap id="campMap3" type="java.util.HashMap"></resultMap>
@@ -24,6 +23,26 @@
 				#{category},
 				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap} 
 			) 
+		}
+	</select>
+  
+  <!-- 신규, 추천 캠핑장 -->
+  <select id="getNewRecoCamping"  statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL getNewRecoCamping(
+				#{ref_cursor1 ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campingMap },
+				#{ref_cursor2 ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campingMap2}
+			)
+		}
+	</select>
+  
+  <!-- 메인에 있는 시/군/구 검색 -->
+	<select id="getSearchResult"  statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL getSearchResult(
+				#{address1}, #{address2}, #{address3},
+				#{ref_cursor ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campingMap }
+			)
 		}
 	</select>
 	
@@ -97,5 +116,6 @@
 		}
 	</select>
 
+	
 
 </mapper>

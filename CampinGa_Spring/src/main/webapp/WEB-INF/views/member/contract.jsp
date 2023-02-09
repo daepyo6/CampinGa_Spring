@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../header.jsp"%>
+<%@ include file="../include/header.jsp"%>
 
 <article>
 	<div class="view">
 		<h2>회원 가입 약관</h2>
-		<form id="join" method="post" name="contractFrm">
+		<form id="join" method="post" name="contractFrm" action="joinForm">
 			<div class="btns">
 				<input type="button" value="일반 회원" onclick="joinChoose(1)">
 				<input type="button" value="사업자 회원" onclick="joinChoose(2)">
@@ -27,4 +27,4 @@
 	</div>
 </article>
 
-<%@ include file="../footer.jsp"%>
+<%@ include file="../include/footer.jsp"%>
