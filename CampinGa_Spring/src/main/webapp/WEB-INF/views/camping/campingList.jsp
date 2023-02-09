@@ -1,36 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="../header.jsp"%>
-<script type="text/javascript" src="camping/campingList.js"></script>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../include/header.jsp"%>
 <article>
 	<div class="clear"></div>
 	<div id="campSearch">
-		<input type="text" id="key" placeholder="캠핑장 이름을 입력해주세요"> <a
-			href="#" onclick="searchCamp()"><img id="searchBtn"
-			src="images/sBtn.png"></a>
+		<input type="text" id="key" placeholder="캠핑장 이름을 입력해주세요" value="${key}"> 
+		<a href="#" onclick="searchCamp()">
+		<img id="searchBtn" src="images/main/sBtn.png"></a>
 	</div>
 	<div class="bar"></div>
 	<div id="searchResult">
 		<c:forEach items="${campList}" var="campVO">
 			<div id="campInfo"
-					onclick="location.href='camp.do?command=campDetail&bseq=${campVO.bseq}'">
-				<c:if test="${campVO.image != null}">
-					<img id="campInfo_img" src="campingImage/${campVO.image}">
+					onclick="location.href='campDetail&bseq=${campVO.BSEQ}'">
+				<c:if test="${campVO.IMAGE != null}">
+					<img id="campInfo_img" src="images/campingImage/${campVO.IMAGE}">
 				</c:if>
-				<c:if test="${campVO.image == null}">
-					<img id="campInfo_img" src="images/imgfile.png">
+				<c:if test="${campVO.IMAGE == null}">
+					<img id="campInfo_img" src="images/main/imgfile.png">
 				</c:if>
 				<div id="campInfo_text">
-					<span>${campVO.cname}</span><br> 
-					<span> 주소 : ${campVO.caddress1} ${campVO.caddress2}</span><br> 
+					<span>${campVO.CNAME}</span><br> 
+					<span> 주소 : ${campVO.CADDRESS1} ${campVO.CADDRESS2}</span><br> 
 					<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						${campVO.caddress3}</span><br> 
-					<span>카테고리 : ${campVO.category}</span><br> 
-					<span>부대시설 : ${campVO.facilities}</span>
+						${campVO.CADDRESS3}</span><br> 
+					<span>카테고리 : ${campVO.CATEGORY}</span><br> 
+					<span>부대시설 : ${campVO.FACILITIES}</span>
 				</div>
 			</div>
 		</c:forEach>
 	</div>
 	<div class="clear"></div>
 </article>
-<%@ include file="../footer.jsp"%>
+<%@ include file="../include/footer.jsp"%>

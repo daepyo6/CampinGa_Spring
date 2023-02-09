@@ -5,6 +5,33 @@
 	
 <mapper namespace="com.campinga.dao.ICampingDao">
 
+	<resultMap id="campMap" type="java.util.HashMap"></resultMap>
+	
+	<select id="categoryAll" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{ 
+			CALL categoryAll( 
+				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap} 
+			) 
+		}
+	</select>
+
+	<select id="categoryList" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{ 
+			CALL categoryList( 
+				#{category},
+				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap} 
+			) 
+		}
+	</select>
+	
+	<select id="campNameSerch" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{ 
+			CALL campNameSerch( 
+				#{key},
+				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap} 
+			) 
+		}
+	</select>
 
 
 
