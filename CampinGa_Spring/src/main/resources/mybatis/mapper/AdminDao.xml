@@ -29,7 +29,7 @@
 	<select id="adminMemberList" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{
 			CALL adminMemberList(
-				#{startNum},#{endNum},
+				#{key}, #{startNum}, #{endNum},
 				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
 			)
 		}
@@ -40,7 +40,7 @@
 	<select id="adminCampingList" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{
 			CALL adminCampingList(
-				#{startNum},#{endNum},
+				#{key}, #{startNum},#{endNum},
 				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
 			)
 		}
@@ -51,7 +51,7 @@
 	<select id="adminRestList" statementType="CALLABLE" parameterType="java.util.HashMap">
       {
          CALL adminRestList(
-            #{startNum},#{endNum},
+            #{key}, #{startNum},#{endNum},
             #{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
          )
       }
@@ -62,7 +62,7 @@
 	<select id="adminReviewList" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{
 			CALL adminReviewList(
-				#{startNum},#{endNum},
+				#{key},#{startNum},#{endNum},
 				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
 			)
 		}

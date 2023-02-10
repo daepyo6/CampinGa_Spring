@@ -64,7 +64,7 @@ public class AdminController {
 	public String adminLogout(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 	    session.removeAttribute("loginAdmin");
-	    return "redirect:/main";
+	    return "redirect:/";
 	}
 		
 	// 회원 리스트 페이지
@@ -85,6 +85,8 @@ public class AdminController {
 			if(first!=null) {
 				request.removeAttribute("page");
 				session.removeAttribute("page");
+				request.removeAttribute("key");
+				session.removeAttribute("key");
 			}
 			HashMap<String, Object>paramMap = new HashMap<String,Object>();
 			paramMap.put("ref_cursor", null);
@@ -92,6 +94,7 @@ public class AdminController {
 			as.adminMemberList(paramMap);
 			ArrayList<HashMap<String, Object>>list
 				=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			mav.addObject("key", (String)paramMap.get("key"));
 			mav.addObject("memberList", list);
 			mav.addObject("paging", (Paging)paramMap.get("paging"));
 			mav.setViewName("admin/member/memberList");			
@@ -117,6 +120,8 @@ public class AdminController {
 			if(first!=null) {
 				request.removeAttribute("page");
 				session.removeAttribute("page");
+				request.removeAttribute("key");
+				session.removeAttribute("key");
 			}
 			HashMap<String, Object>paramMap = new HashMap<String,Object>();
 			paramMap.put("ref_cursor", null);
@@ -124,6 +129,7 @@ public class AdminController {
 			as.adminCampingList(paramMap);
 			ArrayList<HashMap<String, Object>>list
 				=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			mav.addObject("key", (String)paramMap.get("key"));
 			mav.addObject("campingList", list);
 			mav.addObject("paging", (Paging)paramMap.get("paging"));
 			mav.setViewName("admin/camping/campingList");			
@@ -149,6 +155,8 @@ public class AdminController {
 	    	if(first!=null) {
 	    		request.removeAttribute("page");
 	            session.removeAttribute("page");
+	            request.removeAttribute("key");
+				session.removeAttribute("key");
 	        }
 	        HashMap<String, Object>paramMap = new HashMap<String,Object>();
 	        paramMap.put("ref_cursor", null);
@@ -156,6 +164,7 @@ public class AdminController {
 	        as.adminRestList(paramMap);
 	        ArrayList<HashMap<String, Object>>list
 	           =(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+	        mav.addObject("key", (String)paramMap.get("key"));
 	        mav.addObject("restList", list);
 	        mav.addObject("paging", (Paging)paramMap.get("paging"));
 	        mav.setViewName("admin/camping/campingRestList");         
@@ -182,6 +191,8 @@ public class AdminController {
             if(first!=null) {
                request.removeAttribute("page");
                session.removeAttribute("page");
+               request.removeAttribute("key");
+               session.removeAttribute("key");
             }
         HashMap<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("request", request);
@@ -189,6 +200,7 @@ public class AdminController {
         as.adminReviewList(paramMap);
         ArrayList<HashMap<String, Object>> list 
            = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+        mav.addObject("key", (String)paramMap.get("key"));
         mav.addObject("paging", (Paging)paramMap.get("paging"));
         mav.addObject("reviewList", list);
         mav.setViewName("admin/review/reviewList");

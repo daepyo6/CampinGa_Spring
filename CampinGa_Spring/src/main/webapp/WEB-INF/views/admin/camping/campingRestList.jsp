@@ -7,7 +7,7 @@
    <form name="frm" method="post"><br><br>
    <table class="adSearch" style="float:right;">
       <tr>
-         <td class="searchTd">객실 이름&nbsp;&nbsp;<input type="text" name="key" value="${key2}">&nbsp;
+         <td class="searchTd">객실 이름&nbsp;&nbsp;<input type="text" name="key" value="${key}">&nbsp;
          <input class="adpage_btn" type="button" value="검색" onclick="go_search('adminRestList')">
          <input class="adpage_btn" type="button" name="btn_total" value="전체보기" onClick="go_total('adminRestList')">
       </td></tr>
