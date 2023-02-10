@@ -1,4 +1,4 @@
--- ½Å±Ô/ÃßÃµ Ä·ÇÎÀå
+-- ì‹ ê·œ/ì¶”ì²œ ìº í•‘ìž¥
 create or replace procedure getNewRecoCamping(
     p_cur1 out SYS_REFCURSOR,
     p_cur2 out SYS_REFCURSOR
@@ -13,7 +13,37 @@ BEGIN
         from businessman where rownum<=8;
 END;
 
--- ¸ÞÀÎ¿¡¼­ Ä·ÇÎÀå °Ë»ö
+
+CREATE OR REPLACE PROCEDURE getMemberCam(
+    p_mid IN member.mid%type,
+    p_curvar OUT SYS_REFCURSOR
+)
+IS
+    result_cur SYS_REFCURSOR;
+BEGIN
+    OPEN result_cur FOR SELECT * FROM member WHERE mid= p_mid;
+        p_curvar := result_cur;
+END;
+
+
+
+
+CREATE OR REPLACE PROCEDURE insertMemberCam(
+    p_mid IN member.mid%type,
+    p_pwd IN member.pwd%type,
+    p_name IN member.name%type,
+    p_email IN member.email%type,
+    p_mphone IN member.mphone%type
+)
+IS
+BEGIN
+    insert into member ( mid, pwd, name, email, mphone)
+    values( p_mid, p_pwd, p_name, p_email, p_mphone);
+    commit;
+END;
+
+
+-- ë©”ì¸ì—ì„œ ìº í•‘ìž¥ ê²€ìƒ‰
 create or replace procedure getSearchResult(
     p_address1 in businessman.caddress1%type, 
     p_address2 in businessman.caddress2%type, 
@@ -30,7 +60,7 @@ BEGIN
 END;
 
 -- 02-08
--- Ä«Å×°í¸® : ALL
+-- ì¹´í…Œê³ ë¦¬ : ALL
 create or replace PROCEDURE categoryAll(
     p_rc OUT SYS_REFCURSOR
 )
@@ -41,7 +71,7 @@ BEGIN
         FROM businessman;
 END;
 
--- Ä«Å×°í¸® Á¶È¸
+-- ì¹´í…Œê³ ë¦¬ ì¡°íšŒ
 create or replace PROCEDURE categoryList(
     p_cate IN businessman.category%type,
     p_rc OUT SYS_REFCURSOR
@@ -56,7 +86,7 @@ END;
 
 
 -- 02-09
--- Ä·ÇÎÀå ÀÌ¸§ °Ë»ö
+-- ìº í•‘ìž¥ ì´ë¦„ ê²€ìƒ‰
 CREATE OR REPLACE PROCEDURE campNameSerch(
     p_name IN businessman.cname%type,
     p_rc OUT SYS_REFCURSOR
@@ -69,7 +99,7 @@ BEGIN
 END;
 
 
--- bseq·Î Ä·ÇÎÀå Á¤º¸ °Ë»ö
+-- bseqë¡œ ìº í•‘ìž¥ ì •ë³´ ê²€ìƒ‰
 CREATE OR REPLACE PROCEDURE campDetailByBseq(
     p_bseq IN businessman.bseq%type,
     p_rc OUT SYS_REFCURSOR
@@ -82,7 +112,8 @@ BEGIN
 END;
 
 
--- Áñ°ÜÃ£±â Á¶È¸
+-- ì¦ê²¨ì°¾ê¸° ì¡°íšŒ ()
+
 CREATE OR REPLACE PROCEDURE getFav(
     p_mid IN member.mid%type,
     p_bseq IN businessman.bseq%type,
@@ -94,11 +125,15 @@ BEGIN
     SELECT fav_check INTO c_fav FROM favorites 
     WHERE mid=p_mid and bseq=p_bseq;
     p_fav := c_fav;
+EXCEPTION 
+    when no_data_found then p_fav := 'n';
 END;
 
 
-
--- bseq·Î Ä·ÇÎÀå °´½Ç ¸®½ºÆ® °Ë»ö
+-- ìº í•‘ìž¥ ê°ì‹¤ í•œê°œ ì¡°íšŒ
+CREATE OR REPLACE PROCEDURE selectCampOne(
+    p_cseq IN camping_view.cseq%type,
+-- bseqë¡œ ìº í•‘ìž¥ ê°ì‹¤ ë¦¬ìŠ¤íŠ¸ ê²€ìƒ‰
 CREATE OR REPLACE PROCEDURE selectCampingList(
     p_bseq IN businessman.bseq%type,
     p_rc OUT SYS_REFCURSOR
@@ -110,8 +145,7 @@ BEGIN
 END;
 
 
-
--- Ä·ÇÎÀå qna, review countÁ¶È¸
+-- ìº í•‘ìž¥ qna, review countì¡°íšŒ
 CREATE OR REPLACE PROCEDURE getCount(
     p_tableName IN number,
     p_bseq IN businessman.bseq%type,
@@ -130,7 +164,7 @@ END;
 
 
 
--- Ä·ÇÎÀå qna Á¶È¸
+-- ìº í•‘ìž¥ qna ì¡°íšŒ
 CREATE OR REPLACE PROCEDURE selectQnaByBseq(
     p_bseq IN businessman.bseq%type,
     p_startNum IN number,
@@ -150,7 +184,7 @@ END;
 
 
 
--- Ä·ÇÎÀå review Á¶È¸
+-- ìº í•‘ìž¥ review ì¡°íšŒ
 CREATE OR REPLACE PROCEDURE selectReviewByBseq(
     p_bseq IN businessman.bseq%type,
     p_startNum IN number,
@@ -168,7 +202,7 @@ BEGIN
         ) WHERE rn <= p_endNum;
 END;
 
--- ¸â¹ö Á¶È¸
+-- ë©¤ë²„ ì¡°íšŒ
 CREATE OR REPLACE PROCEDURE getMemberCam(
     p_mid IN member.mid%type,
     p_curvar OUT SYS_REFCURSOR
@@ -180,7 +214,7 @@ BEGIN
         p_curvar := result_cur;
 END;
 
--- ¸â¹ö È¸¿ø°¡ÀÔ µî·Ï
+-- ë©¤ë²„ íšŒì›ê°€ìž… ë“±ë¡
 CREATE OR REPLACE PROCEDURE insertMemberCam(
     p_mid IN member.mid%type,
     p_pwd IN member.pwd%type,

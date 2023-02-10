@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.campinga.dto.ReservationVO;
+
 @Mapper
 public interface ICampingDao {
 	
@@ -20,5 +22,8 @@ public interface ICampingDao {
 
 	void getNewRecoCamping(HashMap<String, Object> paramMap);
 	void getSearchResult(HashMap<String, Object> paramMap);
+	
+	void selectCampOne(HashMap<String, Object> paramMap);
+	void reserveInsert(ReservationVO resVO);
 
 }

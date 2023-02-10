@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.campinga.dao.ICampingDao;
 import com.campinga.dto.Paging;
+import com.campinga.dto.ReservationVO;
 
 @Service
 public class CampingService {
@@ -110,6 +111,14 @@ public class CampingService {
 
 	public void getSearchResult(HashMap<String, Object> paramMap) {
 		cdao.getSearchResult(paramMap);
+	}
+
+	public void selectCampOne(HashMap<String, Object> paramMap) {
+		cdao.selectCampOne(paramMap);		
+	}
+
+	public void reserveInsert(ReservationVO resVO) {
+		cdao.reserveInsert(resVO);		
 	}
 
 }

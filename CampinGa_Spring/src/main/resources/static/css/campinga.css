@@ -2,6 +2,7 @@
 @import "reset.css";
 @import "admin.css";
 @import "business.css";
+@import "reserve.css";
 .clear{
     clear: both;
 }
