@@ -131,8 +131,16 @@ END;
 
 
 -- 캠핑장 객실 한개 조회
-CREATE OR REPLACE PROCEDURE selectCampOne(
+create or replace PROCEDURE selectCampOne(
     p_cseq IN camping_view.cseq%type,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR 
+    SELECT * FROM camping_view WHERE cseq=p_cseq;
+END;
+
 -- bseq로 캠핑장 객실 리스트 검색
 CREATE OR REPLACE PROCEDURE selectCampingList(
     p_bseq IN businessman.bseq%type,
@@ -228,3 +236,67 @@ BEGIN
     values( p_mid, p_pwd, p_name, p_email, p_phone);
     commit;
 END;
+
+
+
+
+-- 02-10
+-- 관리자 조회
+CREATE OR REPLACE  PROCEDURE getAdminList(
+    p_aid IN admin.aid%type,
+    p_rc OUT SYS_REFCURSOR 
+)
+IS
+BEGIN
+        OPEN p_rc FOR
+            select * from admin where aid=p_aid;
+END;
+
+
+
+-- 관리자 count
+CREATE OR REPLACE  PROCEDURE AdminCount(
+    p_tableName IN number,
+    p_cnt OUT number
+)
+IS
+    v_cnt NUMBER;
+BEGIN
+    IF p_tableName = 1 THEN
+        SELECT COUNT(*) INTO v_cnt FROM member;
+    ELSIF p_tableName = 2 THEN
+        SELECT COUNT(*) INTO v_cnt FROM businessman;
+    ELSIF p_tableName = 3 THEN
+        SELECT COUNT(*) INTO v_cnt FROM RESERVATE_VIEW;
+    ELSIF p_tableName = 4 THEN
+        SELECT COUNT(*) INTO v_cnt FROM review;
+    ELSIF p_tableName = 5 THEN
+        SELECT COUNT(*) INTO v_cnt FROM notice;
+    END IF;
+    p_cnt := v_cnt;
+END;
+
+
+
+-- AdminMemberList
+CREATE OR REPLACE  PROCEDURE adminMemberList(
+    p_startNum IN number,
+    p_endNum IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        select * from member order by mid;
+END;
+
+
+
+
+
+
+
+
+
+
+
