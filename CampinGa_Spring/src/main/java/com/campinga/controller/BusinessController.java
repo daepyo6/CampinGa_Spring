@@ -63,6 +63,22 @@ public class BusinessController {
 		return url;
 	}
 	
+	@RequestMapping(value = "businessmanMypage")
+	public String business_mypage(HttpServletRequest request, Model model) {
+		
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		HashMap<String, Object> loginBusinessman = 
+				(HashMap<String, Object>) session.getAttribute("loginBusinessman");
+		System.out.println("1");
+		if (loginBusinessman == null)
+			mav.setViewName("member/login");
+		else {
+			model.addAttribute("loginBusinessman", loginBusinessman);	
+		}
+		return "business/mypage/mypage";
+	}
+	
 	
 	
 	

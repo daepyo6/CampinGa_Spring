@@ -61,7 +61,7 @@
          </div>  
          <div class="buttons">
       		<input type="button" value="가입하기" onclick="busiJoinCheck()" class="button">
-      		<input type="button" value="메인으로" onclick="location.href='camp.do?command=index'" class="button">
+      		<input type="button" value="메인으로" onclick="location.href='main'" class="button">
         </div>      
       </div>       
    </form>

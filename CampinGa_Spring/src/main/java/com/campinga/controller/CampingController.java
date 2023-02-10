@@ -294,7 +294,7 @@ public class CampingController {
 		return "redirect:/campDetail?bseq=" + bseq + "#reviewbox";
 	}
 
-	@RequestMapping("deleteReview")
+	@RequestMapping("/deleteReview")
 	public String deleteReview(@RequestParam("rseq") int rseq, @RequestParam("bseq") int bseq,
 			HttpServletRequest request) {
 
