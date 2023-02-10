@@ -196,4 +196,8 @@ public class AdminService {
 		adao.adminNoticeList(paramMap);
 	}
 
+	public void selectNoticeOne(HashMap<String, Object> paramMap) {
+		adao.selectNoticeOne(paramMap);
+	}
+
 }

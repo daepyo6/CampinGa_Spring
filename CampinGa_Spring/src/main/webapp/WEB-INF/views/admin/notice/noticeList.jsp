@@ -14,7 +14,8 @@
 				<tr>
 					<td align="center">${notice.NSEQ}</td>
 					<td style="text-align:left; padding-left:50px;">
-						<a href="#" onClick="go_detail('${notice.NSEQ}');">${notice.SUBJECT}</a>
+						<a href="adminNoticeDetail?nseq=${notice.NSEQ}">
+							${notice.SUBJECT}</a>
 					</td>				
 					<td><fmt:formatDate value="${notice.INDATE}"/></td>
 					<td>	   	 			

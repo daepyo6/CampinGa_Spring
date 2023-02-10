@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.campinga.dto.NoticeVO;
 import com.campinga.dto.Paging;
 import com.campinga.service.AdminService;
 
@@ -64,7 +66,7 @@ public class AdminController {
 	public String adminLogout(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 	    session.removeAttribute("loginAdmin");
-	    return "redirect:/main";
+	    return "redirect:/";
 	}
 		
 	// 회원 리스트 페이지
@@ -131,7 +133,7 @@ public class AdminController {
 		return mav;
 	}
 
-	
+	// 예약 관리
 	@RequestMapping("/adminRestList")
 	public ModelAndView adminRestList(
 			@RequestParam(value="first", required=false) String first,
@@ -241,6 +243,31 @@ public class AdminController {
  		return mav;
  	}
     
+ 	
+ 	// 공지사항 보기
+ 	@RequestMapping("/adminNoticeDetail")
+ 	public ModelAndView adminNoticeDetail(@RequestParam("nseq") int nseq,
+ 			HttpServletRequest request) {
+ 		ModelAndView mav = new ModelAndView();
+ 		HttpSession session = request.getSession();
+
+ 		HashMap<String, Object>loginAdmin
+ 			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+
+ 		if(loginAdmin==null) {
+ 			mav.setViewName("admin/adminlogin");			
+ 		} else {
+ 			HashMap<String, Object>paramMap = new HashMap<String,Object>();
+ 	 		paramMap.put("nseq", nseq);
+ 	 		paramMap.put("ref_cursor", null);
+ 	 		as.selectNoticeOne(paramMap);
+ 	 		ArrayList<HashMap<String, Object>>list
+ 	 			=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+ 	 		mav.addObject("noticeVO", list.get(0));
+ 	 		mav.setViewName("admin/notice/noticeDetail"); 			
+ 		} 		
+ 		return mav;
+ 	}
     
     
     

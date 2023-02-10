@@ -455,33 +455,16 @@ function go_wrt() {
 	document.frm.submit();
 }
 
-function go_detail(nseq) {
-	var url = "camp.do?command=adminNoticeDetail&nseq=" + nseq;
-	document.frm.action = url;
-	document.frm.submit();
-}
 
-
-function go_mod(nseq) {
-	var url = "camp.do?command=adminNoticeUpdateForm&nseq=" + nseq;
-	location.href = url;
-	// document.frm.action = url;
-	// document.frm.submit();
-}
-
-function go_dod(nseq) {
-	var url = "camp.do?command=adminNoticeDelete&nseq=" + nseq;
-	location.href = url;
-	// document.frm.action = url;
-	// document.frm.submit();
-}
-
-
-
-function go_mod_save() {
-	var url = "camp.do?command=adminNoticeUpdate";
-	document.frm.action = url;
-	document.frm.submit();
+function notiecDeleteChk(nseq) {
+	if(confirm("이 공지사항을 삭제 하시겠습니까?")){
+		location.href = "adminNoticeDelete?nseq="+nseq;
+	} else {
+		alert("삭제를 취소합니다.")
+		return;
+	}
+	
+	
 }
 
 function go_mov() {

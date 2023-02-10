@@ -20,6 +20,7 @@ public interface IAdminDao {
 	void deleteReview(HashMap<String, Object> paramMap);
 
 	void adminNoticeList(HashMap<String, Object> paramMap);
+	void selectNoticeOne(HashMap<String, Object> paramMap);
 
 	
 	

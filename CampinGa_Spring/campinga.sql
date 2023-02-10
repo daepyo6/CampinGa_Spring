@@ -372,6 +372,17 @@ END;
 
 
 
+-- 공지사항 상세
+CREATE OR REPLACE  PROCEDURE selectNoticeOne(
+    p_nseq IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM notice WHERE nseq=p_nseq;
+END;
+
 
 
 
