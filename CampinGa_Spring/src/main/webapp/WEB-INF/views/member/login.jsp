@@ -21,7 +21,7 @@
       <div class="buttons">
            <input type="submit" value="login" class="button">
            <input type="button" value="join" class="button" 
-              onclick="location.href='contractForm'">  
+              onclick="location.href='contract'">  
        </div><br><br>
        <div>&nbsp;&nbsp;&nbsp;${message}</div>  
    </div>

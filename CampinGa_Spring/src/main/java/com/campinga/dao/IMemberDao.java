@@ -12,6 +12,6 @@ import com.campinga.dto.MemberVO;
 public interface IMemberDao {
 
 	void getMemberCam(HashMap<String, Object> paramMap);
-	void insertMemberCam(@Valid MemberVO membervo);
+	void insertMemberCam(MemberVO membervo);
 
 }
