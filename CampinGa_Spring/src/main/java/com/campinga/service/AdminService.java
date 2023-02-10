@@ -51,4 +51,9 @@ public class AdminService {
 		adao.adminMemberList(paramMap);		
 	}
 
+	public void getAdminList(HashMap<String, Object> paramMap) {
+		adao.getAdminList(paramMap);
+	}
+
+
 }
