@@ -131,6 +131,39 @@ public class AdminController {
 		return mav;
 	}
 
+	
+	@RequestMapping("/adminRestList")
+	public ModelAndView adminRestList(
+			@RequestParam(value="first", required=false) String first,
+	        HttpServletRequest request) {
+	
+		ModelAndView mav = new ModelAndView();
+	    HttpSession session = request.getSession();
+	
+	    HashMap<String, Object>loginAdmin
+	       = (HashMap<String, Object>)session.getAttribute("loginAdmin");
+	
+	    if(loginAdmin==null) {
+	         mav.setViewName("admin/adminlogin");         
+	    } else {
+	    	if(first!=null) {
+	    		request.removeAttribute("page");
+	            session.removeAttribute("page");
+	        }
+	        HashMap<String, Object>paramMap = new HashMap<String,Object>();
+	        paramMap.put("ref_cursor", null);
+	        paramMap.put("request", request);
+	        as.adminRestList(paramMap);
+	        ArrayList<HashMap<String, Object>>list
+	           =(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+	        mav.addObject("restList", list);
+	        mav.addObject("paging", (Paging)paramMap.get("paging"));
+	        mav.setViewName("admin/camping/campingRestList");         
+	    }
+	    return mav;
+	 }
+	 
+	
 	// 리뷰페이지
     @RequestMapping("/adminReviewList")
     public ModelAndView adminReviewList(
@@ -150,18 +183,18 @@ public class AdminController {
                request.removeAttribute("page");
                session.removeAttribute("page");
             }
-            HashMap<String, Object> paramMap = new HashMap<String, Object>();
-            paramMap.put("request", request);
-            paramMap.put("ref_cursor", null);
-            as.adminReviewList(paramMap);
-            ArrayList<HashMap<String, Object>> list 
-               = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
-            mav.addObject("paging", (Paging)paramMap.get("paging"));
-            mav.addObject("reviewList", list);
-            mav.setViewName("admin/review/reviewList");
-            }
-           return mav;
-         }
+        HashMap<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("request", request);
+        paramMap.put("ref_cursor", null);
+        as.adminReviewList(paramMap);
+        ArrayList<HashMap<String, Object>> list 
+           = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+        mav.addObject("paging", (Paging)paramMap.get("paging"));
+        mav.addObject("reviewList", list);
+        mav.setViewName("admin/review/reviewList");
+        }
+       return mav;
+     }
    
     // 리뷰 삭제
     @RequestMapping("adminReviewDelete")
@@ -174,6 +207,51 @@ public class AdminController {
         as.deleteReview(paramMap);
         return "redirect:/adminReviewList";
     }
+    
+    
+    // 공지사항 관리 페이지
+ 	@RequestMapping("/adminNoticeList")
+ 	public ModelAndView adminNoticeList(
+ 			@RequestParam(value="first", required=false) String first,
+ 			HttpServletRequest request) {
+
+ 		ModelAndView mav = new ModelAndView();
+ 		HttpSession session = request.getSession();
+
+ 		HashMap<String, Object>loginAdmin
+ 			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+
+ 		if(loginAdmin==null) {
+ 			mav.setViewName("admin/adminlogin");			
+ 		} else {
+ 			if(first!=null) {
+ 				request.removeAttribute("page");
+ 				session.removeAttribute("page");
+ 			}
+ 			HashMap<String, Object>paramMap = new HashMap<String,Object>();
+ 			paramMap.put("ref_cursor", null);
+ 			paramMap.put("request", request);
+ 			as.adminNoticeList(paramMap);
+ 			ArrayList<HashMap<String, Object>>list
+ 				=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+ 			mav.addObject("noticeList", list);
+ 			mav.addObject("paging", (Paging)paramMap.get("paging"));
+ 			mav.setViewName("admin/notice/noticeList");			
+ 		}
+ 		return mav;
+ 	}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 		
 }

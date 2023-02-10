@@ -13,11 +13,14 @@ public interface IAdminDao {
 	void adminMemberList(HashMap<String, Object> paramMap);
 
 	void adminCampingList(HashMap<String, Object> paramMap);
+	
+	void adminRestList(HashMap<String, Object> paramMap);
+	
 	void adminReviewList(HashMap<String, Object> paramMap);
 	void deleteReview(HashMap<String, Object> paramMap);
+
+	void adminNoticeList(HashMap<String, Object> paramMap);
+
 	
-
-
-
-
+	
 }

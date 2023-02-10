@@ -25,6 +25,7 @@
 		}
 	</select>
 	
+	<!-- 회원 -->
 	<select id="adminMemberList" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{
 			CALL adminMemberList(
@@ -34,6 +35,8 @@
 		}
 	</select>
 	
+	
+	<!-- 캠핑장 -->
 	<select id="adminCampingList" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{
 			CALL adminCampingList(
@@ -42,8 +45,20 @@
 			)
 		}
 	</select>
+	
+	
+	<!-- 예약관리 -->
+	<select id="adminRestList" statementType="CALLABLE" parameterType="java.util.HashMap">
+      {
+         CALL adminRestList(
+            #{startNum},#{endNum},
+            #{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
+         )
+      }
+   	</select>
 
 
+	<!-- 리뷰 -->
 	<select id="adminReviewList" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{
 			CALL adminReviewList(
@@ -58,6 +73,17 @@
 			CALL deleteReview(#{rseq})
 		}
 	</delete>
+	
+	
+	<!-- 공지사항 -->
+	<select id="adminNoticeList" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL adminNoticeList(
+				#{startNum},#{endNum},
+				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
+			)
+		}
+	</select>
 
 
 

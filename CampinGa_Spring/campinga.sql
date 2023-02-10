@@ -333,6 +333,46 @@ END;
 
 
 
+-- 관리자 : 공지사항
+CREATE OR REPLACE  PROCEDURE adminNoticeList(
+    p_startNum IN number,
+    p_endNum IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM (
+            SELECT * FROM (
+                SELECT ROWNUM AS rn, n.*FROM 
+                    ( ( SELECT * FROM notice order by nseq desc)n)
+            ) WHERE rn >= p_startNum
+        ) WHERE rn <= p_endNum;
+END;
+
+select*from notice;
+
+
+-- 관리자 :  예약
+CREATE OR REPLACE  PROCEDURE adminRestList(
+    p_startNum IN number,
+    p_endNum IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM (
+            SELECT * FROM (
+                SELECT ROWNUM AS rn, re.*FROM 
+                    ( ( SELECT * FROM reservate_view order by reseq desc)re)
+            ) WHERE rn >= p_startNum
+        ) WHERE rn <= p_endNum;
+END;
+
+
+
+
 
 
 
