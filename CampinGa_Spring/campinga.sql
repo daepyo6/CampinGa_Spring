@@ -280,6 +280,7 @@ END;
 
 -- 관리자 : 회원 조회
 CREATE OR REPLACE  PROCEDURE adminMemberList(
+    p_key IN member.name%type,
     p_startNum IN number,
     p_endNum IN number,
     p_rc OUT SYS_REFCURSOR
@@ -290,14 +291,16 @@ BEGIN
         SELECT * FROM (
             SELECT * FROM (
                 SELECT ROWNUM AS rn, m.*FROM 
-                    ( ( SELECT * FROM member order by mid)m)
+                    ((select * from member where name like '%'||p_key||'%' order by mid desc) m)
             ) WHERE rn >= p_startNum
         ) WHERE rn <= p_endNum;
 END;
+
 
 
 --  관리자 :  캠핑장 관리 조회 
 CREATE OR REPLACE  PROCEDURE adminCampingList(
+    p_key IN businessman.cname%type,
     p_startNum IN number,
     p_endNum IN number,
     p_rc OUT SYS_REFCURSOR
@@ -307,15 +310,17 @@ BEGIN
     OPEN p_rc FOR
         SELECT * FROM (
             SELECT * FROM (
-                SELECT ROWNUM AS rn, m.*FROM 
-                    ( ( SELECT * FROM businessman order by bseq desc)m)
+                SELECT ROWNUM AS rn, b.*FROM 
+                    (( select * from businessman where cname like '%'||p_key||'%' order by bseq desc) b)
             ) WHERE rn >= p_startNum
         ) WHERE rn <= p_endNum;
 END;
 
 
+
 -- 관리자 : 캠핑장 리뷰 조회
 CREATE OR REPLACE  PROCEDURE adminReviewList(
+     p_key IN review.content%type,
     p_startNum IN number,
     p_endNum IN number,
     p_rc OUT SYS_REFCURSOR
@@ -326,10 +331,11 @@ BEGIN
         SELECT * FROM (
             SELECT * FROM (
                 SELECT ROWNUM AS rn, r.*FROM 
-                    ( ( SELECT * FROM review order by rseq desc)r)
+                    (( select * from review where content like '%'||p_key||'%' order by rseq desc) r) 
             ) WHERE rn >= p_startNum
         ) WHERE rn <= p_endNum;
 END;
+
 
 
 
@@ -355,6 +361,7 @@ select*from notice;
 
 -- 관리자 :  예약
 CREATE OR REPLACE  PROCEDURE adminRestList(
+    p_key IN reservate_view.c_class%type,
     p_startNum IN number,
     p_endNum IN number,
     p_rc OUT SYS_REFCURSOR
@@ -365,7 +372,7 @@ BEGIN
         SELECT * FROM (
             SELECT * FROM (
                 SELECT ROWNUM AS rn, re.*FROM 
-                    ( ( SELECT * FROM reservate_view order by reseq desc)re)
+                    ((select * from reservate_view where c_class like '%'||p_key||'%' order by reseq desc) re)
             ) WHERE rn >= p_startNum
         ) WHERE rn <= p_endNum;
 END;
@@ -382,6 +389,17 @@ BEGIN
     OPEN p_rc FOR
         SELECT * FROM notice WHERE nseq=p_nseq;
 END;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
