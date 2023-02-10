@@ -4,17 +4,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.campinga.dto.MemberVO;
 import com.campinga.dto.Paging;
+import com.campinga.dto.QnaVO;
+import com.campinga.dto.ReviewVO;
 import com.campinga.dto.ReservationVO;
 import com.campinga.service.CampingService;
 
@@ -134,21 +140,22 @@ public class CampingController {
 			= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
 		mav.addObject("campMain", list.get(0));	
 		
-		// 로그인한 경우 즐겨찾기 조회
-		HashMap<String, Object> loginUser
-			= (HashMap<String, Object>)request.getSession().getAttribute("loginUser");
-		if(loginUser!=null) {
-			paramMap.put("myFav", "");
-			paramMap.put("mid", loginUser.get("MID"));
-			cs.getFav(paramMap);
-			String myFav = (String)paramMap.get("myFav");
-			if(myFav.equals("y")) {
-				mav.addObject("chk_fav", "Y");
-			} else {
-				mav.addObject("chk_fav", "N");
-			}
-		}
 		
+		// 로그인한 경우 즐겨찾기 조회
+	      HashMap<String, Object> loginUser
+	         = (HashMap<String, Object>)request.getSession().getAttribute("loginUser");
+	      if(loginUser!=null) {
+	         paramMap.put("myFav", "");
+	         paramMap.put("mid", loginUser.get("MID"));
+	         cs.getFav(paramMap);
+	         String myFav = (String)paramMap.get("myFav");
+	         if(myFav.equals("y")) {
+	            mav.addObject("chk_fav", "Y");
+	         } else {
+	            mav.addObject("chk_fav", "N");
+	         }
+	      }
+
 		// 캠핑장 객실 조회
 		paramMap.put("ref_cursor2", null);
 		cs.selectCampingList(paramMap);
@@ -193,8 +200,150 @@ public class CampingController {
 		mav.setViewName("camping/campDetail");
 		return mav;
 	}
+
+	// 큐앤에이 등록, 수정, 삭제
 	
-	@RequestMapping("/reserveForm")
+		  @RequestMapping(value="/insertQna", method=RequestMethod.POST)
+		   public ModelAndView insertQna( @ModelAttribute("qnaVO") @Valid QnaVO qvo,
+			      @RequestParam("bseq") int bseq,
+		         BindingResult result, HttpServletRequest request
+		        ) {
+		      
+		      ModelAndView mav = new ModelAndView();
+		      HttpSession session = request.getSession();
+		      HashMap<String, Object> loginUser 
+		      	= (HashMap<String, Object>)session.getAttribute("loginUser");
+		      
+		      mav.setViewName("campDetail?bseq="+bseq+"#qnabox");
+		      if(loginUser==null) mav.setViewName("member/login");
+		      else {
+		         if(result.getFieldError("content") != null)
+		        	  	mav.addObject("message", result.getFieldError("content").getDefaultMessage());
+		          else {
+		        	  HashMap<String, Object> paramMap = new  HashMap<String, Object>();
+					  qvo.setMid((String)loginUser.get("MID"));
+		 
+					  paramMap.put("bseq", bseq);
+					  paramMap.put("mid", qvo.getMid());
+					  paramMap.put("content", qvo.getContent());
+					  
+					  cs.insertQna(paramMap);
+					  mav.setViewName("redirect:/campDetail?bseq="+bseq+"#qnabox");
+		          }
+		   }
+		 return mav;
+		 }
+     
+
+
+	
+		  
+		  
+		  @RequestMapping(value="/updateQna", method=RequestMethod.POST)
+			public String updateQna( @ModelAttribute("qnaVO") @Valid QnaVO qvo,
+					BindingResult result,
+					@RequestParam("bseq") int bseq,
+					Model model , HttpServletRequest request) {
+			
+			  if (result.getFieldError("content") != null)
+					model.addAttribute("message", result.getFieldError("content").getDefaultMessage());
+			  else {
+				    HashMap<String, Object> paramMap = new HashMap<String, Object>();
+					paramMap.put("qseq", Integer.parseInt(request.getParameter("qseq")));
+					paramMap.put("content", request.getParameter("content"));
+					paramMap.put("mid", request.getParameter("mid"));
+					cs.updateQna(paramMap);			
+				}
+			  
+				return "redirect:/campDetail?bseq="+bseq+"#qnabox";
+			}
+		  
+		  
+			@RequestMapping(value="/deleteQna")
+			public String deleteQna(@RequestParam("qseq") int qseq,
+					@RequestParam("bseq") int bseq,
+					HttpServletRequest request) {
+				
+				HashMap<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("qseq", qseq);
+				paramMap.put("bseq", bseq);
+				
+				cs.deleteQna(paramMap);
+				return "redirect:/campDetail?bseq="+bseq+"#qnabox";
+			}
+			
+		  
+			
+			
+			// 리뷰 등록, 수정, 삭제
+			
+			  @RequestMapping(value="/insertReview")
+			   public ModelAndView insertReview( @ModelAttribute("ReviewVO") @Valid ReviewVO rvo,
+				      @RequestParam("bseq") int bseq,
+			         BindingResult result, HttpServletRequest request
+			        ) {
+			      
+			      ModelAndView mav = new ModelAndView();
+			      HttpSession session = request.getSession();
+			      HashMap<String, Object> loginUser 
+			      	= (HashMap<String, Object>)session.getAttribute("loginUser");
+			      mav.setViewName("campDetail?bseq="+bseq+"#reviewbox");
+			      if(loginUser==null) mav.setViewName("member/login");
+			      else {
+			         if(result.getFieldError("content") != null)
+			        	  	mav.addObject("message", result.getFieldError("content").getDefaultMessage());
+			          else {
+			        	  HashMap<String, Object> paramMap = new  HashMap<String, Object>();
+			        	
+			        	  rvo.setMid((String)loginUser.get("MID"));
+			      
+			        	  paramMap.put("bseq", bseq);
+						  paramMap.put("mid", rvo.getMid());
+						  paramMap.put("content", rvo.getContent());
+			        	 
+						  cs.insertReview(paramMap);
+						  mav.setViewName("redirect:/campDetail?bseq="+bseq+"#reviewbox");
+			          }
+			   }
+			 return mav;
+			 }
+			  
+			  
+			  
+			  @RequestMapping(value="/updateReview", method=RequestMethod.POST)
+				public String updateReview( @ModelAttribute("ReviewVO") @Valid ReviewVO rvo,
+						BindingResult result,
+						@RequestParam("bseq") int bseq,
+						Model model , HttpServletRequest request) {
+				
+				  if (result.getFieldError("content") != null)
+						model.addAttribute("message", result.getFieldError("content").getDefaultMessage());
+				  else {
+					    HashMap<String, Object> paramMap = new HashMap<String, Object>();
+						paramMap.put("rseq", Integer.parseInt(request.getParameter("rseq")));
+						paramMap.put("content", request.getParameter("content"));
+						paramMap.put("mid", request.getParameter("mid"));
+						cs.updateReview(paramMap);			
+					}
+				  
+					return "redirect:/campDetail?bseq="+bseq+"#reviewbox";
+				}
+				
+			
+				@RequestMapping("deleteReview")
+				public String deleteReview(@RequestParam("rseq") int rseq,
+						@RequestParam("bseq") int bseq,
+						HttpServletRequest request) {
+					
+					HashMap<String, Object> paramMap = new HashMap<String, Object>();
+					paramMap.put("rseq", rseq);
+					paramMap.put("bseq", bseq);
+		
+					cs.deleteReview(paramMap);
+					return "redirect:/campDetail?bseq="+bseq+"#reviewbox";
+				}
+			
+  @RequestMapping("/reserveForm")
 	public ModelAndView reserveForm(HttpServletRequest request,
 			@RequestParam("cseq") int cseq) {
 		ModelAndView mav = new ModelAndView();
@@ -227,6 +376,7 @@ public class CampingController {
 		mav.setViewName("redirect:/mypage");		
 		return mav;
 	}
-	
+			
+			
 
 }

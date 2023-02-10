@@ -156,13 +156,31 @@ function delete_favorites( fseq ){
 
 // camping JavaScript 
 function reviewCheck(bseq){
-    document.frm2.action="camp.do?command=updateReview&bseq" + bseq;
+    document.frm2.action="updateReview?bseq=" + bseq;
     document.frm2.submit();
 }
 
 function QnaCheck(bseq){
-    document.frm1.action="camp.do?command=updateQna&bseq" + bseq;
+    document.frm1.action="updateQna?bseq=" + bseq;
     document.frm1.submit();
+}
+
+function qnawriteCheck(){
+	if(document.frm.content.value==""){
+		alert("내용을 작성해주세요")
+		return;
+	}else{
+		document.frm.action="insertQna"
+	}
+}
+
+function reviewwriteCheck(){
+	if(document.form.content.value==""){
+		alert("내용을 작성해주세요")
+		return;
+	}else{
+		document.form.action="insertReview"
+	}
 }
 
 const cat1_num = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
