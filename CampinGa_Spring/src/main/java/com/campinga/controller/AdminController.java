@@ -29,7 +29,7 @@ public class AdminController {
 		return "admin/adminlogin";
 	}
 	
-	// 관리자 로그인, 로그아웃
+	// 관리자 로그인
 	@RequestMapping(value="/adminLogin", method = RequestMethod.POST)
 	public String adminLogin(HttpServletRequest request, Model model,
 			@RequestParam("adminId") String adminId,
@@ -59,7 +59,7 @@ public class AdminController {
 		return url;
 	}	
 		
-		
+	// 관리자 로그아웃
 	@RequestMapping(value="/adminLogout")
 	public String adminLogout(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -95,6 +95,38 @@ public class AdminController {
 			mav.addObject("memberList", list);
 			mav.addObject("paging", (Paging)paramMap.get("paging"));
 			mav.setViewName("admin/member/memberList");			
+		}
+		return mav;
+	}
+	
+	// 캠핑장 관리 페이지
+	@RequestMapping("/adminCampingList")
+	public ModelAndView adminCampingList(
+			@RequestParam(value="first", required=false) String first,
+			HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		
+		HashMap<String, Object>loginAdmin
+			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+		
+		if(loginAdmin==null) {
+			mav.setViewName("admin/adminlogin");			
+		} else {
+			if(first!=null) {
+				request.removeAttribute("page");
+				session.removeAttribute("page");
+			}
+			HashMap<String, Object>paramMap = new HashMap<String,Object>();
+			paramMap.put("ref_cursor", null);
+			paramMap.put("request", request);
+			as.adminCampingList(paramMap);
+			ArrayList<HashMap<String, Object>>list
+				=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			mav.addObject("campingList", list);
+			mav.addObject("paging", (Paging)paramMap.get("paging"));
+			mav.setViewName("admin/camping/campingList");			
 		}
 		return mav;
 	}
