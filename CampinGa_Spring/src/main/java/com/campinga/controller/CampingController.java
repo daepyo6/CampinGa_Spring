@@ -21,6 +21,7 @@ import com.campinga.dto.MemberVO;
 import com.campinga.dto.Paging;
 import com.campinga.dto.QnaVO;
 import com.campinga.dto.ReviewVO;
+import com.campinga.dto.ReservationVO;
 import com.campinga.service.CampingService;
 
 @Controller
@@ -41,9 +42,11 @@ public class CampingController {
 		// paramMap.put("ref_cursor3", null);
 
 		cs.getNewRecoCamping(paramMap);
-
+		
+		// 새로운 캠핑장 리스트
 		ArrayList<HashMap<String, Object>> newCampList = 
 				(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor1");
+		// 추천 캠핑장 리스트
 		ArrayList<HashMap<String, Object>> recoCampList = 
 				(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor2");
 		// ArrayList<HashMap<String , Object>> list3
@@ -61,12 +64,14 @@ public class CampingController {
 	@RequestMapping("/mainSearch")
 	public ModelAndView mainSearch(HttpServletRequest request, Model model,
 			@RequestParam("address1")String address1,
-			@RequestParam("address2")String address2) {
+			@RequestParam("address2")String address2,
+			@RequestParam("cname")String cname) {
 		ModelAndView mav = new ModelAndView();
 		
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("address1", address1);
 		paramMap.put("address2", address2);
+		paramMap.put("cname", cname);
 		paramMap.put("ref_cursor", null);
 		cs.getSearchResult( paramMap );
 		
@@ -110,7 +115,7 @@ public class CampingController {
 		cs.campNameSerch(paramMap);
 		
 		ArrayList<HashMap<String, Object>> list
-		= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
 	
 		mav.addObject("campList", list);
 		mav.addObject("key", (String)paramMap.get("key"));
@@ -132,7 +137,7 @@ public class CampingController {
 		paramMap.put("ref_cursor", null);		
 		cs.campDetailByBseq(paramMap);		
 		ArrayList<HashMap<String, Object>> list
-		= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
 		mav.addObject("campMain", list.get(0));	
 		
 		
@@ -150,7 +155,7 @@ public class CampingController {
 	            mav.addObject("chk_fav", "N");
 	         }
 	      }
-		
+
 		// 캠핑장 객실 조회
 		paramMap.put("ref_cursor2", null);
 		cs.selectCampingList(paramMap);
@@ -166,7 +171,7 @@ public class CampingController {
 		cs.selectQnaByBseq(paramMap);
 		
 		ArrayList<HashMap<String, Object>> list3
-		= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor3");
+			= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor3");
 		
 		if(request.getParameter("qseq")!=null) {
 			int qseq = Integer.parseInt(request.getParameter("qseq"));
@@ -181,7 +186,7 @@ public class CampingController {
 		cs.selectReviewByBseq(paramMap);
 		
 		ArrayList<HashMap<String, Object>> list4
-		= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor4");
+			= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor4");
 		
 		if(request.getParameter("rseq")!=null) {
 			int rseq = Integer.parseInt(request.getParameter("rseq"));
@@ -195,7 +200,7 @@ public class CampingController {
 		mav.setViewName("camping/campDetail");
 		return mav;
 	}
-	
+
 	// 큐앤에이 등록, 수정, 삭제
 	
 		  @RequestMapping(value="/insertQna", method=RequestMethod.POST)
@@ -228,6 +233,9 @@ public class CampingController {
 		   }
 		 return mav;
 		 }
+     
+
+
 	
 		  
 		  
@@ -335,6 +343,39 @@ public class CampingController {
 					return "redirect:/campDetail?bseq="+bseq+"#reviewbox";
 				}
 			
+  @RequestMapping("/reserveForm")
+	public ModelAndView reserveForm(HttpServletRequest request,
+			@RequestParam("cseq") int cseq) {
+		ModelAndView mav = new ModelAndView();
+		
+		HashMap<String, Object> loginUser
+		= (HashMap<String, Object>)request.getSession().getAttribute("loginUser");
+		if(loginUser==null) {
+			mav.addObject("message", "예약하려면 로그인해주세요.");
+			mav.setViewName("member/login");
+		} else {
+			HashMap<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("cseq", cseq);
+			paramMap.put("ref_cursor", null);
+			cs.selectCampOne(paramMap);
+			ArrayList<HashMap<String, Object>>list
+				= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			mav.addObject("campVO", list.get(0));
+			mav.setViewName("camping/reserve/reserve");
+		}		
+		return mav;
+	}
+	
+	//------------------------ 캠핑장 예약 --------------------------------------
+	@RequestMapping("/reserveInsert")
+	public ModelAndView reserveInsert(
+			@ModelAttribute("dto") ReservationVO resVO,
+			HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		cs.reserveInsert(resVO);
+		mav.setViewName("redirect:/mypage");		
+		return mav;
+	}
 			
 			
 

@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.campinga.dto.ReservationVO;
+
 @Mapper
 public interface ICampingDao {
 	
@@ -16,7 +18,6 @@ public interface ICampingDao {
 	void getCount(HashMap<String, Object> cntMap);
 	void selectQnaByBseq(HashMap<String, Object> paramMap);
 	void selectReviewByBseq(HashMap<String, Object> paramMap);
-	
 
 	void getNewRecoCamping(HashMap<String, Object> paramMap);
 	void getSearchResult(HashMap<String, Object> paramMap);
@@ -27,5 +28,7 @@ public interface ICampingDao {
 	void insertReview(HashMap<String, Object> paramMap);
 	void updateReview(HashMap<String, Object> paramMap);
 	void deleteReview(HashMap<String, Object> paramMap);
+	void selectCampOne(HashMap<String, Object> paramMap);
+	void reserveInsert(ReservationVO resVO);
 
 }

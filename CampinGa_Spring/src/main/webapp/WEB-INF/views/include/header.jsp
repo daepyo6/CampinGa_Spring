@@ -21,12 +21,12 @@
 			<c:choose>
 				<c:when test="${not empty loginUser}">
 					<li><a href="mypage" style="width: 100px;">
-						${loginUser.name}(${loginUser.mid})</a></li>
+						${loginUser.NAME}(${loginUser.MID})</a></li>
 					<li><a href="logout">Logout</a></li>
 				</c:when>
 				<c:when test="${not empty loginBusinessman}">
 					<li><a href="businessmanMypage">
-						${loginBusinessman.name}(${loginBusinessman.bid})</a></li>
+						${loginBusinessman.NAME}(${loginBusinessman.BID})</a></li>
 					<li><a href="logout">Logout</a></li>
 				</c:when>
 				<c:otherwise>
@@ -46,7 +46,7 @@
 	
 	<nav id="category_menu">		
 		<div onclick="location.href='category?kind=1'"><span>ALL</span></div>
-		<div class="icons" onclick="category?kind=2'">
+		<div class="icons" onclick="location.href='category?kind=2'">
 			<div class="iconImg1">
 				<img src="images/icon/autoB.png">
 				<span>오토캠핑</span>
