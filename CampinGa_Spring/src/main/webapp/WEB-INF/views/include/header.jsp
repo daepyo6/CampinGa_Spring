@@ -46,7 +46,7 @@
 	
 	<nav id="category_menu">		
 		<div onclick="location.href='category?kind=1'"><span>ALL</span></div>
-		<div class="icons" onclick="category?kind=2'">
+		<div class="icons" onclick="location.href='category?kind=2'">
 			<div class="iconImg1">
 				<img src="images/icon/autoB.png">
 				<span>오토캠핑</span>
