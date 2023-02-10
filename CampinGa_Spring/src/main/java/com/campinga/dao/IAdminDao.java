@@ -12,6 +12,8 @@ public interface IAdminDao {
 	void adminMemberList(HashMap<String, Object> paramMap);
 
 	void getAdminList(HashMap<String, Object> paramMap);
+	void adminReviewList(HashMap<String, Object> paramMap);
+	void deleteReview(HashMap<String, Object> paramMap);
 
 
 

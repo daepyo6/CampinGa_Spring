@@ -441,7 +441,7 @@ function go_review_delete() {
 		alert("삭제할 리뷰를 선택하세요");
 	}
 	else {
-		document.frm.action = "camp.do?command=adminReviewDelete";
+		document.frm.action = "adminReviewDelete";
 		document.frm.submit();
 	}
 }

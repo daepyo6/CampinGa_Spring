@@ -36,6 +36,20 @@
 	</select>
 
 
+	<select id="adminReviewList" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL adminReviewList(
+				#{startNum},#{endNum},
+				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
+			)
+		}
+	</select>
+	
+	<delete id="deleteReview">
+		{
+			CALL deleteReview(#{rseq})
+		}
+	</delete>
 
 
 
