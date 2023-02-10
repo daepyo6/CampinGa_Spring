@@ -19,7 +19,7 @@
 	<select id="AdminCount" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{
 			CALL AdminCount(
-				#{tableName},
+				#{key}, #{tableName},
 				#{cnt, mode=OUT, jdbcType=INTEGER}
 			)
 		}

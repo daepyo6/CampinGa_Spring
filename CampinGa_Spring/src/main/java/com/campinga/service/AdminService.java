@@ -101,8 +101,6 @@ public class AdminService {
 
 		int count = Integer.parseInt(cntMap.get("cnt") + "");
 		paging.setTotalCount(count);
-		paging.setDisplayPage(10);
-		paging.setDisplayRow(10);
 		paging.paging();
 		paramMap.put("key", key);
 		paramMap.put("startNum", paging.getStartNum());
