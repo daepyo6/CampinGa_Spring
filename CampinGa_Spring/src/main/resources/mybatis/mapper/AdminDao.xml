@@ -5,6 +5,19 @@
 	
 <mapper namespace="com.campinga.dao.IAdminDao">
 
+	<resultMap id="adminMap"  type="java.util.HashMap"></resultMap>
+		
+		<select id="getAdminList" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL getAdminList( 
+			#{adminId},
+			#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap} 
+			)
+		}
+		</select>
+		
+	
+
 
 
 
