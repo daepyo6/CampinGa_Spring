@@ -5,7 +5,7 @@
    <h1>회원목록</h1>  
    <form name="frm" method="post">
    <table class="adSearch" style="float:right;"><br><br>
-      <tr><td class="searchTd">회원 이름 <input type="text" name="key" value="${key1}">
+      <tr><td class="searchTd">회원 이름 <input type="text" name="key" value="${key}">
       <input class="adpage_btn" type="button" value="검색" onclick="go_search('adminMemberList')">
       <input class="adpage_btn" type="button" name="btn_total" value="전체보기 " onClick="go_total('adminMemberList')"></td> </tr>
    </table><br>

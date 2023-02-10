@@ -384,8 +384,9 @@ function adminCheck() {
 
 // admin member
 
-function go_search(com) {
-	var url = "camp.do?command=" + com + "&page=1";
+function go_search(action) {
+	var key = document.frm.key.value;
+	var url =  action + "?page=1&key=" + key;
 	document.frm.action = url;
 	document.frm.submit();
 }
@@ -393,9 +394,9 @@ function go_search(com) {
 
 
 
-function go_total(com) {
+function go_total(action) {
 	document.frm.key.value = "";
-	document.frm.action = "camp.do?command=" + com + "&page=1";
+	document.frm.action = action + "?page=1";
 	document.frm.submit();
 }
 

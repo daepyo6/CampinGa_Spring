@@ -35,12 +35,23 @@ public class AdminService {
 			session.removeAttribute("page");
 		}
 		
+		String key = "";
+	    if(requset.getParameter("key")!=null) {
+	       key = requset.getParameter("key");
+	       session.setAttribute("key", key);
+	    } else if(session.getAttribute("key")!=null){
+	       key = (String)session.getAttribute("key");
+	    } else {
+	       session.removeAttribute("key");
+	    }
+		
 		Paging paging = new Paging();
 		paging.setPage(page);
 
 		HashMap<String, Object> cntMap = new HashMap<String, Object>();
 		cntMap.put("cnt", 0);
-		cntMap.put("tableName", 1); 		
+		cntMap.put("tableName", 1); 
+		cntMap.put("key", key);
 		adao.AdminCount(cntMap);
 
 		int count = Integer.parseInt(cntMap.get("cnt") + "");
@@ -48,6 +59,7 @@ public class AdminService {
 		paging.setDisplayPage(10);
 		paging.setDisplayRow(10);
 		paging.paging();
+		paramMap.put("key", key);
 		paramMap.put("startNum", paging.getStartNum());
 		paramMap.put("endNum", paging.getEndNum());
 		paramMap.put("paging", paging);
@@ -68,17 +80,31 @@ public class AdminService {
 			session.removeAttribute("page");
 		}
 		
+		String key = "";
+	    if(requset.getParameter("key")!=null) {
+	       key = requset.getParameter("key");
+	       session.setAttribute("key", key);
+	    } else if(session.getAttribute("key")!=null){
+	       key = (String)session.getAttribute("key");
+	    } else {
+	       session.removeAttribute("key");
+	    }
+		
 		Paging paging = new Paging();
 		paging.setPage(page);
 
 		HashMap<String, Object> cntMap = new HashMap<String, Object>();
 		cntMap.put("cnt", 0);
 		cntMap.put("tableName", 2); 		
+		cntMap.put("key", key);
 		adao.AdminCount(cntMap);
 
 		int count = Integer.parseInt(cntMap.get("cnt") + "");
 		paging.setTotalCount(count);
+		paging.setDisplayPage(10);
+		paging.setDisplayRow(10);
 		paging.paging();
+		paramMap.put("key", key);
 		paramMap.put("startNum", paging.getStartNum());
 		paramMap.put("endNum", paging.getEndNum());
 		paramMap.put("paging", paging);
@@ -99,10 +125,21 @@ public class AdminService {
          session.removeAttribute("page");
       }
       
+      String key = "";
+	  if(requset.getParameter("key")!=null) {
+	     key = requset.getParameter("key");
+	     session.setAttribute("key", key);
+	  } else if(session.getAttribute("key")!=null){
+	     key = (String)session.getAttribute("key");
+	  } else {
+	     session.removeAttribute("key");
+	  }
+      
       Paging paging = new Paging();
       paging.setPage(page);
 
       HashMap<String, Object> cntMap = new HashMap<String, Object>();
+      cntMap.put("key", key);
       cntMap.put("cnt", 0);
       cntMap.put("tableName", 3);       
       adao.AdminCount(cntMap);
@@ -112,6 +149,7 @@ public class AdminService {
       paging.setDisplayPage(10);
 	  paging.setDisplayRow(10);
       paging.paging();
+      paramMap.put("key", key);
       paramMap.put("startNum", paging.getStartNum());
       paramMap.put("endNum", paging.getEndNum());
       paramMap.put("paging", paging);
@@ -133,10 +171,21 @@ public class AdminService {
 			session.removeAttribute("page");
 		}
 		
+		String key = "";
+		if(requset.getParameter("key")!=null) {
+			key = requset.getParameter("key");
+		    session.setAttribute("key", key);
+		} else if(session.getAttribute("key")!=null){
+		    key = (String)session.getAttribute("key");
+		} else {
+		    session.removeAttribute("key");
+		}
+		
 		Paging paging = new Paging();
 		paging.setPage(page);
 
 		HashMap<String, Object> cntMap = new HashMap<String, Object>();
+		cntMap.put("key", key);
 		cntMap.put("cnt", 0);
 		cntMap.put("tableName", 4); 		
 		adao.AdminCount(cntMap);
@@ -146,6 +195,7 @@ public class AdminService {
 		paging.setDisplayPage(10);
 		paging.setDisplayRow(10);
 		paging.paging();
+		paramMap.put("key", key);
 		paramMap.put("startNum", paging.getStartNum());
 		paramMap.put("endNum", paging.getEndNum());
 		paramMap.put("paging", paging);
