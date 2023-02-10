@@ -93,6 +93,7 @@ public class MemberController {
 		return url;
 	}
 	
+	// 멤버 아이디 체크
 	@RequestMapping("/idCheckForm")
 	public String idCheckForm(
 			@RequestParam("mid") String mid,
@@ -128,7 +129,6 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("member/joinForm");
 		mav.addObject("reid", reid);
-		
 		if( result.getFieldError("mid") != null )
 			mav.addObject("message", result.getFieldError("mid").getDefaultMessage());
 		else if(result.getFieldError("pwd") != null ) 
@@ -139,12 +139,14 @@ public class MemberController {
 			mav.addObject("message", result.getFieldError("email").getDefaultMessage());
 		else if(result.getFieldError("mphone") != null ) 
 			mav.addObject("message", result.getFieldError("mphone").getDefaultMessage());
-		else if(reid == null || ( reid != null && !reid.equals(membervo.getMid()) ))
+		
+		else if(!membervo.getMid().equals(reid)) 
 			mav.addObject("message", "아이디 중복체크가 되지 않았습니다");
-		else if(pwdCheck == null || ( pwdCheck != null && !pwdCheck.equals(membervo.getPwd())))
+		else if(!membervo.getPwd().equals(pwdCheck))
 			mav.addObject("message", "비밀번호 확인이 일치하지 않습니다");
 		else {
 			ms.insertMemberCam( membervo );
+			
 			mav.addObject("message", "회원가입이 완료되었습니다. 로그인하세요");
 			mav.setViewName("member/login");
 		}
