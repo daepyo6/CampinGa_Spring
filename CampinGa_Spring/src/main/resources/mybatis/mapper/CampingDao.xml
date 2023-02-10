@@ -39,13 +39,13 @@
 			)
 		}
 	</select>
-
-	<!-- 메인에 있는 시/군/구 검색 -->
+	
+	<!-- 메인 서치 -->
 	<select id="getSearchResult" statementType="CALLABLE"
 		parameterType="java.util.HashMap">
 		{
 			CALL getSearchResult(
-			#{address1}, #{address2}, #{address3},
+			#{address1}, #{address2}, #{cname},
 			#{ref_cursor ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap }
 			)
 		}
@@ -128,69 +128,6 @@
 		}
 	</select>
 
-
-	<!-- 큐앤에이 등록, 수정, 삭제 -->
-	<insert id="insertQna" parameterType="java.util.HashMap">
-		insert into camp_qna (qseq, content, mid, bseq)
-		values(qna_seq.nextval, #{content}, #{mid}, #{bseq})
-	</insert>
-
-	<select id="getSearchResult" statementType="CALLABLE"
-		parameterType="java.util.HashMap">
-		{
-			CALL getSearchResult(
-			#{address1}, #{address2}, #{cname},
-			#{ref_cursor ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap }
-			)
-		}
-	</select>
-
-	<!-- 캠핑장 이름으로 검색 -->
-	<select id="campNameSerch" statementType="CALLABLE"
-		parameterType="java.util.HashMap">
-		{
-			CALL campNameSerch(
-			#{key},
-			#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap}
-			)
-		}
-	</select>
-
-
-	<update id="updateQna" parameterType="java.util.HashMap">
-		update camp_qna set content=#{content} where qseq=#{qseq}
-	</update>
-
-	<delete id="deleteQna">
-		delete from camp_qna where qseq=#{qseq}
-	</delete>
-
-	<!-- 리뷰 등록, 수정, 삭제 -->
-
-	<insert id="insertReview" parameterType="java.util.HashMap">
-		insert into review (rseq, mid, bseq, content)
-		values(review_seq.nextval, #{mid}, #{bseq}, #{content})
-	</insert>
-
-	<update id="updateReview" parameterType="java.util.HashMap">
-		update review set content=#{content} where rseq=#{rseq}
-	</update>
-
-	<delete id="deleteReview">
-		delete from review where rseq=#{rseq}
-	</delete>
-
-	<!-- 캠핑장 Review 조회 -->
-	<select id="selectReviewByBseq" statementType="CALLABLE"
-		parameterType="java.util.HashMap">
-		{
-			CALL selectReviewByBseq(
-			#{bseq}, #{startNum2}, #{endNum2},
-			#{ref_cursor4, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap4}
-			)
-		}
-	</select>
-
 	<!-- 객실 하나 조회 -->
 	<select id="selectCampOne" statementType="CALLABLE"
 		parameterType="java.util.HashMap">
@@ -208,6 +145,34 @@
 		insert into reservation(reseq, cseq, mid, price, people, chk_in, chk_out)
 		values(reservation_seq.nextval, #{cseq}, #{mid}, #{price}, #{people}, #{chk_in}, #{chk_out})
 	</insert>
+	
+		<!-- 리뷰 등록, 수정, 삭제 -->
+	<insert id="insertReview" parameterType="java.util.HashMap">
+		insert into review (rseq, mid, bseq, content)
+		values(review_seq.nextval, #{mid}, #{bseq}, #{content})
+	</insert>
+
+	<update id="updateReview" parameterType="java.util.HashMap">
+		update review set content=#{content} where rseq=#{rseq}
+	</update>
+
+	<delete id="deleteReview">
+		delete from review where rseq=#{rseq}
+	</delete>
+	
+	<!-- 큐앤에이 등록, 수정, 삭제 -->
+	<insert id="insertQna" parameterType="java.util.HashMap">
+		insert into camp_qna (qseq, content, mid, bseq)
+		values(qna_seq.nextval, #{content}, #{mid}, #{bseq})
+	</insert>
+	
+	<update id="updateQna" parameterType="java.util.HashMap">
+		update camp_qna set content=#{content} where qseq=#{qseq}
+	</update>
+
+	<delete id="deleteQna">
+		delete from camp_qna where qseq=#{qseq}
+	</delete>
 
 
 </mapper>
