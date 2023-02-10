@@ -19,7 +19,7 @@
 	<select id="adminMemberList" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{
 			CALL adminMemberList(
-				#{startNum},#{endNum}
+				#{startNum},#{endNum},
 				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
 			)
 		}

@@ -31,7 +31,7 @@
      <input type="button" value="회원 삭제하기" onClick="go_members_delete();">
     </div><br><br><br>
     <div>
-   <jsp:include page="../include/paging/paging.jsp">   
+   <jsp:include page="../paging/paging.jsp">   
        <jsp:param value="adminMemberList" name="command"/>
    </jsp:include>
    </div>

@@ -26,18 +26,17 @@ public class AdminService {
 			page = Integer.parseInt(requset.getParameter("page"));
 			session.setAttribute("page", page);
 		} else if (session.getAttribute("page") != null) {
-			page = (Integer) session.getAttribute("page");
+			page = (Integer)session.getAttribute("page");
 		} else {
 			session.removeAttribute("page");
 		}
-
+		
 		Paging paging = new Paging();
 		paging.setPage(page);
 
 		HashMap<String, Object> cntMap = new HashMap<String, Object>();
 		cntMap.put("cnt", 0);
-		cntMap.put("tableName", 1); 
-		cntMap.put("bseq", Integer.parseInt(paramMap.get("bseq") + ""));
+		cntMap.put("tableName", 1); 		
 		adao.AdminCount(cntMap);
 
 		int count = Integer.parseInt(cntMap.get("cnt") + "");
