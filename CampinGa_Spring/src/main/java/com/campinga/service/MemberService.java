@@ -23,7 +23,6 @@ public class MemberService {
 
 	public void insertMemberCam(MemberVO membervo) {
 		mdao.insertMemberCam(membervo);
-		
 	}
 
 }

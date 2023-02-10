@@ -14,99 +14,99 @@ import com.campinga.dto.ReservationVO;
 
 @Service
 public class CampingService {
-	
+
 	@Autowired
 	ICampingDao cdao;
-	
+
 	public void categoryAll(HashMap<String, Object> paramMap) {
-		cdao.categoryAll(paramMap);		
+		cdao.categoryAll(paramMap);
 	}
 
 	public void categoryList(HashMap<String, Object> paramMap) {
-		cdao.categoryList(paramMap);		
+		cdao.categoryList(paramMap);
 	}
 
 	public void campNameSerch(HashMap<String, Object> paramMap) {
-		cdao.campNameSerch(paramMap);		
+		cdao.campNameSerch(paramMap);
 	}
 
 	public void campDetailByBseq(HashMap<String, Object> paramMap) {
-		cdao.campDetailByBseq(paramMap);		
+		cdao.campDetailByBseq(paramMap);
 	}
 
 	public void getFav(HashMap<String, Object> paramMap) {
-		cdao.getFav(paramMap);		
+		cdao.getFav(paramMap);
 	}
 
 	public void selectCampingList(HashMap<String, Object> paramMap) {
-		cdao.selectCampingList(paramMap);		
+		cdao.selectCampingList(paramMap);
 	}
 
-	public void selectQnaByBseq(HashMap<String, Object> paramMap) {	
+	public void selectQnaByBseq(HashMap<String, Object> paramMap) {
 		// 캠핑장 QnA 조회
 		int page1 = 1;
-		HttpServletRequest requset = (HttpServletRequest)paramMap.get("request");
+		HttpServletRequest requset = (HttpServletRequest) paramMap.get("request");
 		HttpSession session = requset.getSession();
-		if(requset.getParameter("page1")!=null) {
+		if (requset.getParameter("page1") != null) {
 			page1 = Integer.parseInt(requset.getParameter("page1"));
 			session.setAttribute("page1", page1);
-		} else if(session.getAttribute("page1")!=null){
-			page1 = (Integer)session.getAttribute("page1");
+		} else if (session.getAttribute("page1") != null) {
+			page1 = (Integer) session.getAttribute("page1");
 		} else {
 			session.removeAttribute("page1");
 		}
-		
+
 		Paging paging1 = new Paging();
 		paging1.setPage(page1);
-		
+
 		HashMap<String, Object> cntMap = new HashMap<String, Object>();
 		cntMap.put("cnt", 0);
 		cntMap.put("tableName", 1);
-		cntMap.put("bseq", Integer.parseInt(paramMap.get("bseq")+""));
-		cdao.getCount(cntMap);			
-		
-		int count = Integer.parseInt(cntMap.get("cnt")+"");
+		cntMap.put("bseq", Integer.parseInt(paramMap.get("bseq") + ""));
+		cdao.getCount(cntMap);
+
+		int count = Integer.parseInt(cntMap.get("cnt") + "");
 		paging1.setTotalCount(count);
 		paging1.paging();
 		paramMap.put("startNum1", paging1.getStartNum());
 		paramMap.put("endNum1", paging1.getEndNum());
 		paramMap.put("paging1", paging1);
-		cdao.selectQnaByBseq(paramMap);		
+		cdao.selectQnaByBseq(paramMap);
 	}
 
 	public void selectReviewByBseq(HashMap<String, Object> paramMap) {
 		// 캠핑장 review 조회
 		int page2 = 1;
-		HttpServletRequest requset = (HttpServletRequest)paramMap.get("request");
+		HttpServletRequest requset = (HttpServletRequest) paramMap.get("request");
 		HttpSession session = requset.getSession();
-		if(requset.getParameter("page2")!=null) {
+		if (requset.getParameter("page2") != null) {
 			page2 = Integer.parseInt(requset.getParameter("page2"));
 			session.setAttribute("page2", page2);
-		} else if(session.getAttribute("page2")!=null){
-			page2 = (Integer)session.getAttribute("page2");
+		} else if (session.getAttribute("page2") != null) {
+			page2 = (Integer) session.getAttribute("page2");
 		} else {
 			session.removeAttribute("page2");
 		}
-		
+
 		Paging paging2 = new Paging();
 		paging2.setPage(page2);
-		
+
 		HashMap<String, Object> cntMap = new HashMap<String, Object>();
 		cntMap.put("cnt", 0);
 		cntMap.put("tableName", 2);
-		cntMap.put("bseq", Integer.parseInt(paramMap.get("bseq")+""));
-		cdao.getCount(cntMap);			
-		int count = Integer.parseInt(cntMap.get("cnt")+"");
+		cntMap.put("bseq", Integer.parseInt(paramMap.get("bseq") + ""));
+		cdao.getCount(cntMap);
+		int count = Integer.parseInt(cntMap.get("cnt") + "");
 		paging2.setTotalCount(count);
 		paging2.paging();
 		paramMap.put("startNum2", paging2.getStartNum());
 		paramMap.put("endNum2", paging2.getEndNum());
 		paramMap.put("paging2", paging2);
-		cdao.selectReviewByBseq(paramMap);		
+		cdao.selectReviewByBseq(paramMap);
 	}
 
 	public void getNewRecoCamping(HashMap<String, Object> paramMap) {
-		cdao.getNewRecoCamping(paramMap);	
+		cdao.getNewRecoCamping(paramMap);
 	}
 
 	public void getSearchResult(HashMap<String, Object> paramMap) {
@@ -135,13 +135,14 @@ public class CampingService {
 
 	public void deleteReview(HashMap<String, Object> paramMap) {
 		cdao.deleteReview(paramMap);
+	}
 
 	public void selectCampOne(HashMap<String, Object> paramMap) {
-		cdao.selectCampOne(paramMap);		
+		cdao.selectCampOne(paramMap);
 	}
 
 	public void reserveInsert(ReservationVO resVO) {
-		cdao.reserveInsert(resVO);		
+		cdao.reserveInsert(resVO);
 
 	}
 
