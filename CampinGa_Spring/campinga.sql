@@ -314,6 +314,23 @@ BEGIN
 END;
 
 
+-- 관리자 : 캠핑장 리뷰 조회
+CREATE OR REPLACE  PROCEDURE adminReviewList(
+    p_startNum IN number,
+    p_endNum IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM (
+            SELECT * FROM (
+                SELECT ROWNUM AS rn, r.*FROM 
+                    ( ( SELECT * FROM review order by rseq desc)r)
+            ) WHERE rn >= p_startNum
+        ) WHERE rn <= p_endNum;
+END;
+
 
 
 

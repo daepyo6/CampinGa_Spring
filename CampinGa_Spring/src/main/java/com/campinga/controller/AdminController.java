@@ -98,6 +98,38 @@ public class AdminController {
 		}
 		return mav;
 	}	
+	
+	// 캠핑장 관리 페이지
+	@RequestMapping("/adminCampingList")
+	public ModelAndView adminCampingList(
+			@RequestParam(value="first", required=false) String first,
+			HttpServletRequest request) {
+
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+
+		HashMap<String, Object>loginAdmin
+			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+
+		if(loginAdmin==null) {
+			mav.setViewName("admin/adminlogin");			
+		} else {
+			if(first!=null) {
+				request.removeAttribute("page");
+				session.removeAttribute("page");
+			}
+			HashMap<String, Object>paramMap = new HashMap<String,Object>();
+			paramMap.put("ref_cursor", null);
+			paramMap.put("request", request);
+			as.adminCampingList(paramMap);
+			ArrayList<HashMap<String, Object>>list
+				=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			mav.addObject("campingList", list);
+			mav.addObject("paging", (Paging)paramMap.get("paging"));
+			mav.setViewName("admin/camping/campingList");			
+		}
+		return mav;
+	}
 
 	// 리뷰페이지
     @RequestMapping("/adminReviewList")

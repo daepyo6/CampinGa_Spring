@@ -22,7 +22,7 @@
 	    <c:forEach items="${reviewList}" var="reviewVO">
 		    <tr>
 		    	<td>${reviewVO.RSEQ}</td>
-		    	<td>${reviewVO.COMTENT}</td>
+		    	<td>${reviewVO.CONTENT}</td>
 		    	<td>${reviewVO.MID}</td>
 		    	<td><fmt:formatDate value="${reviewVO.INDATE}"/></td>
 		    	<td><input type="checkbox" name="rseq" value="${reviewVO.RSEQ}"></td>
