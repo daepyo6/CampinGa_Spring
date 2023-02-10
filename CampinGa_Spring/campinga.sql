@@ -278,7 +278,7 @@ END;
 
 
 
--- AdminMemberList
+-- 관리자 : 회원 조회
 CREATE OR REPLACE  PROCEDURE adminMemberList(
     p_startNum IN number,
     p_endNum IN number,
@@ -287,11 +287,31 @@ CREATE OR REPLACE  PROCEDURE adminMemberList(
 IS
 BEGIN
     OPEN p_rc FOR
-        select * from member order by mid;
+        SELECT * FROM (
+            SELECT * FROM (
+                SELECT ROWNUM AS rn, m.*FROM 
+                    ( ( SELECT * FROM member order by mid)m)
+            ) WHERE rn >= p_startNum
+        ) WHERE rn <= p_endNum;
 END;
 
 
-
+--  관리자 :  캠핑장 관리 조회 
+CREATE OR REPLACE  PROCEDURE adminCampingList(
+    p_startNum IN number,
+    p_endNum IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM (
+            SELECT * FROM (
+                SELECT ROWNUM AS rn, m.*FROM 
+                    ( ( SELECT * FROM businessman order by bseq desc)m)
+            ) WHERE rn >= p_startNum
+        ) WHERE rn <= p_endNum;
+END;
 
 
 

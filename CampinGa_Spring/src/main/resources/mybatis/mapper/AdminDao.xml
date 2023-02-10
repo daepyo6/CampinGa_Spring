@@ -6,6 +6,15 @@
 <mapper namespace="com.campinga.dao.IAdminDao">
 
 	<resultMap id="adminMap" type="java.util.HashMap"></resultMap>
+		
+	<select id="getAdminList" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL getAdminList( 
+			#{adminId},
+			#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap} 
+			)
+		}
+	</select>
 	
 	<select id="AdminCount" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{
@@ -24,13 +33,12 @@
 			)
 		}
 	</select>
-
-		
-	<select id="getAdminList" statementType="CALLABLE" parameterType="java.util.HashMap">
+	
+	<select id="adminCampingList" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{
-			CALL getAdminList( 
-			#{adminId},
-			#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap} 
+			CALL adminCampingList(
+				#{startNum},#{endNum},
+				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
 			)
 		}
 	</select>
@@ -50,6 +58,7 @@
 			CALL deleteReview(#{rseq})
 		}
 	</delete>
+
 
 
 

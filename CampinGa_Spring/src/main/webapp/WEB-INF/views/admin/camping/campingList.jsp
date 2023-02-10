@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/admin/header.jsp"%>
-<%@ include file="/admin/sub_menu.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/sub_menu.jsp"%>
 
 <article id="mypage" class="adminPage">
 	<h1>캠핑장 정보</h1>
@@ -10,23 +8,27 @@
 
 		<table class="rentList">
 			<tr>
-				<th>사업자번호</th>
+				<th>번호</th>
 				<th>이름</th>
 				<th>주소</th>
 				<th>연락처</th>
-				<!-- <th>등록일</th> -->
-				<th>삭제</th>
+				<th>on / off</th>
 			</tr>
 			<c:forEach items="${campingList}" var="campingList">
 				<tr>
-					<td height="2" align="center">${campingList.bseq}</td>
-					<td height="2" align="center">${campingList.cname}</td>
-					<td height="2" align="center">${campingList.caddress1}
-						${campingList.caddress2} ${campingList.caddress3}</td>
-					<td height="2" align="center">${campingList.phone}</td>
-					<td><input type="checkbox" name="bseq" value="${campingList.bseq}"></td>
+					<td height="2" align="center">${campingList.BSEQ}</td>
+					<td height="2" align="center">${campingList.CNAME}</td>
+					<td height="2" align="center">
+						${campingList.CADDRESS1} ${campingList.CADDRESS2}<br> 
+						${campingList.CADDRESS3}</td>
+					<td height="2" align="center">${campingList.PHONE}</td>
+					<td>
+						<input type="checkbox" name="onOff" disabled="disabled" checked="checked"
+						onchange="#">											
+					</td>
 				</tr>
 			</c:forEach>
+			<!-- on/off : 비지니스에 useyn을 추가해서 가입 승인, 휴면처리를 한 번에 처리 -->
 		</table>
 		<div style="float:right;" id="mypagebtn">
 		     	<input type="button" value="삭제" onClick="go_delete();">
@@ -35,14 +37,10 @@
 
 	<div class="clear"></div>
 
-	<jsp:include page="/admin/paging/paging.jsp">
-		<jsp:param name="command" value="camp.do?command=adminCampingList" />
+	<jsp:include page="../paging/paging.jsp">
+		<jsp:param name="command" value="adminCampingList" />
 	</jsp:include>
 
 </article>
 
-
-
-
-
-<%@ include file="/admin/footer.jsp"%>
+<%@ include file="../include/footer.jsp"%>
