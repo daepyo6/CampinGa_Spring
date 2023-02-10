@@ -17,4 +17,14 @@ public class BusinessService {
 		bdao.getBusinessCam(paramMap);
 	}
 
+	public void updateBusiness(HashMap<String, Object> paramMap) {
+		bdao.updateBusiness(paramMap);
+		
+	}
+
+	public void deleteBusiness(HashMap<String, Object> paramMap) {
+		bdao.deleteBusiness(paramMap);
+		
+	}
+
 }

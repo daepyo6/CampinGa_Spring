@@ -16,6 +16,24 @@
 			)
 		}
 	</select>
+	
+	
+	<update id="updateBusiness" statementType="CALLABLE" parameterType="java.util.HashMap" >
+		{ 
+			CALL updateBusiness( 
+				#{BID}, #{NAME}, #{PHONE},#{EMAIL}
+			) 
+		}
+	</update>
+	
+	<delete id="deleteBusiness" statementType="CALLABLE" parameterType="java.util.HashMap" >
+		{
+		 CALL deleteBusiness( 
+		           #{bid}	
+		  )
+		   }
+	</delete>
+	
 
 
 </mapper>
