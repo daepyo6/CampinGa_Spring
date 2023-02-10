@@ -26,8 +26,6 @@ BEGIN
 END;
 
 
-
-
 CREATE OR REPLACE PROCEDURE insertMemberCam(
     p_mid IN member.mid%type,
     p_pwd IN member.pwd%type,
@@ -131,8 +129,16 @@ END;
 
 
 -- 캠핑장 객실 한개 조회
-CREATE OR REPLACE PROCEDURE selectCampOne(
+create or replace PROCEDURE selectCampOne(
     p_cseq IN camping_view.cseq%type,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR 
+    SELECT * FROM camping_view WHERE cseq=p_cseq;
+END;
+
 -- bseq로 캠핑장 객실 리스트 검색
 CREATE OR REPLACE PROCEDURE selectCampingList(
     p_bseq IN businessman.bseq%type,
@@ -220,11 +226,22 @@ CREATE OR REPLACE PROCEDURE insertMemberCam(
     p_pwd IN member.pwd%type,
     p_name IN member.name%type,
     p_email IN member.email%type,
-    p_phone IN member.phone%type
+    p_phone IN member.mphone%type
 )
 IS
 BEGIN
-    insert into member ( mid, pwd, name, email, phone)
+    insert into member ( mid, pwd, name, email, mphone)
     values( p_mid, p_pwd, p_name, p_email, p_phone);
     commit;
+END;
+
+CREATE OR REPLACE PROCEDURE getBusinessCam(
+    p_bid IN businessman.bid%type,
+    p_curvar OUT SYS_REFCURSOR
+)
+IS
+    result_cur SYS_REFCURSOR;
+BEGIN
+    OPEN result_cur FOR SELECT * FROM businessman WHERE bid= p_bid;
+        p_curvar := result_cur;
 END;

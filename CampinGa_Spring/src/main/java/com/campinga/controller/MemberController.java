@@ -70,7 +70,10 @@ public class MemberController {
 	@RequestMapping(value = "/logout")
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		session.removeAttribute("loginUser");
+		if(session.getAttribute("loginUser") != null)
+			session.removeAttribute("loginUser");
+		else if(session.getAttribute("loginBusinessman") != null)
+			session.removeAttribute("loginBusinessman");
 		return "redirect:/";
 	}
 

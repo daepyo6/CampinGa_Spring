@@ -5,7 +5,17 @@
 	
 <mapper namespace="com.campinga.dao.IBusinessDao">
 
-
+	<resultMap id="businessMap" type="java.util.HashMap"></resultMap>
+	
+	<select id="getBusinessCam" statementType="CALLABLE"
+		parameterType="java.util.HashMap">
+		{
+			CALL getBusinessCam(
+			#{bid},
+			#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=businessMap}
+			)
+		}
+	</select>
 
 
 </mapper>
