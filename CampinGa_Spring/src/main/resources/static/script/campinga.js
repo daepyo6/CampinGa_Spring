@@ -463,13 +463,7 @@ function notiecDeleteChk(nseq) {
 	} else {
 		alert("삭제를 취소합니다.")
 		return;
-	}
-	
-	
-}
-
-function go_mov() {
-	location.href = "camp.do?command=adminNoticeList";
+	}	
 }
 
 
@@ -477,6 +471,7 @@ function go_wrt() {
 	document.frm.action = "camp.do?command=adminNoticeWriteForm";
 	document.frm.submit();
 }
+
 
 function go_save() {
 	var url = "camp.do?command=adminNoticeWrite";

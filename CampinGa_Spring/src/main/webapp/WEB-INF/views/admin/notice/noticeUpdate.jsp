@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="/admin/header.jsp"%>
-<%@ include file="/admin/sub_menu.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/sub_menu.jsp"%>
 
 <article id="mypage" class="adminPage">
 	<h1>공지사항 수정</h1>
 	<div class="noticeWrite">
-	<form name="frm" method="post">
+	<form name="frm" method="post" action="adminNoticeUpdate">
 	<input type="hidden" name="nseq" value="${noticeVO.nseq}">
 	<div class="writeSubject">		
 		<div><span>제 목</span></div>
@@ -21,18 +20,18 @@
    		</div>			
 	</div>
 	<div class="writeBtns">
-		<input type="button" value="수정" onClick="go_mod_save()">
+		<input type="submit" value="수정">
 		<input type="button" value="취소"
-			onClick="location.href='camp.do?command=adminNoticeDetail&nseq=${noticeVO.nseq}'">		
+			   onClick="location.href='adminNoticeDetail?nseq=${noticeVO.nseq}'">		
 	</div>
-	</form>
+	<c:if test="${message!=null}">
+		<div style="text-align:center;font-size:130%;font-weight:bold;color:red">
+		${message}
+		</div>
+	</c:if>
+	</form>		
+	
 	</div>
 </article>
 
-
-
-
-
-
-
-<%@ include file="/admin/footer.jsp"%>
+<%@ include file="../include/footer.jsp"%>

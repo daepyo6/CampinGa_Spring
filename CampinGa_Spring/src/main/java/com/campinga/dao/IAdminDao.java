@@ -2,7 +2,11 @@ package com.campinga.dao;
 
 import java.util.HashMap;
 
+import javax.validation.Valid;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.campinga.dto.NoticeVO;
 
 @Mapper
 public interface IAdminDao {
@@ -21,6 +25,7 @@ public interface IAdminDao {
 
 	void adminNoticeList(HashMap<String, Object> paramMap);
 	void selectNoticeOne(HashMap<String, Object> paramMap);
+	void adminNoticeUpdate(@Valid NoticeVO noticevo);
 
 	
 	

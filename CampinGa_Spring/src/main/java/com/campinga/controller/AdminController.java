@@ -5,11 +5,13 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -280,6 +282,58 @@ public class AdminController {
  		} 		
  		return mav;
  	}
+ 	
+ 	
+ 	// 공지사항 수정 페이지
+ 	@RequestMapping("adminNoticeUpdateForm")
+ 	public ModelAndView adminNoticeUpdateForm(@RequestParam("nseq") int nseq, 			
+ 			HttpServletRequest request) {
+ 		
+ 		ModelAndView mav = new ModelAndView();
+ 		HttpSession session = request.getSession();
+
+ 		HashMap<String, Object>loginAdmin
+ 			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+
+ 		if(loginAdmin==null) {
+ 			mav.setViewName("admin/adminlogin");			
+ 		} else {
+ 			HashMap<String, Object>paramMap = new HashMap<String,Object>();
+ 	 		paramMap.put("nseq", nseq);
+ 	 		paramMap.put("ref_cursor", null);
+ 	 		as.selectNoticeOne(paramMap);
+ 	 		ArrayList<HashMap<String, Object>>list
+ 	 			=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+ 	 		HashMap<String, Object>nvo = list.get(0);
+ 	 		NoticeVO dto = new NoticeVO();
+ 	 		dto.setNseq(nseq);
+ 	 		dto.setContent((String)nvo.get("CONTENT"));
+ 	 		dto.setSubject((String)nvo.get("SUBJECT")); 
+ 	 		mav.addObject("noticeVO", dto);
+ 	 		mav.setViewName("admin/notice/noticeUpdate"); 
+ 		} 		
+ 		return mav;
+ 	}
+ 	
+ 	
+ 	// 공지사항 수정
+  	@RequestMapping("adminNoticeUpdate")
+  	public ModelAndView adminNoticeUpdate(@RequestParam("nseq") int nseq,
+  			@ModelAttribute("noticeVO") @Valid NoticeVO noticevo,
+  			BindingResult result, HttpServletRequest request) {
+  		
+  		ModelAndView mav = new ModelAndView();
+  		mav.setViewName("admin/notice/noticeUpdate");
+  		if(result.getFieldError("subject")!=null) {   
+  			mav.addObject("message", result.getFieldError("subject").getDefaultMessage());
+  		} else if(result.getFieldError("content")!=null) {
+  			mav.addObject("message", result.getFieldError("content").getDefaultMessage());
+  		} else {
+  			as.adminNoticeUpdate(noticevo);
+  			mav.setViewName("redirect:/adminNoticeDetail?nseq="+nseq);  			
+  		}  		
+  		return mav;
+  	}
     
     
     

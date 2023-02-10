@@ -4,11 +4,13 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.campinga.dao.IAdminDao;
+import com.campinga.dto.NoticeVO;
 import com.campinga.dto.Paging;
 
 @Service
@@ -248,6 +250,10 @@ public class AdminService {
 
 	public void selectNoticeOne(HashMap<String, Object> paramMap) {
 		adao.selectNoticeOne(paramMap);
+	}
+
+	public void adminNoticeUpdate(@Valid NoticeVO noticevo) {
+		adao.adminNoticeUpdate(noticevo);		
 	}
 
 }

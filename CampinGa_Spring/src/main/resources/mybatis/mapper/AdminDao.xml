@@ -93,6 +93,10 @@
 			)
 		}
 	</select>
+		
+	<update id="adminNoticeUpdate" parameterType="com.campinga.dto.NoticeVO">
+		update notice set subject=#{subject}, content=#{content} where nseq=#{nseq}
+	</update>
 
 
 

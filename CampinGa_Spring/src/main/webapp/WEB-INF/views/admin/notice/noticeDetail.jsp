@@ -18,7 +18,7 @@
 	</div>
     <div class="buttons" style="height: 80px; line-height: 80px;">
     	<input class="btn"  type="button" value="수정" 
-    	       onClick="location.href='adminNoticeUpdate?nseq=${noticeVO.NSEQ}'">
+    	       onClick="location.href='adminNoticeUpdateForm?nseq=${noticeVO.NSEQ}'">
 		<input class="btn"  type="button" value="삭제" 
 			   onClick="notiecDeleteChk('${noticeVO.NSEQ}')">
 		<input class="btn"  type="button" value="목록" 
