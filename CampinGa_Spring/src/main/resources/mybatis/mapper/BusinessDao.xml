@@ -16,6 +16,43 @@
 			)
 		}
 	</select>
+	
+	
+	<update id="updateBusiness" statementType="CALLABLE" parameterType="java.util.HashMap" >
+		{ 
+			CALL updateBusiness( 
+				#{BID}, #{NAME}, #{PHONE},#{EMAIL}
+			) 
+		}
+	</update>
+	
+	<delete id="deleteBusiness" statementType="CALLABLE" parameterType="java.util.HashMap" >
+		{
+		 CALL deleteBusiness( 
+		           #{bid}	
+		  )
+		   }
+	</delete>
+	
+	
+	<select id="BusinessGetAllCount" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{  
+			CALL BusinessGetAllCount( 
+				#{tableName}, #{key}, 
+				#{cnt , mode=OUT, jdbcType=INTEGER }
+			)	  
+		}
+	</select>
+	
+	<select id="getBusinessRestList" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{  
+			CALL getBusinessRestList( 
+			#{startNum}, #{endNum}, #{key}, 
+				#{ref_cursor , mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
+			) 
+		}
+	</select>
+	
 
 
 </mapper>
