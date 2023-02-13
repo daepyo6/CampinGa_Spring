@@ -47,7 +47,7 @@
 	<select id="getBusinessRestList" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{  
 			CALL getBusinessRestList( 
-			#{startNum}, #{endNum}, #{key}, 
+				#{startNum}, #{endNum}, #{key}, 
 				#{ref_cursor , mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
 			) 
 		}
