@@ -383,7 +383,6 @@ function adminCheck() {
 }
 
 // admin member
-
 function go_search(action) {
 	var key = document.frm.key.value;
 	var url =  action + "?page=1&key=" + key;
@@ -426,7 +425,6 @@ function go_members_delete() {
 
 
 // admin review
-
 function go_review_delete() {
 	var count = 0;
 	if (document.frm.rseq.length == undefined) {
@@ -448,15 +446,7 @@ function go_review_delete() {
 }
 
 
-
-//------------------------------------------------------------------------------
-
-function go_wrt() {
-	document.frm.action = "camp.do?command=adminNoticeWriteForm";
-	document.frm.submit();
-}
-
-
+// admin notice
 function notiecDeleteChk(nseq) {
 	if(confirm("이 공지사항을 삭제 하시겠습니까?")){
 		location.href = "adminNoticeDelete?nseq="+nseq;
@@ -466,20 +456,7 @@ function notiecDeleteChk(nseq) {
 	}	
 }
 
-
-function go_wrt() {
-	document.frm.action = "camp.do?command=adminNoticeWriteForm";
-	document.frm.submit();
-}
-
-
-function go_save() {
-	var url = "camp.do?command=adminNoticeWrite";
-	document.frm.action = url;
-	document.frm.submit();
-}
-
-
+// admin camping
 function go_delete() {
 	var count = 0;
 	if (document.frm.bseq.length == undefined) {

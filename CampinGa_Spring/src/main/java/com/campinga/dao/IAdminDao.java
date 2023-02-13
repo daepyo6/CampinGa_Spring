@@ -26,6 +26,8 @@ public interface IAdminDao {
 	void adminNoticeList(HashMap<String, Object> paramMap);
 	void selectNoticeOne(HashMap<String, Object> paramMap);
 	void adminNoticeUpdate(@Valid NoticeVO noticevo);
+	void adminNoticeWrite(@Valid NoticeVO noticevo);
+	void adminNoticeDelete(int nseq);
 
 	
 	

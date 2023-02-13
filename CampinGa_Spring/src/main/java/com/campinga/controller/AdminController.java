@@ -317,7 +317,7 @@ public class AdminController {
  	
  	
  	// 공지사항 수정
-  	@RequestMapping("adminNoticeUpdate")
+  	@RequestMapping(value="adminNoticeUpdate", method=RequestMethod.POST)
   	public ModelAndView adminNoticeUpdate(@RequestParam("nseq") int nseq,
   			@ModelAttribute("noticeVO") @Valid NoticeVO noticevo,
   			BindingResult result, HttpServletRequest request) {
@@ -336,9 +336,54 @@ public class AdminController {
   	}
     
     
+  	// 공지사항 쓰기 폼
+  	@RequestMapping("/adminNoticeWriteForm")
+  	public String noticeWriteForm(HttpServletRequest request) { 
+  		HttpSession session = request.getSession();
+
+ 		HashMap<String, Object>loginAdmin
+ 			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+ 		String url = "admin/notice/noticeWrite";
+ 		if(loginAdmin==null) {
+ 			url = "admin/adminlogin";			
+ 		} 
+  		return url;
+  	}
     
-    
-    
+  	// 공지사항 작성
+  	@RequestMapping(value="adminNoticeWrite", method=RequestMethod.POST)
+    public String noticeWrite( 
+    		@ModelAttribute("noticeVO") @Valid NoticeVO noticevo,
+    		BindingResult result, Model model) {
+  		
+  		String url = "admin/notice/noticeWrite";
+  		if(result.getFieldError("subject")!=null) {   
+  			model.addAttribute("message", result.getFieldError("subject").getDefaultMessage());
+  		} else if(result.getFieldError("content")!=null) {
+  			model.addAttribute("message", result.getFieldError("content").getDefaultMessage());
+  		} else {
+  			as.adminNoticeWrite(noticevo);
+  			url = "redirect:/adminNoticeList";  			
+  		}  		  		
+  		return url;
+  	}
+  	
+  	// 공지사항 삭제
+  	@RequestMapping("adminNoticeDelete")
+  	public String adminNoticeDelete(HttpServletRequest request,
+  			@RequestParam("nseq") int nseq) {
+  		HttpSession session = request.getSession();
+
+ 		HashMap<String, Object>loginAdmin
+ 			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+ 		String url = "redirect:/adminNoticeList";
+ 		if(loginAdmin==null) {
+ 			url = "admin/adminlogin";			
+ 		} else {
+ 			as.adminNoticeDelete(nseq);
+ 		}
+ 		return url;
+  	}
     
     
     

@@ -5,11 +5,11 @@
 <article id="mypage" class="adminPage">
 	<h1>공지사항</h1>
 	<form name="frm" method="post">	
-		<div id="mypagebtn" style="text-align: right;" onclick="location.href='camp.do?command=adminNoticeWriteForm'">
+		<div id="mypagebtn" style="text-align: right;" onclick="location.href='adminNoticeWriteForm'">
      		<input type="button" value="글쓰기">
     	</div>	
 		<table id="noticeList" class="rentList">			
-			<tr><th>번호</th><th>제목</th><th>등록일</th></tr>
+			<tr><th>번호</th><th>제목</th><th>등록일</th><th>삭제</th></tr>
 			<c:forEach items="${noticeList}" var="notice">
 				<tr>
 					<td align="center">${notice.NSEQ}</td>
@@ -18,8 +18,11 @@
 							${notice.SUBJECT}</a>
 					</td>				
 					<td><fmt:formatDate value="${notice.INDATE}"/></td>
-					<td>	   	 			
-	   	 			</td>
+					<td>
+					<c:if test="${loginAdmin!=null}">
+					<input type="button" value="삭제" onclick="notiecDeleteChk('${notice.NSEQ}')">
+					</c:if>					
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

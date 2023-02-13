@@ -97,6 +97,15 @@
 	<update id="adminNoticeUpdate" parameterType="com.campinga.dto.NoticeVO">
 		update notice set subject=#{subject}, content=#{content} where nseq=#{nseq}
 	</update>
+	
+	<insert id="adminNoticeWrite" parameterType="com.campinga.dto.NoticeVO">
+		insert into notice(nseq, aid, subject, content)
+		values(notice_seq.nextval, #{aid}, #{subject}, #{content})
+	</insert>
+	
+	<delete id="adminNoticeDelete" parameterType="_int">
+		delete notice where nseq=#{nseq}
+	</delete>
 
 
 
