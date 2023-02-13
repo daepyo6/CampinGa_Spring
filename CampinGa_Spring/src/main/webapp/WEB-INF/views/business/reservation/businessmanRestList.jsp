@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../../header.jsp"%>
-<%@ include file="/business/sub_menu.jsp"%>
+<%@ include file="../../include/header.jsp" %>
+<%@ include file="../sub_menu.jsp"%>
 <article id="mypage" class="adminPage">
 <div class="detail_title"><span>캠핑장 예약 조회</span></div>
    <form method="post" name="reservateInfo">      
@@ -15,27 +15,27 @@
          </tr>
          <c:forEach items="${reList}" var="resVO">
             <tr>
-               <td><fmt:formatDate value="${resVO.res_date}" type="both" 
+               <td><fmt:formatDate value="${resVO.RES_DATE}" type="both" 
                      dateStyle="short" timeStyle="short"/></td>
-               <td>${resVO.cname}&nbsp;${resVO.c_class}</td>
-               <td>${resVO.people}명</td>
+               <td>${resVO.CNAME}&nbsp;${resVO.C_CLASS}</td>
+               <td>${resVO.PEOPLE}명</td>
                <td>
-            	  <fmt:parseDate value = "${resVO.chk_in}" var = "check_in" pattern = "yy-MM-dd" />
+            	  <fmt:parseDate value = "${resVO.CHK_IN}" var = "check_in" pattern = "yy-MM-dd" />
             	  <fmt:formatDate type = "date" value="${check_in}"/>
                 </td>
                 <td>
-            	  <fmt:parseDate value = "${resVO.chk_out}" var = "check_out" pattern = "yy-MM-dd" />
+            	  <fmt:parseDate value = "${resVO.CHK_OUT}" var = "check_out" pattern = "yy-MM-dd" />
             	  <fmt:formatDate type = "date" value="${check_out}"/>
                 </td>
-               <td>${resVO.price}</td>
+               <td>${resVO.PRICE}</td>
             </tr>
          </c:forEach>
       </table>
    </form>
    
-   <jsp:include page="/business/paging/paging.jsp">
-		<jsp:param name="command" value="camp.do?command=businessmanRestList" />
-	</jsp:include>
+    <jsp:include page="../paging/paging.jsp">   
+       <jsp:param name="command" value="businessmanRestList" />
+   </jsp:include>
 	
 </article>
-<%@ include file="../../footer.jsp"%>
+<%@ include file="../../include/footer.jsp"%>

@@ -29,6 +29,7 @@ public class BusinessController {
 	
 	@Autowired
 	BusinessService bs;
+	private Object bseq;
 	
 	@RequestMapping(value = "loginBS", method = RequestMethod.POST)
 	public String loginBusinessman(@ModelAttribute("dto") @Valid BusinessVO businessvo, BindingResult result,
@@ -123,11 +124,13 @@ public class BusinessController {
 		}		
 		return mav;
 	}
-	
+
+
 	//사업자 마이페이지 회원탈퇴	
 	@RequestMapping("deleteBusinessman")
 	public String deleteBusinessman( HttpSession session, Model model) {
-		HashMap<String, Object> loginBusinessman = (HashMap<String, Object>)session.getAttribute("loginBusinessman");
+		HashMap<String, Object> loginBusinessman =
+				(HashMap<String, Object>)session.getAttribute("loginBusinessman");
 		if( loginBusinessman == null ) {
 			return "member/login";
 		}else {
@@ -135,21 +138,24 @@ public class BusinessController {
 		paramMap.put("bid", loginBusinessman.get("BID"));
 		bs.deleteBusiness( paramMap);
 		session.removeAttribute("loginBusinessman");
-	}	
+	  }	
 		return "main";
 	}
 	
+  
 	//사업자 예약 확인 
 	@RequestMapping(value="/businessmanRestList")
-	public ModelAndView businessmanRestList(HttpServletRequest request, Model model) {
+	public ModelAndView businessmanRestList(HttpServletRequest request, Model model	) {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
-		if( session.getAttribute("loginBusinessman")==null) 
+		HashMap<String, Object> loginBusinessman 
+			= (HashMap<String, Object>)session.getAttribute("loginBusinessman");
+		if( loginBusinessman == null ) {
 			mav.setViewName("member/login");
-		else {
-			
+		}else {
 			HashMap<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("request", request);
+			paramMap.put("bseq", Integer.parseInt(loginBusinessman.get("BSEQ")+""));
+            paramMap.put("request", request);
 			paramMap.put( "ref_cursor", null );
 			bs.getBusinessRestList( paramMap );
 			
@@ -157,7 +163,7 @@ public class BusinessController {
 				= (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
 			
 			mav.addObject("paging" , (Paging)paramMap.get("paging"));
-			mav.addObject("key", (String)paramMap.get("key"));
+		
 			mav.addObject("reList", list);
 			mav.setViewName("business/reservation/businessmanRestList");
 		}
@@ -224,7 +230,4 @@ public class BusinessController {
 		return "redirect:/businessmanQnaView?qseq="+qnavo.getQseq();
 	}
 	
-	
-	
-	
-}
+
