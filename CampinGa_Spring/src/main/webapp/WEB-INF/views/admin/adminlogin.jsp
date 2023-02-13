@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="header.jsp" %>
+<%@ include file="../admin/include/header.jsp" %>
 
 <div id="wrap">
 
    <article>
       <div class="login">
        <h2>관리자 로그인</h2>
-         <form name="frm" method="post" action="camp.do">
-            <input type="hidden" name="command" value="adminLogin">
-            
+         <form name="frm" method="post" action="adminLogin">            
                <div class="login_id">
                <label>아 이 디</label><input type="text" name="adminId" size="10">
                </div>
@@ -26,4 +24,4 @@
 </div>
 
 
-<%@ include file="footer.jsp" %>
+<%@ include file="../admin/include/footer.jsp" %>

@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.campinga.dto.BusinessVO;
-import com.campinga.dto.MemberVO;
 import com.campinga.dto.Paging;
 import com.campinga.dto.QnaVO;
 import com.campinga.service.BusinessService;
@@ -34,8 +34,7 @@ public class BusinessController {
 	@RequestMapping(value = "loginBS", method = RequestMethod.POST)
 	public String loginBusinessman(@ModelAttribute("dto") @Valid BusinessVO businessvo, BindingResult result,
 			HttpServletRequest request, Model model) {
-
-		System.out.println(businessvo.getBid() + " " + businessvo.getPwd());
+		
 		String url = "member/login";
 		if (result.getFieldError("bid") != null)
 			model.addAttribute("message", result.getFieldError("bid").getDefaultMessage());
@@ -77,11 +76,10 @@ public class BusinessController {
 		if( loginBusinessman == null ) {
 			mav.setViewName("member/login");
 		}else {
-			mav.setViewName("business/mypage/mypage");
-		
+			mav.setViewName("business/mypage/mypage");		
 		}
 		return mav;
-		}
+	}
 	
 	//사업자 정보수정 이동
 	@RequestMapping(value="/businessmanEditForm" )
@@ -94,18 +92,15 @@ public class BusinessController {
 		dto.setName( (String)loginBusinessman.get("NAME") );
 		dto.setPhone( (String)loginBusinessman.get("PHONE") );
 		dto.setEmail( (String)loginBusinessman.get("EMAIL") );
-		
-		
 		model.addAttribute("dto" , dto);
 		return "business/mypage/updateInfo";
 	}
+	
 	//사업자 정보 수정
 	@RequestMapping(value = "/updateBusinessInfo", method=RequestMethod.POST)
 	public ModelAndView updateBusinessInfo( 
 			@ModelAttribute("dto") @Valid BusinessVO businessvo, BindingResult result,
 		HttpServletRequest request	) {
-		
-		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("business/mypage/updateInfo");
@@ -129,7 +124,9 @@ public class BusinessController {
 		}		
 		return mav;
 	}
-	//사업자 마이페이지 회원탈퇴
+
+
+	//사업자 마이페이지 회원탈퇴	
 	@RequestMapping("deleteBusinessman")
 	public String deleteBusinessman( HttpSession session, Model model) {
 		HashMap<String, Object> loginBusinessman =
@@ -141,10 +138,11 @@ public class BusinessController {
 		paramMap.put("bid", loginBusinessman.get("BID"));
 		bs.deleteBusiness( paramMap);
 		session.removeAttribute("loginBusinessman");
-	}	
+	  }	
 		return "main";
 	}
 	
+  
 	//사업자 예약 확인 
 	@RequestMapping(value="/businessmanRestList")
 	public ModelAndView businessmanRestList(HttpServletRequest request, Model model	) {
@@ -173,9 +171,63 @@ public class BusinessController {
 	}
 	
 	
+	// 사업자 QnA 관리
+	@RequestMapping("/businessmanQnaList")
+	public ModelAndView businessmanQnaList(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		HashMap<String, Object>bvo =
+		 (HashMap<String, Object>)session.getAttribute("loginBusinessman");
+		if(bvo==null) 
+			mav.setViewName("member/login");
+		else {
 			
+			if( request.getParameter("first")!=null) {
+				session.removeAttribute("page");
+			}
+			
+			HashMap<String, Object>paramMap = new HashMap<String, Object>();
+			paramMap.put("request", request);
+			paramMap.put("bseq", Integer.parseInt(bvo.get("BSEQ")+""));
+			paramMap.put("ref_cursor", null);
+			bs.getBusinessQnaList(paramMap);
+			ArrayList<HashMap<String, Object>>list
+			= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			mav.addObject("paging", (Paging)paramMap.get("paging"));
+			mav.addObject("qnalist", list);
+			mav.setViewName("business/qna/qnaList");
+		}
+		return mav;
+	}
+	
+	
+	// 사업자 qna 상세
+	@RequestMapping("/businessmanQnaView")
+	public ModelAndView businessmanQnaView(
+			@RequestParam("qseq") int qseq, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();		
+		HttpSession session = request.getSession();
 		
+		if(session.getAttribute("loginBusinessman")==null) { 
+			mav.setViewName("member/login");
+		} else {
+			HashMap<String, Object>paramMap = new HashMap<String, Object>();
+			paramMap.put("ref_cursor", null);
+			paramMap.put("qseq", qseq);
+			bs.getQnaOne(paramMap);
+			ArrayList<HashMap<String, Object>>list
+			= (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			mav.addObject("qnaVO", list.get(0));
+			mav.setViewName("business/qna/qnaForm");
+		}		
+		return mav;
+	}
 	
+	// 사업자 QnA 답변등록
+	@RequestMapping(value="/businessmanQnaRepSave", method=RequestMethod.POST)
+	public String businessmanQnaRepSave(@ModelAttribute("qnaVO") QnaVO qnavo) {		
+		bs.SaveQnaRep(qnavo);		
+		return "redirect:/businessmanQnaView?qseq="+qnavo.getQseq();
+	}
 	
-	
-}
+

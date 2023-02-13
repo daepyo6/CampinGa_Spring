@@ -9,7 +9,6 @@
 <link href="css/campinga.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="script/campinga.js"></script> 
-<script src="script/member.js"></script>
 
 </head>
 <body>
