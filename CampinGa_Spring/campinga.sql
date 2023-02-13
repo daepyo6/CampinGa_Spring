@@ -255,7 +255,8 @@ END;
 
 
 -- 관리자 count
-CREATE OR REPLACE  PROCEDURE AdminCount(
+create or replace PROCEDURE AdminCount(
+    p_key IN VARCHAR2,
     p_tableName IN number,
     p_cnt OUT number
 )
@@ -263,13 +264,13 @@ IS
     v_cnt NUMBER;
 BEGIN
     IF p_tableName = 1 THEN
-        SELECT COUNT(*) INTO v_cnt FROM member;
+        SELECT COUNT(*) INTO v_cnt FROM member WHERE name LIKE '%'||p_key||'%';
     ELSIF p_tableName = 2 THEN
-        SELECT COUNT(*) INTO v_cnt FROM businessman;
+        SELECT COUNT(*) INTO v_cnt FROM businessman WHERE cname LIKE '%'||p_key||'%';
     ELSIF p_tableName = 3 THEN
-        SELECT COUNT(*) INTO v_cnt FROM RESERVATE_VIEW;
+        SELECT COUNT(*) INTO v_cnt FROM RESERVATE_VIEW WHERE c_class LIKE '%'||p_key||'%';
     ELSIF p_tableName = 4 THEN
-        SELECT COUNT(*) INTO v_cnt FROM review;
+        SELECT COUNT(*) INTO v_cnt FROM review WHERE content LIKE '%'||p_key||'%';
     ELSIF p_tableName = 5 THEN
         SELECT COUNT(*) INTO v_cnt FROM notice;
     END IF;
@@ -293,6 +294,7 @@ BEGIN
                 SELECT ROWNUM AS rn, m.*FROM 
                     ((select * from member where name like '%'||p_key||'%' order by mid desc) m)
             ) WHERE rn >= p_startNum
+            
         ) WHERE rn <= p_endNum;
 END;
 
