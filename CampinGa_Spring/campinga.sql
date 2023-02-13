@@ -487,6 +487,26 @@ END;
 
 
 
+-- 사업자 예약 리스트
+CREATE OR REPLACE PROCEDURE getBusinessRestList(
+     p_bseq IN businessman.bseq%type,
+     p_startNum IN NUMBER,
+     p_endNUM IN NUMBER,
+     p_rc   OUT     SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM (
+            SELECT * FROM (
+                SELECT rownum as rn, m.* FROM
+                    ((SELECT * FROM reservate_view WHERE bseq=p_bseq order by res_date) m)
+            )WHERE rn>=p_startNum
+        )WHERE rn<=p_endNum;
+END;
+
+
+
 
 
 
