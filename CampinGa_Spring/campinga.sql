@@ -26,8 +26,6 @@ BEGIN
 END;
 
 
-
-
 CREATE OR REPLACE PROCEDURE insertMemberCam(
     p_mid IN member.mid%type,
     p_pwd IN member.pwd%type,
@@ -228,16 +226,26 @@ CREATE OR REPLACE PROCEDURE insertMemberCam(
     p_pwd IN member.pwd%type,
     p_name IN member.name%type,
     p_email IN member.email%type,
-    p_phone IN member.phone%type
+    p_phone IN member.mphone%type
 )
 IS
 BEGIN
-    insert into member ( mid, pwd, name, email, phone)
+    insert into member ( mid, pwd, name, email, mphone)
     values( p_mid, p_pwd, p_name, p_email, p_phone);
     commit;
 END;
 
-
+// business select One
+CREATE OR REPLACE PROCEDURE getBusinessCam(
+    p_bid IN businessman.bid%type,
+    p_curvar OUT SYS_REFCURSOR
+)
+IS
+    result_cur SYS_REFCURSOR;
+BEGIN
+    OPEN result_cur FOR SELECT * FROM businessman WHERE bid= p_bid;
+        p_curvar := result_cur;
+END;
 
 
 -- 02-10
@@ -391,16 +399,6 @@ BEGIN
     OPEN p_rc FOR
         SELECT * FROM notice WHERE nseq=p_nseq;
 END;
-
-
-
-
-
-
-
-
-
-
 
 
 

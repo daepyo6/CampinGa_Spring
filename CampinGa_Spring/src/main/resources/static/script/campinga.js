@@ -47,8 +47,21 @@ $(function() {
 
 
 // member JavaScript 
+function login(){
+	if(document.loginFrm.user.value=="1"){
+		document.loginFrm.action = "login";
+	    document.loginFrm.submit();
+	} else {
+		$('input[name=mid]').removeAttr("name").attr("name", "bid") 
+		
+		document.loginFrm.action = "loginBS";
+	    document.loginFrm.submit();
+	}
+}
+
+
 function loginCheck(){
-   if(document.loginFrm.id.value==""){
+   if(document.loginFrm.mid.value==""){
       alert("아이디는 필수입력사항입니다");
       document.loginFrm.id.focus();
       return false;
