@@ -188,7 +188,6 @@ public class CampingController {
 	}
 
 	// 큐앤에이 등록, 수정, 삭제
-
 	@RequestMapping(value = "/insertQna", method = RequestMethod.POST)
 	public ModelAndView insertQna(@ModelAttribute("qnaVO") @Valid QnaVO qvo, @RequestParam("bseq") int bseq,
 			BindingResult result, HttpServletRequest request) {
@@ -248,7 +247,6 @@ public class CampingController {
 	}
 
 	// 리뷰 등록, 수정, 삭제
-
 	@RequestMapping(value = "/insertReview")
 	public ModelAndView insertReview(@ModelAttribute("ReviewVO") @Valid ReviewVO rvo, @RequestParam("bseq") int bseq,
 			BindingResult result, HttpServletRequest request) {
@@ -332,7 +330,7 @@ public class CampingController {
 	public ModelAndView reserveInsert(@ModelAttribute("dto") ReservationVO resVO, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		cs.reserveInsert(resVO);
-		mav.setViewName("redirect:/mypage");
+		mav.setViewName("redirect:/myPage");
 		return mav;
 	}
 	

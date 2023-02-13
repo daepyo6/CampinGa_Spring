@@ -38,7 +38,7 @@
 	</nav>
 	
 	<div id="logo"><!-- 로고시작 -->
-		<a href="index">
+		<a href="/">
 			<img src="images/main/logoH.png">
 		</a>
 	</div><!-- 로고 끝 -->

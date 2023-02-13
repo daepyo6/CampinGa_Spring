@@ -33,7 +33,7 @@
       </table>
    </form>
    
-    <jsp:include page="../paging/paging.jsp">   
+    <jsp:include page="../../include/paging.jsp">   
        <jsp:param name="command" value="businessmanRestList" />
    </jsp:include>
 	

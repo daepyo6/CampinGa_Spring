@@ -134,19 +134,29 @@ function go_next(){
 }
 
 function go_update(){
-	    document.updateInfo.action = "camp.do?command=updateUserInfo";
-	    document.updateInfo.submit();
+	document.updateInfo.action = "camp.do?command=updateUserInfo";
+	document.updateInfo.submit();
 }
 
-function reservate_cancel( reseq ){
-	    document.reservateInfo.action = "camp.do?command=cancelReservate&reseq="+ reseq;
-	    document.reservateInfo.submit();
+function myResCancel( reseq ){
+	let con = confirm("예약을 '취소'하시겠습니까?")
+	if(con){
+		location.href="cancelReservate?reseq="+reseq;
+	}else{
+		return;
+	}
 }
 
-function delete_favorites( fseq ){
-	    document.favorites.action = "camp.do?command=deleteFavorites&fseq="+ fseq;
-	    document.favorites.submit();
+function myFavDel(cname, fseq){
+	let con = confirm("'"+cname+"'을 즐겨찾기에서 삭제하시겠습니까?")
+	if(con){
+		location.href="deleteMyFavorites?fseq="+fseq;
+	}else{
+		return;
+	}	
 }
+
+
 
 
 // camping JavaScript 

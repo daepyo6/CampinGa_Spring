@@ -229,5 +229,6 @@ public class BusinessController {
 		bs.SaveQnaRep(qnavo);		
 		return "redirect:/businessmanQnaView?qseq="+qnavo.getQseq();
 	}
-	
+
+}
 
