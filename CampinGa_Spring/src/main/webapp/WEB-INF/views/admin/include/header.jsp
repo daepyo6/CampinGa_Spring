@@ -7,21 +7,21 @@
 <meta charset="UTF-8">
 <title>Administer</title>
 <link href="css/campinga.css" rel="stylesheet">
-<script src="admin/script/admin.js"></script>
+<script src="script/campinga.js"></script>
 </head>
 <body>
 
 <div id="wrap">
    <header class="adminHeader">         
       <div id="logo">
-         <a href="camp.do?command=index">
-            <img src="images/logoF.png" width="220" height="50">
+         <a href="/">
+            <img src="images/main/logoF.png" width="220" height="50">
          </a>
       </div>
       <div class="adLogout">
       <c:if test="${loginAdmin!=null}">
          <input type="button" value="logout" 
-         onClick="location.href='camp.do?command=adminLogout'">
+         onClick="location.href='adminLogout'">
       </c:if>            
       </div>      
    </header>

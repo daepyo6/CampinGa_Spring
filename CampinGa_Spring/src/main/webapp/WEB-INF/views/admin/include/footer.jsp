@@ -6,7 +6,7 @@
 <footer>
 	<div class="foot" style="height: 60px;">
 		<div id="fLogo">
-			<img src="images/logoF.png">
+			<img src="images/main/logoF.png">
 		</div>
 	</div>
 	<div class="foot" style="height: 100px;">

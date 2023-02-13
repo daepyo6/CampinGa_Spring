@@ -27,7 +27,7 @@
 			<c:if test="${loginUser!=null}">
 				<c:choose>
 					<c:when test="${chk_fav == 'Y'}">
-					<input type="button" value="♥&nbsp;&nbsp;Delete" class="favDel"
+					<input type="button" value="♥&nbsp;&nbsp;Delete" class="favDel" 
 						onclick="location.href='deleteFavorites?bseq=${bseq}'">
 					</c:when>
 					<c:otherwise>

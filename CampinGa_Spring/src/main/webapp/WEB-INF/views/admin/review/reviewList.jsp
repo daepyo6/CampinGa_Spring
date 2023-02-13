@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/admin/header.jsp"%>
-<%@ include file="/admin/sub_menu.jsp"%>
+<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/sub_menu.jsp"%>
 <article id="mypage" class="adminPage">
 	<h1>리뷰 목록</h1>  
 	<form name="frm" method="post">
@@ -21,22 +21,22 @@
 		</tr>
 	    <c:forEach items="${reviewList}" var="reviewVO">
 		    <tr>
-		    	<td>${reviewVO.rseq}</td>
-		    	<td>${reviewVO.content}</td>
-		    	<td>${reviewVO.mid}</td>
-		    	<td><fmt:formatDate value="${reviewVO.indate}"/></td>
-		    	<td><input type="checkbox" name="rseq" value="${reviewVO.rseq}"></td>
+		    	<td>${reviewVO.RSEQ}</td>
+		    	<td>${reviewVO.CONTENT}</td>
+		    	<td>${reviewVO.MID}</td>
+		    	<td><fmt:formatDate value="${reviewVO.INDATE}"/></td>
+		    	<td><input type="checkbox" name="rseq" value="${reviewVO.RSEQ}"></td>
 		    </tr>
 	  </c:forEach>
 	  <tr>
      <th colspan="4"><a href="#" onClick="go_review_delete();">리뷰 삭제하기</a></th>
 	  </tr>
 	</table>
-	<jsp:include page="/admin/paging/paging.jsp">   
-	    <jsp:param value="camp.do?command=adminReviewList" name="command"/>
+	<jsp:include page="../paging/paging.jsp">   
+	    <jsp:param value="adminReviewList" name="command"/>
 	</jsp:include>
 	</form>
 </article>
 
 
-<%@ include file="/admin/footer.jsp"%>
+<%@ include file="../include/footer.jsp"%>

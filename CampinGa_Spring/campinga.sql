@@ -235,6 +235,7 @@ BEGIN
     commit;
 END;
 
+// business select One
 CREATE OR REPLACE PROCEDURE getBusinessCam(
     p_bid IN businessman.bid%type,
     p_curvar OUT SYS_REFCURSOR
@@ -245,3 +246,163 @@ BEGIN
     OPEN result_cur FOR SELECT * FROM businessman WHERE bid= p_bid;
         p_curvar := result_cur;
 END;
+
+
+-- 02-10
+-- 관리자 조회
+CREATE OR REPLACE  PROCEDURE getAdminList(
+    p_aid IN admin.aid%type,
+    p_rc OUT SYS_REFCURSOR 
+)
+IS
+BEGIN
+        OPEN p_rc FOR
+            select * from admin where aid=p_aid;
+END;
+
+
+
+-- 관리자 count
+create or replace PROCEDURE AdminCount(
+    p_key IN VARCHAR2,
+    p_tableName IN number,
+    p_cnt OUT number
+)
+IS
+    v_cnt NUMBER;
+BEGIN
+    IF p_tableName = 1 THEN
+        SELECT COUNT(*) INTO v_cnt FROM member WHERE name LIKE '%'||p_key||'%';
+    ELSIF p_tableName = 2 THEN
+        SELECT COUNT(*) INTO v_cnt FROM businessman WHERE cname LIKE '%'||p_key||'%';
+    ELSIF p_tableName = 3 THEN
+        SELECT COUNT(*) INTO v_cnt FROM RESERVATE_VIEW WHERE c_class LIKE '%'||p_key||'%';
+    ELSIF p_tableName = 4 THEN
+        SELECT COUNT(*) INTO v_cnt FROM review WHERE content LIKE '%'||p_key||'%';
+    ELSIF p_tableName = 5 THEN
+        SELECT COUNT(*) INTO v_cnt FROM notice;
+    END IF;
+    p_cnt := v_cnt;
+END;
+
+
+
+-- 관리자 : 회원 조회
+CREATE OR REPLACE  PROCEDURE adminMemberList(
+    p_key IN member.name%type,
+    p_startNum IN number,
+    p_endNum IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM (
+            SELECT * FROM (
+                SELECT ROWNUM AS rn, m.*FROM 
+                    ((select * from member where name like '%'||p_key||'%' order by mid desc) m)
+            ) WHERE rn >= p_startNum
+            
+        ) WHERE rn <= p_endNum;
+END;
+
+
+
+--  관리자 :  캠핑장 관리 조회 
+CREATE OR REPLACE  PROCEDURE adminCampingList(
+    p_key IN businessman.cname%type,
+    p_startNum IN number,
+    p_endNum IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM (
+            SELECT * FROM (
+                SELECT ROWNUM AS rn, b.*FROM 
+                    (( select * from businessman where cname like '%'||p_key||'%' order by bseq desc) b)
+            ) WHERE rn >= p_startNum
+        ) WHERE rn <= p_endNum;
+END;
+
+
+
+-- 관리자 : 캠핑장 리뷰 조회
+CREATE OR REPLACE  PROCEDURE adminReviewList(
+     p_key IN review.content%type,
+    p_startNum IN number,
+    p_endNum IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM (
+            SELECT * FROM (
+                SELECT ROWNUM AS rn, r.*FROM 
+                    (( select * from review where content like '%'||p_key||'%' order by rseq desc) r) 
+            ) WHERE rn >= p_startNum
+        ) WHERE rn <= p_endNum;
+END;
+
+
+
+
+-- 관리자 : 공지사항
+CREATE OR REPLACE  PROCEDURE adminNoticeList(
+    p_startNum IN number,
+    p_endNum IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM (
+            SELECT * FROM (
+                SELECT ROWNUM AS rn, n.*FROM 
+                    ( ( SELECT * FROM notice order by nseq desc)n)
+            ) WHERE rn >= p_startNum
+        ) WHERE rn <= p_endNum;
+END;
+
+select*from notice;
+
+
+-- 관리자 :  예약
+CREATE OR REPLACE  PROCEDURE adminRestList(
+    p_key IN reservate_view.c_class%type,
+    p_startNum IN number,
+    p_endNum IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM (
+            SELECT * FROM (
+                SELECT ROWNUM AS rn, re.*FROM 
+                    ((select * from reservate_view where c_class like '%'||p_key||'%' order by reseq desc) re)
+            ) WHERE rn >= p_startNum
+        ) WHERE rn <= p_endNum;
+END;
+
+
+
+-- 공지사항 상세
+CREATE OR REPLACE  PROCEDURE selectNoticeOne(
+    p_nseq IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM notice WHERE nseq=p_nseq;
+END;
+
+
+
+
+
+
+

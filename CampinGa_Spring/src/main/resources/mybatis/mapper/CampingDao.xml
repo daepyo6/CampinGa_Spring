@@ -174,5 +174,14 @@
 		delete from camp_qna where qseq=#{qseq}
 	</delete>
 
+	<!-- 즐겨찾기 추가, 삭제 -->
+	<insert id="insertFavorites" parameterType="java.util.HashMap">
+		insert into favorites (fseq, bseq, mid, fav_check)
+		values(favorites_seq.nextVal, #{bseq}, #{mid}, #{fav_check})
+	</insert>
+	
+	<delete id="deleteFavorites">
+		delete from favorites where bseq=#{bseq}
+	</delete>
 
 </mapper>

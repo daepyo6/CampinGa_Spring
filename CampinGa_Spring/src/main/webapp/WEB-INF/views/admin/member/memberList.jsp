@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/admin/header.jsp"%>
-<%@ include file="/admin/sub_menu.jsp"%>
+<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/sub_menu.jsp"%>
 <article  id="mypage" class="adminPage">
    <h1>회원목록</h1>  
    <form name="frm" method="post">
    <table class="adSearch" style="float:right;"><br><br>
-      <tr><td class="searchTd">회원 이름 <input type="text" name="key" value="${key1}">
+      <tr><td class="searchTd">회원 이름 <input type="text" name="key" value="${key}">
       <input class="adpage_btn" type="button" value="검색" onclick="go_search('adminMemberList')">
       <input class="adpage_btn" type="button" name="btn_total" value="전체보기 " onClick="go_total('adminMemberList')"></td> </tr>
    </table><br>
@@ -19,11 +19,11 @@
       </tr>
        <c:forEach items="${memberList}" var="memberVO">
           <tr>
-             <td>${memberVO.mid}</td>
-             <td>${memberVO.name}</td>
-             <td>${memberVO.mphone}</td>
-             <td>${memberVO.email}</td>
-             <td><input type="checkbox" name="mid" value="${memberVO.mid}"></td>      
+             <td>${memberVO.MID}</td>
+             <td>${memberVO.NAME}</td>
+             <td>${memberVO.MPHONE}</td>
+             <td>${memberVO.EMAIL}</td>
+             <td><input type="checkbox" name="mid" value="${memberVO.MID}"></td>      
           </tr>
      </c:forEach>
    </table>
@@ -31,12 +31,12 @@
      <input type="button" value="회원 삭제하기" onClick="go_members_delete();">
     </div><br><br><br>
     <div>
-   <jsp:include page="/admin/paging/paging.jsp">   
-       <jsp:param value="camp.do?command=adminMemberList" name="command"/>
+   <jsp:include page="../paging/paging.jsp">   
+       <jsp:param value="adminMemberList" name="command"/>
    </jsp:include>
    </div>
    </form>
 </article>
 
 
-<%@ include file="/admin/footer.jsp"%>
+<%@ include file="../include/footer.jsp"%>

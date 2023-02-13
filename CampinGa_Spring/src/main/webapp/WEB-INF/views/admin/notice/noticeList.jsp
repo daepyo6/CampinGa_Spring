@@ -1,49 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/admin/header.jsp"%>
-<%@ include file="/admin/sub_menu.jsp"%>
+<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/sub_menu.jsp"%>
 
 <article id="mypage" class="adminPage">
 	<h1>공지사항</h1>
 	<form name="frm" method="post">	
-		<div id="mypagebtn" style="text-align: right;" onclick="location.href='camp.do?command=adminNoticeWriteForm'">
+		<div id="mypagebtn" style="text-align: right;" onclick="location.href='adminNoticeWriteForm'">
      		<input type="button" value="글쓰기">
     	</div>	
 		<table id="noticeList" class="rentList">			
-			<tr><th>번호</th><th>제목</th><th>등록일</th></tr>
+			<tr><th>번호</th><th>제목</th><th>등록일</th><th>삭제</th></tr>
 			<c:forEach items="${noticeList}" var="notice">
 				<tr>
-					<td align="center">${notice.nseq}</td>
+					<td align="center">${notice.NSEQ}</td>
 					<td style="text-align:left; padding-left:50px;">
-						<a href="#" onClick="go_detail('${notice.nseq}');">${notice.subject}</a>
+						<a href="adminNoticeDetail?nseq=${notice.NSEQ}">
+							${notice.SUBJECT}</a>
 					</td>				
-					<td><fmt:formatDate value="${notice.indate}"/></td>
-					<td>	   	 			
-	   	 			</td>
+					<td><fmt:formatDate value="${notice.INDATE}"/></td>
+					<td>
+					<c:if test="${loginAdmin!=null}">
+					<input type="button" value="삭제" onclick="notiecDeleteChk('${notice.NSEQ}')">
+					</c:if>					
+					</td>
 				</tr>
 			</c:forEach>
 		</table>
 	</form>	
-	<div class="paging" style="font-size:120%; font-weight:bold; text-align: center">
-			<c:if test="${paging.prev}">
-				<a href="camp.do?command=adminNoticeList&page=${paging.beginPage-1}#logo">◀</a>&nbsp;
-			</c:if>
-			<c:forEach begin="${paging.beginPage}" end="${paging.endPage}" var="index">
-				<c:choose>
-					<c:when test="${paging.page==index}">
-						<span style="color:red">${index}&nbsp;</span>
-					</c:when>
-					<c:otherwise>
-						<a href="camp.do?command=adminNoticeList&page=${index}#logo">${index}</a>&nbsp;
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${paging.next}">
-				<a href="camp.do?command=adminNoticeList&page=${paging.endPage+1}#logo">▶</a>&nbsp;
-			</c:if>
-	</div>		
+	<jsp:include page="../paging/paging.jsp">   
+	    <jsp:param value="adminNoticeList" name="command"/>
+	</jsp:include>
 	
 </article>
 						
 
-<%@ include file="/admin/footer.jsp"%>
+<%@ include file="../include/footer.jsp"%>

@@ -6,7 +6,7 @@
 			<img src="images/main/logoF.png">
 		</div>
 		<div id="adBtn">
-			<a href="admin">administrator</a>
+			<a href="adminLoginForm">administrator</a>
 		</div>
 	</div>
 	<div class="foot" style="height: 100px">
