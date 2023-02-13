@@ -235,7 +235,7 @@ BEGIN
     commit;
 END;
 
-// business select One
+-- 사업자 조회 One
 CREATE OR REPLACE PROCEDURE getBusinessCam(
     p_bid IN businessman.bid%type,
     p_curvar OUT SYS_REFCURSOR
