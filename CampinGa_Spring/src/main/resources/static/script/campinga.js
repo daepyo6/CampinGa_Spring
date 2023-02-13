@@ -368,7 +368,7 @@ function roomCheck() {
 	return true;
 }
 
-
+// admin Login
 function adminCheck() {
 	if (document.frm.adminId.value == "") {
 		alert("아이디를 입력하세요.");
