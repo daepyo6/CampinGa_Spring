@@ -13,4 +13,7 @@ public interface IBusinessDao {
 
 	void deleteBusiness(HashMap<String, Object> paramMap);
 
+	void BusinessGetAllCount(HashMap<String, Object> cntMap);
+    void getBusinessRestList(HashMap<String, Object> paramMap);
+
 }

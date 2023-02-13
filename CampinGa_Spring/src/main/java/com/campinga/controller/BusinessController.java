@@ -19,8 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.campinga.dto.BusinessVO;
 import com.campinga.dto.MemberVO;
+import com.campinga.dto.Paging;
 import com.campinga.dto.QnaVO;
 import com.campinga.service.BusinessService;
+
 
 @Controller
 public class BusinessController {
@@ -142,6 +144,30 @@ public class BusinessController {
 		return "main";
 	}
 	
+	//사업자 예약 확인 
+	@RequestMapping(value="/businessmanRestList")
+	public ModelAndView businessmanRestList(HttpServletRequest request, Model model) {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		if( session.getAttribute("loginBusinessman")==null) 
+			mav.setViewName("member/login");
+		else {
+			
+			HashMap<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("request", request);
+			paramMap.put( "ref_cursor", null );
+			bs.getBusinessRestList( paramMap );
+			
+			ArrayList< HashMap<String,Object> > list 
+				= (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+			
+			mav.addObject("paging" , (Paging)paramMap.get("paging"));
+			mav.addObject("key", (String)paramMap.get("key"));
+			mav.addObject("reList", list);
+			mav.setViewName("business/reservation/businessmanRestList");
+		}
+		return mav;
+	}
 	
 	
 	
