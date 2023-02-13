@@ -39,9 +39,7 @@ public class BusinessService {
 		
 		if( request.getParameter("first")!=null) {
 			session.removeAttribute("page");
-			session.removeAttribute("key");
-		}
-		
+			}
 		int page=1;
 		if( request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -52,34 +50,25 @@ public class BusinessService {
 			session.removeAttribute("page");
 		}
 		
-		String key = "";
-		if( request.getParameter("key") != null ) {
-			key = request.getParameter("key");
-			session.setAttribute("key", key);
-		} else if( session.getAttribute("key")!= null ) {
-			key = (String)session.getAttribute("key");
-		} else {
-			session.removeAttribute("key");
-		}
-		
 		Paging paging = new Paging();
 		paging.setPage(page);
 		
 		HashMap<String, Object> cntMap = new HashMap<String, Object>();
 		cntMap.put("cnt", 0);
 		cntMap.put("tableName", 1);
-		cntMap.put("key", key);
+	    cntMap.put("bseq", paramMap.get("bseq"));
+	   
 		bdao.BusinessGetAllCount(cntMap);
 		
 		int count = Integer.parseInt( cntMap.get("cnt")+"" );
 		paging.setTotalCount(count);
+		
 		paging.paging();
 		
-		paramMap.put("key", key);
+		
 		paramMap.put("startNum", paging.getStartNum());
 		paramMap.put("endNum", paging.getEndNum());
 		bdao.getBusinessRestList(paramMap);	
-		
 		paramMap.put("paging", paging);
 }
 		
