@@ -121,9 +121,9 @@
     			</c:forTokens>
 				</div>
 			</div>
-				<div class="buttons">
-					<input type="submit" value="등록하기">
-				</div>
+			<div class="buttons">
+				<input type="submit" value="등록하기">
+			</div>
 		</div>
 	</form>
 </article>

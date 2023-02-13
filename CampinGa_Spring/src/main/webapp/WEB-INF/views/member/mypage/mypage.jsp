@@ -47,7 +47,7 @@
             <tr>
                <td><fmt:formatDate value="${resVO.RES_DATE}" type="both" 
                      dateStyle="short" timeStyle="short"/></td>
-               <td><a href="campDetail&bseq=${resVO.BSEQ}">${resVO.CNAME}&nbsp;${resVO.C_CLASS}</a></td>
+               <td><a href="campDetail?bseq=${resVO.BSEQ}">${resVO.CNAME}&nbsp;${resVO.C_CLASS}</a></td>
                <td>${resVO.PEOPLE}명</td>
                <td> 
             	  <fmt:parseDate value="${resVO.CHK_IN}" var = "check_in" pattern = "yy-MM-dd" />
@@ -94,7 +94,7 @@
          <!-- 가짜데이터 이후 c:forEach 사용하여 테이블 조회할 것.-->
          <c:forEach items="${favorList}" var="favorVO">
             <tr>
-               <td><a href="campDetail&bseq=${favorVO.BSEQ}">${favorVO.CNAME}</a></td>
+               <td><a href="campDetail?bseq=${favorVO.BSEQ}">${favorVO.CNAME}</a></td>
                <td>${favorVO.PHONE}</td> 
                <td><input type="button" value="해제"
                         onclick="myFavDel('${favorVO.CNAME}','${favorVO.FSEQ}');">

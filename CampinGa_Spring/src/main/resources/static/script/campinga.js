@@ -374,6 +374,7 @@ function roomCheck() {
 	return true;
 }
 
+
 // admin Login
 function adminCheck() {
 	if (document.frm.adminId.value == "") {
