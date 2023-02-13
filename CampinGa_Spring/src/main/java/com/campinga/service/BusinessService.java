@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.campinga.dao.IBusinessDao;
 import com.campinga.dto.Paging;
+import com.campinga.dto.QnaVO;
 
 
 @Service
@@ -81,7 +82,47 @@ public class BusinessService {
 		bdao.getBusinessRestList(paramMap);	
 		
 		paramMap.put("paging", paging);
-}
+	}
+
+	public void getBusinessQnaList(HashMap<String, Object> paramMap) {
+		HttpServletRequest request = (HttpServletRequest)paramMap.get("request");
+		HttpSession session = request.getSession();		
+		
+		int page=1;
+		if( request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+			session.setAttribute("page", page);
+		}else if( session.getAttribute("page") != null ) {
+			page = (Integer)session.getAttribute("page");
+		}else {
+			session.removeAttribute("page");
+		}
+		
+		Paging paging = new Paging();
+		paging.setPage(page);
+		
+		HashMap<String, Object> cntMap = new HashMap<String, Object>();
+		cntMap.put("cnt", 0);
+		cntMap.put("tableName", 2);
+		cntMap.put("bseq", paramMap.get("bseq"));
+		bdao.BusinessGetAllCount(cntMap);		
+		
+		int count = Integer.parseInt( cntMap.get("cnt")+"" );
+		paging.setTotalCount(count);
+		paging.paging();
+		paramMap.put("startNum", paging.getStartNum());
+		paramMap.put("endNum", paging.getEndNum());		
+		paramMap.put("paging", paging);		
+		bdao.getBusinessQnaList(paramMap);	
+	}
+
+	public void getQnaOne(HashMap<String, Object> paramMap) {
+		bdao.getQnaOne(paramMap);		
+	}
+
+	public void SaveQnaRep(QnaVO qnavo) {
+		bdao.SaveQnaRep(qnavo);		
+	}
 		
 		
 		

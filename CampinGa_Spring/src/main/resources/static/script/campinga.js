@@ -323,14 +323,15 @@ function delete_favorites(fseq) {
 }
 
 
-function go_view(qseq) {
-	location.href = "camp.do?command=campingQnaForm&qseq=" + qseq;
-}
-
-function go_rep() {
-	document.frm.action = "camp.do?command=campingQnaRepSave";
-	document.frm.submit();
-	// 답변 글 등록 & rep 필드를 2로 업데이트
+function bsRepSave() {
+	if(document.frm.reply.value==""){
+		alert("답변 내용을 입력해주세요");
+		document.frm.reply.focus();
+		return;
+	} else {
+		document.frm.action = "businessmanQnaRepSave";
+		document.frm.submit();
+	}
 }
 
 

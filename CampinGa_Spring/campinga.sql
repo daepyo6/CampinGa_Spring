@@ -401,6 +401,96 @@ BEGIN
 END;
 
 
+-- 02-13
+-- 사업자 정보수정
+create or replace PROCEDURE updateBusiness(
+    p_bid IN businessman.bid%TYPE ,
+    p_name IN businessman.name%TYPE ,
+    p_phone IN businessman.phone%TYPE,
+    p_email IN businessman.email%TYPE 
+)
+IS
+BEGIN
+    update businessman set name=p_name, phone=p_phone ,email=p_email
+    where bid=p_bid;
+    commit;
+END;
+
+
+
+-- 사업자 회원 탈퇴
+CREATE OR REPLACE PROCEDURE deleteBusiness(
+    p_bid IN businessman.bid%TYPE )
+IS
+BEGIN
+    delete from businessman where bid=p_bid;
+    commit;
+END;
+
+
+-- 사업자  count
+create or replace PROCEDURE BusinessGetAllCount(
+    p_bseq IN businessman.bseq%type,
+    p_tableName IN number,
+    p_cnt OUT number
+)
+IS
+    v_cnt NUMBER;
+BEGIN
+    IF p_tableName = 1 THEN
+        SELECT COUNT(*) INTO v_cnt FROM reservate_view WHERE bseq=p_bseq;
+     ELSIF p_tableName = 2 THEN
+        SELECT COUNT(*) INTO v_cnt FROM camp_qna WHERE bseq=p_bseq;
+    ELSIF p_tableName = 3 THEN
+        SELECT COUNT(*) INTO v_cnt FROM camping_view WHERE bseq=p_bseq;   
+    END IF;
+    p_cnt := v_cnt;
+END;
+
+
+
+
+
+
+
+
+-- 사업자 QnA 리스트 
+CREATE OR REPLACE  PROCEDURE getBusinessQnaList(
+    p_bseq IN businessman.bseq%type,
+    p_startNum IN number,
+    p_endNum IN number,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+        SELECT * FROM (
+            SELECT * FROM (
+                SELECT ROWNUM AS rn, q.*FROM 
+                    ((select * from camp_qna where bseq=p_bseq order by qseq desc) q)
+            ) WHERE rn >= p_startNum
+        ) WHERE rn <= p_endNum;
+END;
+
+
+
+-- 사업자 QnA 한개 가져오기
+CREATE OR REPLACE  PROCEDURE getQnaOne(
+    p_qseq IN camp_qna.qseq%type,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+    SELECT * FROM camp_qna WHERE qseq=p_qseq;
+END;
+
+
+
+
+
+
+
 
 
 
