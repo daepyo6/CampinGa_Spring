@@ -28,31 +28,45 @@
 	
 	<delete id="deleteBusiness" statementType="CALLABLE" parameterType="java.util.HashMap" >
 		{
-		 CALL deleteBusiness( 
-		           #{bid}	
-		  )
-		   }
+			 CALL deleteBusiness( 
+			 	#{bid}	
+			  )
+		}
 	</delete>
 	
 	
 	<select id="BusinessGetAllCount" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{  
 			CALL BusinessGetAllCount( 
-				#{tableName}, #{key}, 
+				#{bseq}, #{tableName},
 				#{cnt , mode=OUT, jdbcType=INTEGER }
 			)	  
 		}
 	</select>
 	
-	<select id="getBusinessRestList" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<!-- 캠핑룸 리스트 -->
+	<select id="campingRoomList" statementType="CALLABLE" parameterType="java.util.HashMap">
 		{  
-			CALL getBusinessRestList( 
-				#{startNum}, #{endNum}, #{key}, 
-				#{ref_cursor , mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
+			CALL campingRoomList( 
+				#{bseq}, #{startNum}, #{endNum},
+				#{ref_cursor , mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=businessMap}
 			) 
 		}
 	</select>
 	
-
+	<!-- 캠핑룸 삭제 -->
+	<delete id="deleteCampingRoom">
+		{
+			CALL deleteCampingRoom(#{cseq})
+		}
+	</delete>
+	
+	<insert id="insertCampingRoom" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL insertCampingRoom(
+				#{bseq}, #{cname}, #{c_class}, #{c_content}, #{price}, #{min_people}, #{max_people}, #{c_image}
+			)
+		}
+	</insert>
 
 </mapper>

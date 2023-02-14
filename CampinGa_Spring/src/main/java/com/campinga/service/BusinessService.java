@@ -82,6 +82,46 @@ public class BusinessService {
 		
 		paramMap.put("paging", paging);
 }
+
+	public void campingRoomList(HashMap<String, Object> paramMap) {
+		
+		int page = 1;
+		HttpServletRequest request = (HttpServletRequest) paramMap.get("request");
+		HttpSession session = request.getSession();
+
+		if (request.getParameter("page") != null && !request.getParameter("page").equals("")) {
+			page = Integer.parseInt(request.getParameter("page"));
+			session.setAttribute("page", page);
+		} else if (session.getAttribute("page") != null) {
+			page = (Integer) session.getAttribute("page");
+		} else {
+			session.removeAttribute("page");
+		}
+		Paging paging = new Paging();
+		paging.setPage(page);
+		paramMap.put("cnt", 0);
+		paramMap.put("tableName", 3);
+		bdao.BusinessGetAllCount(paramMap);
+		int count = Integer.parseInt(paramMap.get("cnt") + "");
+		paging.setTotalCount(count);
+		paging.setDisplayPage(10);
+		paging.setDisplayRow(10);
+		paging.paging();
+		paramMap.put("startNum", paging.getStartNum());
+		paramMap.put("endNum", paging.getEndNum());
+		paramMap.put("paging", paging);
+		bdao.campingRoomList(paramMap);
+	}
+
+	public void deleteCampingRoom(HashMap<String, Object> paramMap) {
+		bdao.deleteCampingRoom(paramMap);
+		
+	}
+
+	public void insertCampingRoom(HashMap<String, Object> paramMap) {
+		bdao.insertCampingRoom(paramMap);
+		
+	}
 		
 		
 		

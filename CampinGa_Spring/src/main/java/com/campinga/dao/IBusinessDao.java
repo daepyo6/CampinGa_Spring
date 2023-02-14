@@ -17,4 +17,10 @@ public interface IBusinessDao {
 	
     void getBusinessRestList(HashMap<String, Object> paramMap);
 
+	void campingRoomList(HashMap<String, Object> paramMap);
+
+	void deleteCampingRoom(HashMap<String, Object> paramMap);
+
+	void insertCampingRoom(HashMap<String, Object> paramMap);
+
 }

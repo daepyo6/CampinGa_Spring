@@ -3,7 +3,7 @@
 <%@ include file="/business/sub_menu.jsp"%>
 
 <article style="height: 1400px">
-	<form method="post" name="campingRoom" enctype="multipart/form-data" action="camp.do?command=updateCampingRoom">
+	<form method="post" name="campingRoom" enctype="multipart/form-data" action="updateCampingRoom">
 		<input type="hidden" name="cseq" value="${campVO.cseq}">
 		<input type="hidden" name="oldc_image" value="${campVO.c_image}">			
 		<div class="roomInsert">

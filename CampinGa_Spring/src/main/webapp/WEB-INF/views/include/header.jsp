@@ -10,6 +10,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="script/campinga.js"></script> 
 
+<!--  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#myButton').click( function(){
+		var formselect = $("#fileuploadForm")[0];   // 지목된 폼을 변수에 저장
+		var formdata = new FormData(formselect);   // 전송용 폼객에 다시 저장
+		$.ajax({    // 웹페이지 이동 또는 새로고침이 필요없는 request요청
+			url:"<%=request.getContextPath() %>/fileup",  // 해당 컨트롤러의 requestMapping 목적지 설정
+			type:"POST",
+			enctype:"multipart/form-data",
+			async: false,
+			data: formdata,
+	    	timeout: 10000,
+	    	contentType : false,
+	        processData : false,
+	        success : function(data){
+	            if(data.STATUS == 1){  	//동적으로 div태그 달아주기.
+	            	$("#filename").append("<div>"+data.FILENAME+"</div>");
+	            	$("#previewImg").val(data.FILENAME);
+	            	$("#filename").append("<img src='images/campingImage"+data.FILENAME+"' height='150'/>");
+	            }
+	        },
+	        error: function() {				alert("실패");			}
+		});
+	});
+});
+</script>
+<!--  -->
 </head>
 <body>
 
