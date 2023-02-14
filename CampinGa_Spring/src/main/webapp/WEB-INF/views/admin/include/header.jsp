@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>Administer</title>
 <link href="css/campinga.css" rel="stylesheet">
-<script src="script/campinga.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="script/campinga.js"></script>
 </head>
 <body>
 

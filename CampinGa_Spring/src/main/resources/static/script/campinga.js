@@ -30,11 +30,14 @@ $(function() {
 		$(this).children('.iconImg1').animate({opacity:"1"}, 500)
 		$(this).children('.iconImg2').animate({opacity:"0"}, 500)
 	})
+	
 	$("#file").on('change',function(event){
 	  	var fileName = $("#file").val();
+	  	console.log("fileName"+fileName);
 	  	$(".upload-name").val(fileName);
     
 		var file = event.target.files[0];
+		console.log("file"+file);
 
 	    var reader = new FileReader(); 
 	    reader.onload = function(e) {	
@@ -482,3 +485,5 @@ function go_delete() {
 		document.frm.submit();
 	}
 }
+
+

@@ -106,7 +106,53 @@
 	<delete id="adminNoticeDelete" parameterType="_int">
 		delete notice where nseq=#{nseq}
 	</delete>
-
+	
+	
+	<!-- 메인 롤링 이미지 -->
+	<select id="adminBannerlist" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL adminBannerlist(
+				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
+			)
+		}
+	</select>
+	
+	<insert id="adminBannerWrite" statementType="CALLABLE" parameterType="com.campinga.dto.BannerVO">
+		{
+			CALL adminBannerWrite(
+				#{name}, #{order_seq}, #{useyn}, #{image}
+			)
+		}
+	</insert>
+	
+	<insert id="bannerOrderUpdate" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL bannerOrderUpdate(
+				#{mbseq}, #{order_seq}
+			)
+		}
+	</insert>
+	
+	<select id="bannerSelectOne" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL bannerSelectOne(
+				#{mbseq},
+				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=adminMap}
+			)
+		}
+	</select>
+		
+	<update id="adminBannerUpdate" statementType="CALLABLE" parameterType="com.campinga.dto.BannerVO">
+		{
+			CALL adminBannerUpdate(
+				#{name}, #{order_seq}, #{useyn}, #{image}, #{mbseq}
+			)
+		}
+	</update>
+	
+	<delete id="adminBannerDelete" parameterType="_int">
+		delete mainBanners where mbseq=#{param1}	
+	</delete>
 
 
 

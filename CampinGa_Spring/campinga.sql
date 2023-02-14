@@ -1,4 +1,4 @@
--- ì‹ ê·œ/ì¶”ì²œ ìº í•‘ì¥
+-- ½Å±Ô/ÃßÃµ Ä·ÇÎÀå
 create or replace procedure getNewRecoCamping(
     p_cur1 out SYS_REFCURSOR,
     p_cur2 out SYS_REFCURSOR
@@ -41,7 +41,7 @@ BEGIN
 END;
 
 
--- ë©”ì¸ì—ì„œ ìº í•‘ì¥ ê²€ìƒ‰
+-- ¸ŞÀÎ¿¡¼­ Ä·ÇÎÀå °Ë»ö
 create or replace procedure getSearchResult(
     p_address1 in businessman.caddress1%type, 
     p_address2 in businessman.caddress2%type, 
@@ -58,7 +58,7 @@ BEGIN
 END;
 
 -- 02-08
--- ì¹´í…Œê³ ë¦¬ : ALL
+-- Ä«Å×°í¸® : ALL
 create or replace PROCEDURE categoryAll(
     p_rc OUT SYS_REFCURSOR
 )
@@ -69,7 +69,7 @@ BEGIN
         FROM businessman;
 END;
 
--- ì¹´í…Œê³ ë¦¬ ì¡°íšŒ
+-- Ä«Å×°í¸® Á¶È¸
 create or replace PROCEDURE categoryList(
     p_cate IN businessman.category%type,
     p_rc OUT SYS_REFCURSOR
@@ -84,7 +84,7 @@ END;
 
 
 -- 02-09
--- ìº í•‘ì¥ ì´ë¦„ ê²€ìƒ‰
+-- Ä·ÇÎÀå ÀÌ¸§ °Ë»ö
 CREATE OR REPLACE PROCEDURE campNameSerch(
     p_name IN businessman.cname%type,
     p_rc OUT SYS_REFCURSOR
@@ -97,7 +97,7 @@ BEGIN
 END;
 
 
--- bseqë¡œ ìº í•‘ì¥ ì •ë³´ ê²€ìƒ‰
+-- bseq·Î Ä·ÇÎÀå Á¤º¸ °Ë»ö
 CREATE OR REPLACE PROCEDURE campDetailByBseq(
     p_bseq IN businessman.bseq%type,
     p_rc OUT SYS_REFCURSOR
@@ -110,7 +110,7 @@ BEGIN
 END;
 
 
--- ì¦ê²¨ì°¾ê¸° ì¡°íšŒ ()
+-- Áñ°ÜÃ£±â Á¶È¸ ()
 
 CREATE OR REPLACE PROCEDURE getFav(
     p_mid IN member.mid%type,
@@ -128,7 +128,7 @@ EXCEPTION
 END;
 
 
--- ìº í•‘ì¥ ê°ì‹¤ í•œê°œ ì¡°íšŒ
+-- Ä·ÇÎÀå °´½Ç ÇÑ°³ Á¶È¸
 create or replace PROCEDURE selectCampOne(
     p_cseq IN camping_view.cseq%type,
     p_rc OUT SYS_REFCURSOR
@@ -139,7 +139,7 @@ BEGIN
     SELECT * FROM camping_view WHERE cseq=p_cseq;
 END;
 
--- bseqë¡œ ìº í•‘ì¥ ê°ì‹¤ ë¦¬ìŠ¤íŠ¸ ê²€ìƒ‰
+-- bseq·Î Ä·ÇÎÀå °´½Ç ¸®½ºÆ® °Ë»ö
 CREATE OR REPLACE PROCEDURE selectCampingList(
     p_bseq IN businessman.bseq%type,
     p_rc OUT SYS_REFCURSOR
@@ -151,7 +151,7 @@ BEGIN
 END;
 
 
--- ìº í•‘ì¥ qna, review countì¡°íšŒ
+-- Ä·ÇÎÀå qna, review countÁ¶È¸
 CREATE OR REPLACE PROCEDURE getCount(
     p_tableName IN number,
     p_bseq IN businessman.bseq%type,
@@ -170,7 +170,7 @@ END;
 
 
 
--- ìº í•‘ì¥ qna ì¡°íšŒ
+-- Ä·ÇÎÀå qna Á¶È¸
 CREATE OR REPLACE PROCEDURE selectQnaByBseq(
     p_bseq IN businessman.bseq%type,
     p_startNum IN number,
@@ -190,7 +190,7 @@ END;
 
 
 
--- ìº í•‘ì¥ review ì¡°íšŒ
+-- Ä·ÇÎÀå review Á¶È¸
 CREATE OR REPLACE PROCEDURE selectReviewByBseq(
     p_bseq IN businessman.bseq%type,
     p_startNum IN number,
@@ -208,7 +208,7 @@ BEGIN
         ) WHERE rn <= p_endNum;
 END;
 
--- ë©¤ë²„ ì¡°íšŒ
+-- ¸â¹ö Á¶È¸
 CREATE OR REPLACE PROCEDURE getMemberCam(
     p_mid IN member.mid%type,
     p_curvar OUT SYS_REFCURSOR
@@ -220,7 +220,7 @@ BEGIN
         p_curvar := result_cur;
 END;
 
--- ë©¤ë²„ íšŒì›ê°€ì… ë“±ë¡
+-- ¸â¹ö È¸¿ø°¡ÀÔ µî·Ï
 CREATE OR REPLACE PROCEDURE insertMemberCam(
     p_mid IN member.mid%type,
     p_pwd IN member.pwd%type,
@@ -235,7 +235,7 @@ BEGIN
     commit;
 END;
 
--- ì‚¬ì—…ì ì¡°íšŒ One
+-- »ç¾÷ÀÚ Á¶È¸ One
 CREATE OR REPLACE PROCEDURE getBusinessCam(
     p_bid IN businessman.bid%type,
     p_curvar OUT SYS_REFCURSOR
@@ -249,7 +249,7 @@ END;
 
 
 -- 02-10
--- ê´€ë¦¬ì ì¡°íšŒ
+-- °ü¸®ÀÚ Á¶È¸
 CREATE OR REPLACE  PROCEDURE getAdminList(
     p_aid IN admin.aid%type,
     p_rc OUT SYS_REFCURSOR 
@@ -262,7 +262,7 @@ END;
 
 
 
--- ê´€ë¦¬ì count
+-- °ü¸®ÀÚ count
 create or replace PROCEDURE AdminCount(
     p_key IN VARCHAR2,
     p_tableName IN number,
@@ -287,7 +287,7 @@ END;
 
 
 
--- ê´€ë¦¬ì : íšŒì› ì¡°íšŒ
+-- °ü¸®ÀÚ : È¸¿ø Á¶È¸
 CREATE OR REPLACE  PROCEDURE adminMemberList(
     p_key IN member.name%type,
     p_startNum IN number,
@@ -308,7 +308,7 @@ END;
 
 
 
---  ê´€ë¦¬ì :  ìº í•‘ì¥ ê´€ë¦¬ ì¡°íšŒ 
+--  °ü¸®ÀÚ :  Ä·ÇÎÀå °ü¸® Á¶È¸ 
 CREATE OR REPLACE  PROCEDURE adminCampingList(
     p_key IN businessman.cname%type,
     p_startNum IN number,
@@ -328,7 +328,7 @@ END;
 
 
 
--- ê´€ë¦¬ì : ìº í•‘ì¥ ë¦¬ë·° ì¡°íšŒ
+-- °ü¸®ÀÚ : Ä·ÇÎÀå ¸®ºä Á¶È¸
 CREATE OR REPLACE  PROCEDURE adminReviewList(
      p_key IN review.content%type,
     p_startNum IN number,
@@ -349,7 +349,7 @@ END;
 
 
 
--- ê´€ë¦¬ì : ê³µì§€ì‚¬í•­
+-- °ü¸®ÀÚ : °øÁö»çÇ×
 CREATE OR REPLACE  PROCEDURE adminNoticeList(
     p_startNum IN number,
     p_endNum IN number,
@@ -369,7 +369,7 @@ END;
 select*from notice;
 
 
--- ê´€ë¦¬ì :  ì˜ˆì•½
+-- °ü¸®ÀÚ :  ¿¹¾à
 CREATE OR REPLACE  PROCEDURE adminRestList(
     p_key IN reservate_view.c_class%type,
     p_startNum IN number,
@@ -389,7 +389,7 @@ END;
 
 
 
--- ê³µì§€ì‚¬í•­ ìƒì„¸
+-- °øÁö»çÇ× »ó¼¼
 CREATE OR REPLACE  PROCEDURE selectNoticeOne(
     p_nseq IN number,
     p_rc OUT SYS_REFCURSOR
@@ -402,7 +402,7 @@ END;
 
 
 -- 02-13
--- ì‚¬ì—…ì ì •ë³´ìˆ˜ì •
+-- »ç¾÷ÀÚ Á¤º¸¼öÁ¤
 create or replace PROCEDURE updateBusiness(
     p_bid IN businessman.bid%TYPE ,
     p_name IN businessman.name%TYPE ,
@@ -418,7 +418,7 @@ END;
 
 
 
--- ì‚¬ì—…ì íšŒì› íƒˆí‡´
+-- »ç¾÷ÀÚ È¸¿ø Å»Åğ
 CREATE OR REPLACE PROCEDURE deleteBusiness(
     p_bid IN businessman.bid%TYPE )
 IS
@@ -428,7 +428,7 @@ BEGIN
 END;
 
 
--- ì‚¬ì—…ì  count
+-- »ç¾÷ÀÚ  count
 create or replace PROCEDURE BusinessGetAllCount(
     p_bseq IN businessman.bseq%type,
     p_tableName IN number,
@@ -454,7 +454,7 @@ END;
 
 
 
--- ì‚¬ì—…ì QnA ë¦¬ìŠ¤íŠ¸ 
+-- »ç¾÷ÀÚ QnA ¸®½ºÆ® 
 CREATE OR REPLACE  PROCEDURE getBusinessQnaList(
     p_bseq IN businessman.bseq%type,
     p_startNum IN number,
@@ -474,7 +474,7 @@ END;
 
 
 
--- ì‚¬ì—…ì QnA í•œê°œ ê°€ì ¸ì˜¤ê¸°
+-- »ç¾÷ÀÚ QnA ÇÑ°³ °¡Á®¿À±â
 CREATE OR REPLACE  PROCEDURE getQnaOne(
     p_qseq IN camp_qna.qseq%type,
     p_rc OUT SYS_REFCURSOR
@@ -487,7 +487,7 @@ END;
 
 
 
--- ì‚¬ì—…ì ì˜ˆì•½ ë¦¬ìŠ¤íŠ¸
+-- »ç¾÷ÀÚ ¿¹¾à ¸®½ºÆ®
 CREATE OR REPLACE PROCEDURE getBusinessRestList(
      p_bseq IN businessman.bseq%type,
      p_startNum IN NUMBER,
@@ -530,7 +530,7 @@ END;
 
 
 
--- ì‚¬ìš©ì ì˜ˆì•½ ë¦¬ìŠ¤íŠ¸
+-- »ç¿ëÀÚ ¿¹¾à ¸®½ºÆ®
 CREATE OR REPLACE PROCEDURE getReservateList(
     p_mid IN member.mid%type,
     p_startNum IN number,
@@ -549,7 +549,7 @@ END;
 
 
 
--- ì‚¬ìš©ì ì¦ê²¨ì°¾ê¸° ë¦¬ìŠ¤íŠ¸
+-- »ç¿ëÀÚ Áñ°ÜÃ£±â ¸®½ºÆ®
 CREATE OR REPLACE PROCEDURE getFavoritesList(
     p_mid IN member.mid%type,
     p_startNum IN number,
@@ -569,7 +569,7 @@ END;
 
 
 
--- ì‚¬ìš©ì ì—…ë°ì´íŠ¸
+-- »ç¿ëÀÚ ¾÷µ¥ÀÌÆ®
 create or replace PROCEDURE updateMember(
     p_mid IN member.mid%TYPE ,
     p_name IN member.name%TYPE ,
@@ -585,7 +585,7 @@ END;
 
 
 
--- ì‚¬ìš©ì íƒˆí‡´
+-- »ç¿ëÀÚ Å»Åğ
 CREATE OR REPLACE PROCEDURE deleteMember(
     p_mid IN member.mid%TYPE )
 IS
@@ -596,7 +596,7 @@ END;
 
 
 
--- ì‚¬ìš©ì ì˜ˆì•½ ì·¨ì†Œ
+-- »ç¿ëÀÚ ¿¹¾à Ãë¼Ò
 CREATE OR REPLACE PROCEDURE cancelReservate(
     p_reseq IN reservation.reseq%TYPE )
 IS
@@ -609,7 +609,7 @@ select * from  favorites;
 
 
 
--- ì‚¬ìš©ì ì¦ê²¨ì°¾ê¸° ì‚­ì œ
+-- »ç¿ëÀÚ Áñ°ÜÃ£±â »èÁ¦
 CREATE OR REPLACE PROCEDURE deleteMyFavorites(
    p_fseq IN favorites.fseq%TYPE )
 IS
@@ -620,7 +620,99 @@ END;
 
 
 
+-- 02-14
+-- ¸ŞÀÎ ·Ñ¸µ ÀÌ¹ÌÁö¸¦ À§ÇÑ Å×ÀÌºí, ½ÃÄö½º »ı¼º
+CREATE TABLE mainBanners( 
+  mbseq NUMBER(5) NOT NULL unique,
+  NAME VARCHAR2(100),
+  ORDER_SEQ NUMBER(1),
+  IMAGE VARCHAR2(50 BYTE),
+  USEYN CHAR(1 BYTE) DEFAULT 'Y',
+  INDATE DATE DEFAULT sysdate );
+
+CREATE SEQUENCE mb_seq INCREMENT BY 1 START WITH 1;
 
 
+
+-- ¸ŞÀÎ ÀÌ¹ÌÁö ¸®½ºÆ® °¡Á®¿À±â
+CREATE OR REPLACE PROCEDURE adminBannerlist(
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR SELECT * FROM mainBanners ORDER BY useyn DESC, order_seq ASC;    
+END;
+
+
+
+-- ¹è³Ê Ãß°¡
+CREATE OR REPLACE PROCEDURE adminBannerWrite(
+    p_name IN mainBanners.name%type,
+    p_order_seq IN mainBanners.order_seq%type,
+    p_useyn IN mainBanners.useyn%type,
+    p_image IN mainBanners.image%type
+)
+IS
+BEGIN
+    UPDATE mainBanners SET order_seq=order_seq+1 WHERE order_seq>=p_order_seq and order_seq<=5;    
+    INSERT INTO mainBanners ( mbseq, name, order_seq, useyn, image )
+    VALUES ( mb_seq.nextval, p_name, p_order_seq, p_useyn, p_image);
+    UPDATE mainBanners SET useyn='N'  WHERE order_seq=6;
+    COMMIT;
+END;
+
+
+
+-- ¹è³Ê ¼ø¼­¸¸ ¹Ù²Ù±â
+CREATE OR REPLACE PROCEDURE bannerOrderUpdate(
+    p_mbseq IN mainBanners.mbseq%type,
+    p_order_seq IN mainBanners.order_seq%type
+)
+IS
+BEGIN
+    IF p_order_seq < 6 THEN
+        UPDATE mainBanners SET order_seq=order_seq+1 WHERE order_seq>=p_order_seq and order_seq<=5;
+    END IF;
+    UPDATE mainBanners SET order_seq=p_order_seq WHERE mbseq=p_mbseq;
+    UPDATE mainBanners SET useyn='N'  WHERE order_seq=6;
+    COMMIT;
+END;
+
+
+
+-- ¹è³Ê ÇÏ³ª °¡Á®¿À±â
+CREATE OR REPLACE PROCEDURE bannerSelectOne(
+    p_mbseq IN mainBanners.mbseq%type,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR SELECT * FROM mainBanners WHERE mbseq=p_mbseq;    
+END;
+
+
+
+-- ¹è³Ê ÀüÃ¼ ¼öÁ¤
+CREATE OR REPLACE PROCEDURE adminBannerUpdate(
+    p_name IN mainBanners.name%type,
+    p_order_seq IN mainBanners.order_seq%type,
+    p_useyn IN mainBanners.useyn%type,
+    p_image IN mainBanners.image%type,
+    p_mbseq IN mainBanners.mbseq%type
+)
+IS
+BEGIN
+    UPDATE mainBanners SET order_seq=order_seq+1 WHERE order_seq>=p_order_seq and order_seq<=5;
+    UPDATE mainBanners SET useyn='N'  WHERE order_seq=6;
+    UPDATE mainBanners SET name=p_name, order_seq=p_order_seq, useyn=p_useyn, image=p_image
+    WHERE mbseq=p_mbseq;
+    COMMIT;
+END;
+
+
+ UPDATE mainBanners SET useyn='N'  WHERE order_seq=6;
+select*from mainBanners;
+
+commit;
 
 
