@@ -33,7 +33,7 @@
 					<li><a href="contract">Join</a></li>
 				</c:otherwise>
 			</c:choose>
-			<li><a href="noticeList">Notice</a></li>
+			<li><a href="noticeList?first=y">Notice</a></li>
 		</ul>
 	</nav>
 	
