@@ -618,78 +618,8 @@ BEGIN
     commit;
 END;
 
-CREATE OR REPLACE  PROCEDURE campingRoomList(
-    p_bseq IN camping_view.bseq%type,
-    p_startNum IN number,
-    p_endNum IN number,
-    p_rc OUT SYS_REFCURSOR
-)
-IS
-BEGIN
-    OPEN p_rc FOR
-        SELECT * FROM (
-            SELECT * FROM (
-                SELECT ROWNUM AS rn, c.*FROM 
-                    ((select * from camping_view where bseq=p_bseq order by cseq) c)
-            ) WHERE rn >= p_startNum
-        ) WHERE rn <= p_endNum;
-END;
-
-select * from camping_view;
-
-create or replace PROCEDURE BusinessGetAllCount(
-    p_bseq IN businessman.bseq%type,
-    p_tableName IN number,
-    p_cnt OUT number
-)
-IS
-    v_cnt NUMBER;
-BEGIN
-    IF p_tableName = 1 THEN
-        SELECT COUNT(*) INTO v_cnt FROM reservate_view WHERE bseq=p_bseq;
-     ELSIF p_tableName = 2 THEN
-        SELECT COUNT(*) INTO v_cnt FROM camp_qna WHERE bseq=p_bseq;
-    ELSIF p_tableName = 3 THEN
-        SELECT COUNT(*) INTO v_cnt FROM camping_view WHERE bseq=p_bseq;   
-    END IF;
-    p_cnt := v_cnt;
-END;
-
-CREATE OR REPLACE PROCEDURE deleteCampingRoom(
-    p_cseq IN camping.cseq%type
-)
-IS
-BEGIN
-   delete from camping where cseq=p_cseq;
-   commit;
-END;
-
-CREATE OR REPLACE  PROCEDURE campingRoomOne(
-    p_cseq IN camping_view.bseq%type,
-    p_rc OUT SYS_REFCURSOR
-)
-IS
-BEGIN
-    OPEN p_rc FOR
-        select * from camping_view where cseq=p_cseq;
-END;
 
 
-create or replace procedure updateCampingRoom(
-    p_c_class IN camping.c_class%type,
-    p_price IN camping.price%type,
-    p_min_people IN camping.min_people%type,
-    p_max_people IN camping.max_people%type,
-    p_c_image IN camping.c_image%type,
-    p_cseq IN camping.cseq%type
-)
-is
-begin
-    update product set c_class=p_c_class, price=p_price, min_people=p_min_people, max_people=p_max_people,
-    c_image=p_c_image
-    where cseq = p_cseq;
-    commit;
-end;
 
 
 

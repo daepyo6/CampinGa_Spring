@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../../header.jsp"%>
-<%@ include file="/business/sub_menu.jsp"%>
+<%@ include file="../../include/business/sub_menu.jsp"%>
 
 <article style="height: 1350px;">
 	<form method="post" name="campingRoom" enctype="multipart/form-data" action="camp.do?command=insertCampingRoom">

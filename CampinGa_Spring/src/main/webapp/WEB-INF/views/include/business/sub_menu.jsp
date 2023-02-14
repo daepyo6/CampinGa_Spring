@@ -4,5 +4,5 @@
 	<div class="sub_menu-one"><a href='businessmanRestList?first=y'>예약관리</a></div>
 	<div class="sub_menu-one"><a href='businessmanQnaList?first=y'>Q&amp;A</a></div>
 	<div class="sub_menu-one"><a href='businessmanCampingInfo'>캠핑장관리</a></div>
-	<div class="sub_menu-one"><a href='businessmanRoomList?first=y'>객실관리</a></div>
+	<div class="sub_menu-one"><a href='campingRoomList?first=y&page='>객실관리</a></div>
 </nav> <br><br><br><br>
