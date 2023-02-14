@@ -30,5 +30,8 @@ public interface ICampingDao {
 	void deleteReview(HashMap<String, Object> paramMap);
 	void selectCampOne(HashMap<String, Object> paramMap);
 	void reserveInsert(ReservationVO resVO);
+	
+	void insertFavorites(HashMap<String, Object> paramMap);
+	void deleteFavorites(HashMap<String, Object> paramMap);
 
 }

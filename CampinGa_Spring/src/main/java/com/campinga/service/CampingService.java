@@ -146,4 +146,12 @@ public class CampingService {
 
 	}
 
+	public void insertFavorites(HashMap<String, Object> paramMap) {
+		cdao.insertFavorites(paramMap);
+	}
+
+	public void deleteFavorites(HashMap<String, Object> paramMap) {
+		cdao.deleteFavorites(paramMap);
+	}
+
 }

@@ -52,31 +52,13 @@ function login(){
 		document.loginFrm.action = "login";
 	    document.loginFrm.submit();
 	} else {
-		$('input[name=mid]').removeAttr("name").attr("name", "bid") 
+		$('input[name=mid]').removeAttr("name").attr("name", "bid"); 
 		
 		document.loginFrm.action = "loginBS";
 	    document.loginFrm.submit();
 	}
 }
 
-
-function loginCheck(){
-   if(document.loginFrm.mid.value==""){
-      alert("아이디는 필수입력사항입니다");
-      document.loginFrm.id.focus();
-      return false;
-   }else if(document.loginFrm.pwd.value==""){
-      alert("비밀번호는 필수입력사항입니다");
-      document.loginFrm.pwd.focus();
-      return false;
-   }else if(document.loginFrm.user.value==""){
-      alert("개인/사업자 체크는 필수입력사항입니다");
-      document.loginFrm.user.focus();
-      return false;
-   }else{
-      return true; 
-   }   
-}
 
 function idcheck(type){
     if(document.joinForm.id.value==""){
@@ -152,19 +134,29 @@ function go_next(){
 }
 
 function go_update(){
-	    document.updateInfo.action = "camp.do?command=updateUserInfo";
-	    document.updateInfo.submit();
+	document.updateInfo.action = "camp.do?command=updateUserInfo";
+	document.updateInfo.submit();
 }
 
-function reservate_cancel( reseq ){
-	    document.reservateInfo.action = "camp.do?command=cancelReservate&reseq="+ reseq;
-	    document.reservateInfo.submit();
+function myResCancel( reseq ){
+	let con = confirm("예약을 '취소'하시겠습니까?")
+	if(con){
+		location.href="cancelReservate?reseq="+reseq;
+	}else{
+		return;
+	}
 }
 
-function delete_favorites( fseq ){
-	    document.favorites.action = "camp.do?command=deleteFavorites&fseq="+ fseq;
-	    document.favorites.submit();
+function myFavDel(cname, fseq){
+	let con = confirm("'"+cname+"'을 즐겨찾기에서 삭제하시겠습니까?")
+	if(con){
+		location.href="deleteMyFavorites?fseq="+fseq;
+	}else{
+		return;
+	}	
 }
+
+
 
 
 // camping JavaScript 
@@ -341,14 +333,15 @@ function delete_favorites(fseq) {
 }
 
 
-function go_view(qseq) {
-	location.href = "camp.do?command=campingQnaForm&qseq=" + qseq;
-}
-
-function go_rep() {
-	document.frm.action = "camp.do?command=campingQnaRepSave";
-	document.frm.submit();
-	// 답변 글 등록 & rep 필드를 2로 업데이트
+function bsRepSave() {
+	if(document.frm.reply.value==""){
+		alert("답변 내용을 입력해주세요");
+		document.frm.reply.focus();
+		return;
+	} else {
+		document.frm.action = "businessmanQnaRepSave";
+		document.frm.submit();
+	}
 }
 
 
@@ -382,6 +375,7 @@ function roomCheck() {
 }
 
 
+// admin Login
 function adminCheck() {
 	if (document.frm.adminId.value == "") {
 		alert("아이디를 입력하세요.");
@@ -396,9 +390,9 @@ function adminCheck() {
 }
 
 // admin member
-
-function go_search(com) {
-	var url = "camp.do?command=" + com + "&page=1";
+function go_search(action) {
+	var key = document.frm.key.value;
+	var url =  action + "?page=1&key=" + key;
 	document.frm.action = url;
 	document.frm.submit();
 }
@@ -406,9 +400,9 @@ function go_search(com) {
 
 
 
-function go_total(com) {
+function go_total(action) {
 	document.frm.key.value = "";
-	document.frm.action = "camp.do?command=" + com + "&page=1";
+	document.frm.action = action + "?page=1";
 	document.frm.submit();
 }
 
@@ -438,7 +432,6 @@ function go_members_delete() {
 
 
 // admin review
-
 function go_review_delete() {
 	var count = 0;
 	if (document.frm.rseq.length == undefined) {
@@ -454,66 +447,23 @@ function go_review_delete() {
 		alert("삭제할 리뷰를 선택하세요");
 	}
 	else {
-		document.frm.action = "camp.do?command=adminReviewDelete";
+		document.frm.action = "adminReviewDelete";
 		document.frm.submit();
 	}
 }
 
 
-
-//------------------------------------------------------------------------------
-
-function go_wrt() {
-	document.frm.action = "camp.do?command=adminNoticeWriteForm";
-	document.frm.submit();
+// admin notice
+function notiecDeleteChk(nseq) {
+	if(confirm("이 공지사항을 삭제 하시겠습니까?")){
+		location.href = "adminNoticeDelete?nseq="+nseq;
+	} else {
+		alert("삭제를 취소합니다.")
+		return;
+	}	
 }
 
-function go_detail(nseq) {
-	var url = "camp.do?command=adminNoticeDetail&nseq=" + nseq;
-	document.frm.action = url;
-	document.frm.submit();
-}
-
-
-function go_mod(nseq) {
-	var url = "camp.do?command=adminNoticeUpdateForm&nseq=" + nseq;
-	location.href = url;
-	// document.frm.action = url;
-	// document.frm.submit();
-}
-
-function go_dod(nseq) {
-	var url = "camp.do?command=adminNoticeDelete&nseq=" + nseq;
-	location.href = url;
-	// document.frm.action = url;
-	// document.frm.submit();
-}
-
-
-
-function go_mod_save() {
-	var url = "camp.do?command=adminNoticeUpdate";
-	document.frm.action = url;
-	document.frm.submit();
-}
-
-function go_mov() {
-	location.href = "camp.do?command=adminNoticeList";
-}
-
-
-function go_wrt() {
-	document.frm.action = "camp.do?command=adminNoticeWriteForm";
-	document.frm.submit();
-}
-
-function go_save() {
-	var url = "camp.do?command=adminNoticeWrite";
-	document.frm.action = url;
-	document.frm.submit();
-}
-
-
+// admin camping
 function go_delete() {
 	var count = 0;
 	if (document.frm.bseq.length == undefined) {

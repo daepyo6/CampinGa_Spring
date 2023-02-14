@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.campinga.dto.FavoritesVO;
 import com.campinga.dto.MemberVO;
 import com.campinga.dto.Paging;
 import com.campinga.dto.QnaVO;
@@ -187,7 +188,6 @@ public class CampingController {
 	}
 
 	// 큐앤에이 등록, 수정, 삭제
-
 	@RequestMapping(value = "/insertQna", method = RequestMethod.POST)
 	public ModelAndView insertQna(@ModelAttribute("qnaVO") @Valid QnaVO qvo, @RequestParam("bseq") int bseq,
 			BindingResult result, HttpServletRequest request) {
@@ -247,7 +247,6 @@ public class CampingController {
 	}
 
 	// 리뷰 등록, 수정, 삭제
-
 	@RequestMapping(value = "/insertReview")
 	public ModelAndView insertReview(@ModelAttribute("ReviewVO") @Valid ReviewVO rvo, @RequestParam("bseq") int bseq,
 			BindingResult result, HttpServletRequest request) {
@@ -331,8 +330,61 @@ public class CampingController {
 	public ModelAndView reserveInsert(@ModelAttribute("dto") ReservationVO resVO, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		cs.reserveInsert(resVO);
-		mav.setViewName("redirect:/mypage");
+		mav.setViewName("redirect:/myPage");
 		return mav;
 	}
+	
+	
+	// 즐겨찾기 추가
+	@RequestMapping("/addFavorites")
+	public ModelAndView addFavorites( HttpServletRequest request, 
+			@RequestParam("bseq") int bseq) {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		HashMap<String, Object> loginUser = (HashMap<String, Object>) session.getAttribute("loginUser");
+
+		mav.setViewName("campDetail?bseq=" + bseq );
+		if (loginUser == null)
+			mav.setViewName("member/login");
+		else {	
+			HashMap<String, Object> paramMap = new HashMap<String, Object>();
+			FavoritesVO fvo = new FavoritesVO();
+			
+			if( fvo.getFav_check() == null || fvo.getFav_check().equals("n")) 
+				fvo.setFav_check("y");
+			
+			fvo.setMid((String) loginUser.get("MID"));
+
+			paramMap.put("bseq", bseq);
+			paramMap.put("mid", fvo.getMid());
+			paramMap.put("fav_check", fvo.getFav_check());
+			
+			cs.insertFavorites(paramMap);
+			mav.setViewName("redirect:/campDetail?bseq=" + bseq);
+		}
+		return mav;
+	}
+	
+	
+	@RequestMapping("/deleteFavorites")
+	public String deleteFavorites(HttpServletRequest request, 
+			@RequestParam("bseq") int bseq) {
+
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("bseq", bseq);
+
+		cs.deleteFavorites(paramMap);
+		
+		return "redirect:/campDetail?bseq=" + bseq;
+	}
+
+	
+	
+	
+	
+	
+	
+	
 
 }
