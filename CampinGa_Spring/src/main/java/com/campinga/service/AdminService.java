@@ -228,11 +228,22 @@ public class AdminService {
 			session.removeAttribute("page");
 		}
 		
+		String key = "";
+		if(requset.getParameter("key")!=null) {
+			key = requset.getParameter("key");
+		    session.setAttribute("key", key);
+		} else if(session.getAttribute("key")!=null){
+		    key = (String)session.getAttribute("key");
+		} else {
+		    session.removeAttribute("key");
+		}
+		
 		Paging paging = new Paging();
 		paging.setPage(page);
 
 		HashMap<String, Object> cntMap = new HashMap<String, Object>();
 		cntMap.put("cnt", 0);
+		cntMap.put("key", key);
 		cntMap.put("tableName", 5); 		
 		adao.AdminCount(cntMap);
 
