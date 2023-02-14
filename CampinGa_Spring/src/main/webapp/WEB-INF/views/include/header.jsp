@@ -9,7 +9,6 @@
 <link href="css/campinga.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="script/campinga.js"></script> 
-<script src="script/member.js"></script>
 
 </head>
 <body>
@@ -20,7 +19,7 @@
 		<ul>
 			<c:choose>
 				<c:when test="${not empty loginUser}">
-					<li><a href="mypage" style="width: 100px;">
+					<li><a href="myPage" style="width: 100px;">
 						${loginUser.NAME}(${loginUser.MID})</a></li>
 					<li><a href="logout">Logout</a></li>
 				</c:when>
@@ -39,7 +38,7 @@
 	</nav>
 	
 	<div id="logo"><!-- 로고시작 -->
-		<a href="index">
+		<a href="/">
 			<img src="images/main/logoH.png">
 		</a>
 	</div><!-- 로고 끝 -->

@@ -52,31 +52,13 @@ function login(){
 		document.loginFrm.action = "login";
 	    document.loginFrm.submit();
 	} else {
-		$('input[name=mid]').removeAttr("name").attr("name", "bid") 
+		$('input[name=mid]').removeAttr("name").attr("name", "bid"); 
 		
 		document.loginFrm.action = "loginBS";
 	    document.loginFrm.submit();
 	}
 }
 
-
-function loginCheck(){
-   if(document.loginFrm.mid.value==""){
-      alert("아이디는 필수입력사항입니다");
-      document.loginFrm.id.focus();
-      return false;
-   }else if(document.loginFrm.pwd.value==""){
-      alert("비밀번호는 필수입력사항입니다");
-      document.loginFrm.pwd.focus();
-      return false;
-   }else if(document.loginFrm.user.value==""){
-      alert("개인/사업자 체크는 필수입력사항입니다");
-      document.loginFrm.user.focus();
-      return false;
-   }else{
-      return true; 
-   }   
-}
 
 function idcheck(type){
     if(document.joinForm.id.value==""){
@@ -152,19 +134,29 @@ function go_next(){
 }
 
 function go_update(){
-	    document.updateInfo.action = "camp.do?command=updateUserInfo";
-	    document.updateInfo.submit();
+	document.updateInfo.action = "camp.do?command=updateUserInfo";
+	document.updateInfo.submit();
 }
 
-function reservate_cancel( reseq ){
-	    document.reservateInfo.action = "camp.do?command=cancelReservate&reseq="+ reseq;
-	    document.reservateInfo.submit();
+function myResCancel( reseq ){
+	let con = confirm("예약을 '취소'하시겠습니까?")
+	if(con){
+		location.href="cancelReservate?reseq="+reseq;
+	}else{
+		return;
+	}
 }
 
-function delete_favorites( fseq ){
-	    document.favorites.action = "camp.do?command=deleteFavorites&fseq="+ fseq;
-	    document.favorites.submit();
+function myFavDel(cname, fseq){
+	let con = confirm("'"+cname+"'을 즐겨찾기에서 삭제하시겠습니까?")
+	if(con){
+		location.href="deleteMyFavorites?fseq="+fseq;
+	}else{
+		return;
+	}	
 }
+
+
 
 
 // camping JavaScript 
@@ -341,14 +333,15 @@ function delete_favorites(fseq) {
 }
 
 
-function go_view(qseq) {
-	location.href = "camp.do?command=campingQnaForm&qseq=" + qseq;
-}
-
-function go_rep() {
-	document.frm.action = "camp.do?command=campingQnaRepSave";
-	document.frm.submit();
-	// 답변 글 등록 & rep 필드를 2로 업데이트
+function bsRepSave() {
+	if(document.frm.reply.value==""){
+		alert("답변 내용을 입력해주세요");
+		document.frm.reply.focus();
+		return;
+	} else {
+		document.frm.action = "businessmanQnaRepSave";
+		document.frm.submit();
+	}
 }
 
 
@@ -380,6 +373,7 @@ function roomCheck() {
 	}
 	return true;
 }
+
 
 // admin Login
 function adminCheck() {

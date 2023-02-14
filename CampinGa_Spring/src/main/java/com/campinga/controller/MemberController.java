@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.campinga.dto.MemberVO;
+import com.campinga.dto.Paging;
 import com.campinga.service.MemberService;
 
 @Controller
@@ -145,5 +146,143 @@ public class MemberController {
 		}
 		return mav;
 	}
+	
+	// 멤버 마이페이지 기능
+	@RequestMapping("/myPage")  
+	public ModelAndView mypage( HttpServletRequest request, Model model) {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		HashMap<String, Object> loginUser 
+			= (HashMap<String, Object>)session.getAttribute("loginUser");
+		if( loginUser == null ) {
+			mav.setViewName("member/login");
+		}else {
+		
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("mid", loginUser.get("MID"));
+		paramMap.put("request", request);
+		System.out.println("1 " + loginUser.get("MID"));
+		
+		//예약조회
+		paramMap.put("ref_cursor1", null);
+        ms.getReservateList(paramMap);
+		ArrayList<HashMap<String , Object>> list1
+		= (ArrayList<HashMap<String , Object>>) paramMap.get("ref_cursor1");		
+		mav.addObject("reList", list1);
+		mav.addObject("paging1", (Paging)paramMap.get("paging1"));
+		
+		//즐겨찾기
+		paramMap.put("ref_cursor2", null);
+		 ms.getFavoritesList(paramMap);
+	    ArrayList<HashMap<String , Object>> list2
+		= (ArrayList<HashMap<String , Object>>) paramMap.get("ref_cursor2");
+	   
+	    mav.addObject("favorList", list2);
+	    mav.addObject("paging2", (Paging)paramMap.get("paging2"));
+	    mav.setViewName("member/mypage/mypage");
+		}	
+		return mav;
+	}
+	
+	//멤버 마이페이지 회원 정보 수정 이동
+	@RequestMapping(value="/editForm" )
+	public String editForm(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		HashMap<String, Object> loginUser 
+			= (HashMap<String, Object>)session.getAttribute("loginUser");
+		MemberVO dto = new MemberVO();
+		dto.setMid( (String)loginUser.get("MID") );
+		dto.setName( (String)loginUser.get("NAME") );
+		dto.setMphone( (String)loginUser.get("MPHONE") );
+		dto.setEmail( (String)loginUser.get("EMAIL") );
+		
+		System.out.println("1");
+		model.addAttribute("dto" , dto);
+		return "member/mypage/updateInfo";
+	}
+	
+	//멤버 마이페이지 회원 정보 수정 
+	@RequestMapping(value = "/updateUserInfo", method=RequestMethod.POST)
+	public ModelAndView updateUserInfo( 
+			@ModelAttribute("dto") @Valid MemberVO membervo, BindingResult result,
+		HttpServletRequest request	) {
+		
+		System.out.println("2");
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("member/mypage/updateInfo");
+		if( result.getFieldError("name") != null )
+			mav.addObject("message", result.getFieldError("name").getDefaultMessage() );
+		else if( result.getFieldError("mphone") != null )
+			mav.addObject("message", result.getFieldError("mphone").getDefaultMessage() );
+		else if( result.getFieldError("email") != null )
+			mav.addObject("message", result.getFieldError("email").getDefaultMessage() );
+		else {
+			HashMap<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("MID", membervo.getMid() );
+			paramMap.put("NAME", membervo.getName() );
+			paramMap.put("MPHONE", membervo.getMphone() );
+			paramMap.put("EMAIL", membervo.getEmail() );
+			
+			ms.updateMember( paramMap );
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", paramMap);
+			mav.setViewName("redirect:/myPage");
+		}		
+		return mav;
+	}
+	
+	
+	//멤버 마이페이지 회원 탈퇴
+	@RequestMapping("deleteMember")
+	public String deleteMember( HttpSession session, Model model) {
+		HashMap<String, Object> loginUser = (HashMap<String, Object>)session.getAttribute("loginUser");
+		if( loginUser == null ) {
+			return "member/login";
+		}else {
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("mid", loginUser.get("MID"));
+		ms.deleteMember( paramMap);
+		session.removeAttribute("loginUser");
+	}	
+		return "main";
+	}
+	
+	
+	//마이페이지 예약 취소
+	@RequestMapping(value = "/cancelReservate")
+	public String cancelReservate( HttpSession session, Model model,
+			@RequestParam("reseq") int reseq) {
+		
+		HashMap<String, Object> loginUser = (HashMap<String, Object>)session.getAttribute("loginUser");
+		if( loginUser == null ) {
+			return "member/login";
+		}else {
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		System.out.println(reseq);
+		paramMap.put("reseq", reseq);
+		ms.cancelReservate( paramMap);
+		
+		}	
+		return "redirect:/myPage";
+	}
+	
+
+	//마이페이지 즐겨찾기 해제
+	@RequestMapping(value = "/deleteMyFavorites")
+	public String deleteFavorites( HttpSession session, Model model,
+			@RequestParam("fseq") int fseq) {
+		HashMap<String, Object> loginUser = (HashMap<String, Object>)session.getAttribute("loginUser");
+		if( loginUser == null ) {
+			return "member/login";
+		}else {
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("fseq", fseq);
+		ms.deleteMyFavorites( paramMap);		
+		}	
+		return "redirect:/myPage";
+	}
+	
+	
 
 }
