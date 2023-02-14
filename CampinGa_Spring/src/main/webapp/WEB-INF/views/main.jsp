@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="include/header.jsp"%>
 <div id="mainSearch">
-	<div id="main_img">
-		<img id="mainImg" src="images/main/main.png">
+	<div id="main_img">		
+		<div id="mainImg" style="position:absolute;left:0px;top:0px;text-align:left;">
+		<c:forEach items="${bannerList}"  var="bannerVO"><img src="images/${bannerVO.IMAGE}" style="width:1400px;height:750px;"></c:forEach>
+		</div>		
 	</div>
 	<div id="main_searchbar">
 		<div id="selects">

@@ -33,9 +33,8 @@
 		parameterType="java.util.HashMap">
 		{
 			CALL getNewRecoCamping(
-			#{ref_cursor1 ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap },
-			#{ref_cursor2 ,mode=OUT, jdbcType=CURSOR, javaType=ResultSet,
-			resultMap=campMap2}
+			#{ref_cursor1, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap },
+			#{ref_cursor2, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap2}
 			)
 		}
 	</select>
@@ -183,5 +182,17 @@
 	<delete id="deleteFavorites">
 		delete from favorites where bseq=#{bseq}
 	</delete>
+	
+	
+	<!-- 배너 이미지 조회 -->
+	<select id="getBannerList" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL getBannerList(
+				#{ref_cursor3, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap3}
+			)
+		}
+	</select>
+	
+	
 
 </mapper>

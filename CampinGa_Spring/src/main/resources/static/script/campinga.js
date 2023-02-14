@@ -46,6 +46,14 @@ $(function() {
 	
 	    reader.readAsDataURL(file);
 	});	
+	
+	var mainNum=0;
+	setInterval(function(){
+        $('#mainImg').animate({ left : mainNum * -1400 },1000);
+            mainNum++;
+            if(mainNum==5)mainNum=0;
+    }, 2000);
+    
 })
 
 

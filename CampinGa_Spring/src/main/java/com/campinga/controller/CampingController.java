@@ -41,22 +41,26 @@ public class CampingController {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("ref_cursor1", null);
 		paramMap.put("ref_cursor2", null);
-		// paramMap.put("ref_cursor3", null);
+		paramMap.put("ref_cursor3", null);
 
-		cs.getNewRecoCamping(paramMap);
+		cs.getNewRecoCamping(paramMap);		
 
 		// 새로운 캠핑장 리스트
-		ArrayList<HashMap<String, Object>> newCampList = (ArrayList<HashMap<String, Object>>) paramMap
-				.get("ref_cursor1");
+		ArrayList<HashMap<String, Object>> newCampList 
+			= (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor1");
+		
 		// 추천 캠핑장 리스트
-		ArrayList<HashMap<String, Object>> recoCampList = (ArrayList<HashMap<String, Object>>) paramMap
-				.get("ref_cursor2");
-		// ArrayList<HashMap<String , Object>> list3
-		// = (ArrayList<HashMap<String , Object>>) paramMap.get("ref_cursor3");
+		ArrayList<HashMap<String, Object>> recoCampList 
+			= (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor2");
+		
+		// 메인 롤링 리스트
+		cs.getBannerList(paramMap);
+		ArrayList<HashMap<String, Object>> bannerList
+			= (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor3");
 
 		mav.addObject("newCampList", newCampList);
 		mav.addObject("recoCampList", recoCampList);
-		// mav.addObject("bannerList", list3);
+		mav.addObject("bannerList", bannerList);
 
 		mav.setViewName("main");
 		return mav;

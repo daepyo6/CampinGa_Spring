@@ -716,3 +716,14 @@ select*from mainBanners;
 commit;
 
 
+
+-- 메인에서 조회
+CREATE OR REPLACE PROCEDURE getBannerList(
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR SELECT * FROM mainBanners WHERE order_seq<=5 ORDER BY order_seq;    
+END;
+
+
