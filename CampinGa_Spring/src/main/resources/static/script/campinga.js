@@ -98,7 +98,7 @@ function Bsidcheck(){
 }
 
 function idok(id){
-    opener.document.joinForm.id.value=id;
+    opener.document.joinForm.mid.value=id;
    	opener.document.joinForm.reid.value=id;
     self.close();
 }

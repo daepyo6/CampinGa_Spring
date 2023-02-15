@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>ID Check</title>
 <link href="/css/member.css" rel="stylesheet">
-<script src="/script/member.js"></script>
+<script src="/script/campinga.js"></script>
 </head>
 <body>
 	<h1>ID 중복 확인</h1>
