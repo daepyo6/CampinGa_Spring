@@ -45,9 +45,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<div style="float:right;" id="mypagebtn">
-		     	<input type="button" value="삭제" onClick="go_delete();">
-		</div>
 	</form>
 
 	<div class="clear"></div>

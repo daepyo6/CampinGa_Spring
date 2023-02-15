@@ -74,9 +74,9 @@ function login(){
 }
 
 function idcheck(type){
-    if(document.joinForm.id.value==""){
+    if(document.joinForm.mid.value==""){
         alert("체크할 아이디를 입력해주세요");
-        document.joinForm.id.focus();
+        document.joinForm.mid.focus();
         return;
     }	
     var mid = document.joinForm.mid.value;
