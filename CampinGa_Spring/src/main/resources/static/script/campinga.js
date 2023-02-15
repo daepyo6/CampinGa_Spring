@@ -213,14 +213,13 @@ function reviewwriteCheck(){
 	}
 }
 
-const cat1_num = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
-const cat1_name = new Array('서울시','부산시','대구광역시','인천광역시','광주광역시','대전광역시','울산광역시','강원도','경기도','경상남도','경상북도','전라남도','전라북도','제주도','충청남도','충청북도');
+const cat1_num = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+const cat1_name = new Array('','서울시','부산시','대구광역시','인천광역시','광주광역시','대전광역시','울산광역시','강원도','경기도','경상남도','경상북도','전라남도','전라북도','제주도','충청남도','충청북도');
 	
 const cat2_num = new Array();
 
 function chDo(key){
     if(key == null) return;
-    
     
 	const cat2_name = new Array();
 	
@@ -252,10 +251,6 @@ function chDo(key){
 		opt.innerHTML = val[x];
 		target.appendChild(opt);
 	}
-	
-	if(doucment.frmbs.caddress1.value == x){
-		doucment.frmbs.caddress1.value = cat1_name[x];
-	}
 }
 
 function mainSearch() {
@@ -267,7 +262,7 @@ function mainSearch() {
 	// 2. 주소 선택 o, 이름 검색 o
 	// 3. 주소 선택 x, 이름 검색 o --
 	
-	const ad1 = cat1_name[sido - 1];
+	const ad1 = cat1_name[sido];
 	location.href = "mainSearch?address1="+ad1+"&address2="+gungu+"&cname="+cname;
 }
 

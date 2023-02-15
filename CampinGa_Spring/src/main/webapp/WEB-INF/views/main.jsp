@@ -10,26 +10,27 @@
 		<div id="selects">
 			<div id="selectAddress">
 				<span>지역별</span> <select id="sido" class="selectAd" onchange="chDo(this.value)">
-					<option value="" selected="selected">도/시 선택</option>
-					<option value="1">서울</option>
-					<option value="2">부산</option>
-					<option value="3">대구</option>
-					<option value="4">인천</option>
-					<option value="5">광주</option>
-					<option value="6">대전</option>
-					<option value="7">울산</option>
-					<option value="8">강원</option>
-					<option value="9">경기</option>
-					<option value="10">경남</option>
-					<option value="11">경북</option>
-					<option value="12">전남</option>
-					<option value="13">전북</option>
-					<option value="14">제주</option>
-					<option value="15">충남</option>
-					<option value="16">충북</option>
+					<option value="0" selected="selected">도/시 선택</option>
+					<option value="1">서울시</option>
+					<option value="2">부산시</option>
+					<option value="3">대구광역시</option>
+					<option value="4">인천광역시</option>
+					<option value="5">광주광역시</option>
+					<option value="6">대전광역시</option>
+					<option value="7">울산광역시</option>
+					<option value="8">강원도</option>
+					<option value="9">경기도</option>
+					<option value="10">경상남도</option>
+					<option value="11">경상북도</option>
+					<option value="12">전라남도</option>
+					<option value="13">전라북도</option>
+					<option value="14">제주도</option>
+					<option value="15">충청남도</option>
+					<option value="16">충청북도</option>
 				</select> <select id="gungu" class="selectAd">
 					<option value="" selected="selected">시/군/구 선택</option>
 				</select>
+				
 				<!-- 시/군/구 value는 한글 그대로임 -->
 			</div>
 			<br>
