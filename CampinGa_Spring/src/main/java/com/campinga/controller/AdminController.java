@@ -150,23 +150,22 @@ public class AdminController {
 	
 	// 가입 승인 or 휴면
 	@RequestMapping("/adminCampingJoinDormant")
-	public String adminCampingJoinDormant(HttpServletRequest request,
+	public String adminCampingJoinDormant(HttpServletRequest request, 
 			@RequestParam("bseq") int bseq,
 			@RequestParam("chkyn") String chkyn) {
 		HttpSession session = request.getSession();
 
-		HashMap<String, Object>loginAdmin
-			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
-		
+		HashMap<String, Object> loginAdmin = 
+				(HashMap<String, Object>) session.getAttribute("loginAdmin");
 		String url = "redirect:/adminCampingList";
-		if(loginAdmin==null) {
-			url = "admin/adminlogin";			
+		if (loginAdmin == null) {
+			url = "admin/adminlogin";
 		} else {
-			HashMap<String, Object>paramMap = new HashMap<String, Object>();
+			HashMap<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("bseq", bseq);
 			paramMap.put("chkyn", chkyn);
 			as.adminCampingJoinDormant(paramMap);
-		}		
+		}
 		return url;
 	}
 	

@@ -415,6 +415,12 @@ function adminCheck() {
 }
 
 // admin member
+
+function joinDormant(bseq, chkyn){
+   alert("가입승인/휴면전환 합니다.");
+   location.href="adminCampingJoinDormant?bseq="+bseq+"&chkyn="+chkyn;   
+}
+
 function go_search(action) {
 	var key = document.frm.key.value;
 	var url =  action + "?page=1&key=" + key;

@@ -30,14 +30,14 @@
 					<td height="2" align="center">${camp.PHONE}</td>
 					<td>
 						<c:choose>
-							<c:when test="${camp.CHKYN=='Y'}">
-								<input type="checkbox" name="onOff" checked="checked" 
-									   onchange="joinDormant('${camp.BSEQ}')">
-							</c:when>
-							<c:otherwise>
-								<input type="checkbox" name="onOff" onchange="joinDormant('${camp.BSEQ}')">
-							</c:otherwise>
-						</c:choose>										
+                     		<c:when test="${camp.CHKYN=='Y'}">
+                        		<input type="checkbox" name="onOff" checked="checked" 
+                              			onchange="joinDormant('${camp.BSEQ}','N')">
+                     		</c:when>
+                     		<c:otherwise>
+                        		<input type="checkbox" name="onOff" onchange="joinDormant('${camp.BSEQ}','Y')">
+                    		</c:otherwise>
+                 		</c:choose>  								
 					</td>
 					<td>
 						<input type="button" value="삭제" onclick="businessDel('${camp.BSEQ}')">

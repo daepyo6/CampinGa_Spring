@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../../include/header.jsp" %>
-<%@ include file="../sub_menu.jsp"%>
+<%@ include file="../../include/business/header.jsp" %>
+<%@ include file="../../include/business/sub_menu.jsp"%>
 
 
 <div class="detail_title"><span>캠핑장 정보</span></div>
@@ -47,6 +47,6 @@
    </div>
 </div>
 
-<%@ include file="../../include/footer.jsp"%>
+<%@ include file="../../include/business/footer.jsp"%>
 
 
