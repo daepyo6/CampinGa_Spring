@@ -51,11 +51,11 @@
                <td>${resVO.PEOPLE}명</td>
                <td> 
             	  <fmt:parseDate value="${resVO.CHK_IN}" var = "check_in" pattern = "yy-MM-dd" />
-            	  <fmt:formatDate type="date" value="${CHECK_IN}"/>
+            	  <fmt:formatDate type="date" value="${check_in}"/>
                </td>
                <td>
             	  <fmt:parseDate value="${resVO.CHK_OUT}" var = "check_out" pattern = "yy-MM-dd" />
-            	  <fmt:formatDate type="date" value="${CHECK_OUT}"/>
+            	  <fmt:formatDate type="date" value="${check_out}"/>
                </td>
                <td>${resVO.PRICE}</td> 
                <td><input type="button" value="취소" onclick="myResCancel('${resVO.RESEQ}');"></td>

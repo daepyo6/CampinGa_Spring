@@ -161,6 +161,7 @@ public class BusinessController {
 		HttpSession session = request.getSession();
 		HashMap<String, Object> loginBusinessman = (HashMap<String, Object>) session.getAttribute("loginBusinessman");
 		BusinessVO dto = new BusinessVO();
+		dto.setBseq(Integer.parseInt(loginBusinessman.get("BSEQ")+""));
 		dto.setBid((String) loginBusinessman.get("BID"));
 		dto.setName((String) loginBusinessman.get("NAME"));
 		dto.setPhone((String) loginBusinessman.get("PHONE"));
@@ -184,12 +185,13 @@ public class BusinessController {
 			mav.addObject("message", result.getFieldError("email").getDefaultMessage());
 		else {
 			HashMap<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("BSEQ", businessvo.getBseq());
 			paramMap.put("BID", businessvo.getBid());
 			paramMap.put("NAME", businessvo.getName());
 			paramMap.put("PHONE", businessvo.getPhone());
 			paramMap.put("EMAIL", businessvo.getEmail());
-
 			bs.updateBusiness(paramMap);
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("loginBusinessman", paramMap);
 			mav.setViewName("redirect:/businessmanMypage");

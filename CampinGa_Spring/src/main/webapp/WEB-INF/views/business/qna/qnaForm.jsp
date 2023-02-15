@@ -29,7 +29,7 @@
 			<c:otherwise>
 				<table id="replyTable">
 					<tr>
-						<th width="180">↳ 관리자의 답변 :</th>
+						<th width="180">↳ 사장님의 답변 :</th>
 						<td>${qnaVO.REPLY}</td>
 					</tr>
 				</table>

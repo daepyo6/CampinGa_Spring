@@ -100,7 +100,7 @@ CREATE TABLE notice
 (
 	nseq number(5) NOT NULL,
 	aid varchar2(30) NOT NULL,
-	subject varchar2(20) NOT NULL,
+	subject varchar2(100) NOT NULL,
 	content varchar2(1000) NOT NULL,
 	indate date DEFAULT sysdate,
 	PRIMARY KEY (nseq)

@@ -3,7 +3,7 @@
 <%@ include file="../../include/business/sub_menu.jsp"%>
 
 <article style="height: 1350px;">
-	<form method="post" name="campingRoom" enctype="multipart/form-data" action="camp.do?command=insertCampingRoom">
+	<form method="post" name="campingRoom" enctype="multipart/form-data" action="insertCampingRoom">
 		<div class="roomInsert">
 			<div class="roomInsert_title">
 				<span>객실 등록</span>

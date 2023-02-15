@@ -5,6 +5,7 @@
 <script src="business/business.js"></script>
 <article>
 <form method="post" action="updateBusinessInfo">
+	<input type="hidden" name="bseq" value="${loginBusinessman.BSEQ}">
 	<div class="joinTable">
 	<h2>사업자 정보 수정</h2> <br><br>
 	<fieldset>

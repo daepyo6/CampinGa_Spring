@@ -241,7 +241,7 @@ function chDo(key){
 	cat2_name[15] = new Array('공주시','논산시','보령시','서산시','아산시','천안시','금산군','당진군','부여군','서천군','연기군','예산군','청양군','태안군','홍성군');
 	cat2_name[16] = new Array('제천시','청주시 상당구','청주시 흥덕구','충주시','괴산군','단양군','보은군','영동군','옥천군','음성군','진천군','청원군');
 
-  let val = cat2_name[key];
+  	let val = cat2_name[key];
 	let target = document.getElementById("gungu");
 	
 	target.options.length = 0;
@@ -251,6 +251,10 @@ function chDo(key){
 		opt.value = val[x];
 		opt.innerHTML = val[x];
 		target.appendChild(opt);
+	}
+	
+	if(doucment.frmbs.caddress1.value == x){
+		doucment.frmbs.caddress1.value = cat1_name[x];
 	}
 }
 

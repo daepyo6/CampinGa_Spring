@@ -7,7 +7,7 @@
 <%@ include file="../../include/business/sub_menu.jsp"%>
 
 <article style="height: 1600px">
-   <form action="BsCampingInfoUpdate" method="post" enctype="multipart/form-data">
+   <form name="frmbs" action="BsCampingInfoUpdate" method="post" enctype="multipart/form-data">
       <input type="hidden" name="bseq" value="${businessVO.BSEQ}">
       <input type="hidden" name="oldimg" value="${businessVO.IMAGE}" >
       <div class="roomInsert">

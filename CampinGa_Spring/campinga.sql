@@ -777,7 +777,45 @@ BEGIN
     OPEN p_rc FOR SELECT * FROM mainBanners WHERE order_seq<=5 ORDER BY order_seq;    
 END;
 
+-- 사업자 캠핑장 정보 수정 프로시져 
+CREATE OR REPLACE PROCEDURE BsCampingInfoUpdate(
+    p_bseq  IN businessman.bseq%type,
+    p_cname  IN businessman.cname%type,
+    p_image  IN businessman.image%type,
+    p_content  IN businessman.content%type,
+    p_category  IN businessman.category%type,
+    p_caddress1  IN businessman.caddress1%type,
+    p_caddress2  IN businessman.caddress2%type,
+    p_caddress3  IN businessman.caddress3%type,
+    p_facilities  IN businessman.facilities%type
+)
+IS
+BEGIN
+    UPDATE businessman SET cname=p_cname, image=p_image, content=p_content, category=p_category, caddress1=p_caddress1, 
+    caddress2=p_caddress2, caddress3=p_caddress3, facilities=p_facilities
+    WHERE bseq=p_bseq;
+    commit;
+END;
+
+-- 사업자 가입 프로시져
+CREATE OR REPLACE PROCEDURE insertBusinessCam(
+    p_bid IN businessman.bid%type,
+    p_pwd IN businessman.pwd%type,
+    p_name IN businessman.name%type,
+    p_cname IN businessman.cname%type,
+    p_phone IN businessman.phone%type,
+    p_email IN businessman.email%type,
+    p_caddress1 IN businessman.caddress1%type,
+    p_caddress2 IN businessman.caddress2%type,
+    p_caddress3 IN businessman.caddress3%type
+)
+IS
+BEGIN
+    insert into businessman ( bseq, bid, pwd, name, cname,  phone, email, caddress1, caddress2, caddress3 )
+    values( businessman_seq.nextval, p_bid, p_pwd, p_name, p_cname, p_phone, p_email,  p_caddress1, p_caddress2, p_caddress3);
+    commit;
+END;
 
 
 
-
+select * from businessman;
