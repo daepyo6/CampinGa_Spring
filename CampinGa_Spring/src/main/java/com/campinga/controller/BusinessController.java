@@ -70,9 +70,6 @@ public class BusinessController {
 		return url;
 	}
 
-	// Validation은 request로 받은 것을 dto 형식으로 바로 변환 multi는 인코딩거치는 과정이 있는데
-	// Validation이 인코딩을 풀지 못하는 오류?
-	// multi를 따로 실행해서 이름값만 전달해서 validation 하게 만들면 된다 는식으로 적었는데
 	// 사업자 마이페이지 이동
 	@RequestMapping("/businessmanMypage")
 	public ModelAndView businessmanMypage(HttpServletRequest request, Model model) {
@@ -237,8 +234,7 @@ public class BusinessController {
 			paramMap.put("bseq", Integer.parseInt(loginBusinessman.get("BSEQ") + ""));
 			paramMap.put("request", request);
 			bs.campingRoomList(paramMap);
-			ArrayList<HashMap<String, Object>> list = 
-					(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
 			mav.addObject("campingList", list);
 			mav.addObject("paging", (Paging) paramMap.get("paging"));
 			mav.setViewName("business/room/campingRoomList");
@@ -247,8 +243,7 @@ public class BusinessController {
 	}
 
 	@RequestMapping("deleteCampingRoom")
-	public String deleteCampingRoom(@RequestParam("cseq") int cseq, 
-			Model model, HttpServletRequest request) {
+	public String deleteCampingRoom(@RequestParam("cseq") int cseq, Model model, HttpServletRequest request) {
 
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("cseq", cseq);
@@ -259,62 +254,102 @@ public class BusinessController {
 
 	@Autowired
 	ServletContext context;
-	
-	@RequestMapping(value="fileup", method=RequestMethod.POST)
+
+	@RequestMapping(value = "fileup", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> fileup(Model model, HttpServletRequest request) {
 		String path = context.getRealPath("/images");
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		
+
 		try {
-			MultipartRequest multi = new MultipartRequest(
-					request, path, 5*1024*1024, "UTF-8", new DefaultFileRenamePolicy()
-			);
+			MultipartRequest multi = new MultipartRequest(request, path, 5 * 1024 * 1024, "UTF-8",
+					new DefaultFileRenamePolicy());
 			result.put("STATUS", 1);
-			result.put("FILENAME", multi.getFilesystemName("c_image") );
-		} catch (IOException e) { e.printStackTrace();
+			result.put("FILENAME", multi.getFilesystemName("c_image"));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		
-		return result;  // result 는 목적지의 매개변수 data 객체로 전달됩니다.
+
+		return result; // result 는 목적지의 매개변수 data 객체로 전달됩니다.
 	}
-	
+
+	@RequestMapping("insertCampingRoomForm")
+	public String insertCampingRoomForm(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+
+		HashMap<String, Object> loginBusinessman = (HashMap<String, Object>) session.getAttribute("loginBusinessman");
+		String url = "business/room/insertCampingRoom";
+		if (loginBusinessman == null) {
+			url = "member/login";
+		}
+		return url;
+	}
+
+	@RequestMapping(value = "insertCampingRoom", method = RequestMethod.POST)
+	public String insertCampingRoom(Model model, HttpServletRequest request, HttpSession session) {
+
+		String savePath = context.getRealPath("/images/campingImage");
+		ModelAndView mav = new ModelAndView();
+
+		HashMap<String, Object> loginBusinessman = (HashMap<String, Object>) session.getAttribute("loginBusinessman");
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+
+		try {
+			MultipartRequest multi = new MultipartRequest(request, savePath, 5 * 1024 * 1024, "UTF-8",
+					new DefaultFileRenamePolicy());
+
+			paramMap.put("bseq", Integer.parseInt(loginBusinessman.get("BSEQ") + ""));
+			paramMap.put("cname", loginBusinessman.get("CNAME") + "");
+			paramMap.put("c_class", multi.getParameter("c_class"));
+			paramMap.put("c_content", multi.getParameter("c_content"));
+			paramMap.put("price", Integer.parseInt(multi.getParameter("price")));
+			paramMap.put("min_people", Integer.parseInt(multi.getParameter("min_people")));
+			paramMap.put("max_people", Integer.parseInt(multi.getParameter("max_people")));
+			paramMap.put("c_image", multi.getFilesystemName("c_image"));
+
+			bs.insertCampingRoom(paramMap);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/campingRoomList";
+	}
+
 	@RequestMapping("campingRoomUpdateForm")
-	public ModelAndView campingRoomUpdateForm(@RequestParam("cseq") int cseq) {	
+	public ModelAndView campingRoomUpdateForm(@RequestParam("cseq") int cseq) {
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("cseq", cseq);
 		paramMap.put("ref_cursor", null);
-		
+
 		bs.campingRoomOne(paramMap);
-		
-		ArrayList<HashMap<String, Object>> list = 
-				(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+
+		ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
 		mav.addObject("campVO", list.get(0));
 		mav.setViewName("business/room/updateCampingRoom");
 		return mav;
 	}
-	
-	@RequestMapping(value="/updateCampingRoom", method = RequestMethod.POST)
-	public String campingRoomUpdate(HttpServletRequest request) {	
+
+	@RequestMapping(value = "/updateCampingRoom", method = RequestMethod.POST)
+	public String campingRoomUpdate(HttpServletRequest request) {
 		String savePath = context.getRealPath("/images");
 		int cseq = 0;
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		try {
-			MultipartRequest multi = new MultipartRequest(
-					request, savePath, 5*1024*1024, "UTF-8", new DefaultFileRenamePolicy()
-			);
-			paramMap.put("cseq",  Integer.parseInt( multi.getParameter("cseq") ) );
-			cseq = Integer.parseInt( multi.getParameter("cseq") );
-			paramMap.put( "c_class", multi.getParameter("c_class"));
-			paramMap.put( "price" , Integer.parseInt(multi.getParameter("price")));
-			paramMap.put( "min_people", Integer.parseInt( multi.getParameter("min_people")));
-			paramMap.put( "max_people", Integer.parseInt( multi.getParameter("max_people")));
-		    if( multi.getFilesystemName("c_image") == null)   
-		    	paramMap.put("c_image", multi.getParameter("oldc_image")); // 수정하려는 이미지가  없을경우 이전 이미지로
-		    else   
-		    	paramMap.put("c_image", multi.getFilesystemName("c_image"));
-		    bs.updateCampingRoom( paramMap );
-		} catch (IOException e) {  e.printStackTrace();
+			MultipartRequest multi = new MultipartRequest(request, savePath, 5 * 1024 * 1024, "UTF-8",
+					new DefaultFileRenamePolicy());
+			paramMap.put("cseq", Integer.parseInt(multi.getParameter("cseq")));
+			cseq = Integer.parseInt(multi.getParameter("cseq"));
+			paramMap.put("c_class", multi.getParameter("c_class"));
+			paramMap.put("price", Integer.parseInt(multi.getParameter("price")));
+			paramMap.put("min_people", Integer.parseInt(multi.getParameter("min_people")));
+			paramMap.put("max_people", Integer.parseInt(multi.getParameter("max_people")));
+			if (multi.getFilesystemName("c_image") == null)
+				paramMap.put("c_image", multi.getParameter("oldc_image")); // 수정하려는 이미지가 없을경우 이전 이미지로
+			else
+				paramMap.put("c_image", multi.getFilesystemName("c_image"));
+			bs.updateCampingRoom(paramMap);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return "redirect:/campingRoomList";
 	}

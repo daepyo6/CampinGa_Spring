@@ -149,6 +149,10 @@ public class BusinessService {
 		bdao.campingRoomOne(paramMap);
 	}
 
+	public void insertCampingRoom(HashMap<String, Object> paramMap) {
+	      bdao.insertCampingRoom(paramMap);      
+	}
+	
 	public void updateCampingRoom(HashMap<String, Object> paramMap) {
 		bdao.updateCampingRoom(paramMap);
 	}

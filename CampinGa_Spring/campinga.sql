@@ -618,6 +618,7 @@ BEGIN
     commit;
 END;
 
+-- 캠핑장 객실 리스트
 CREATE OR REPLACE  PROCEDURE campingRoomList(
     p_bseq IN camping_view.bseq%type,
     p_startNum IN number,
@@ -637,6 +638,7 @@ END;
 
 select * from camping_view;
 
+-- 사업자 페이징 관련 총 컬럼 갯수 확인
 create or replace PROCEDURE BusinessGetAllCount(
     p_bseq IN businessman.bseq%type,
     p_tableName IN number,
@@ -655,6 +657,7 @@ BEGIN
     p_cnt := v_cnt;
 END;
 
+-- 캠핑장 객실 삭제
 CREATE OR REPLACE PROCEDURE deleteCampingRoom(
     p_cseq IN camping.cseq%type
 )
@@ -664,6 +667,7 @@ BEGIN
    commit;
 END;
 
+-- 캠핑장 객실 하나만
 CREATE OR REPLACE  PROCEDURE campingRoomOne(
     p_cseq IN camping_view.bseq%type,
     p_rc OUT SYS_REFCURSOR
@@ -674,7 +678,7 @@ BEGIN
         select * from camping_view where cseq=p_cseq;
 END;
 
-
+-- 캠핑장 객실 수정
 create or replace procedure updateCampingRoom(
     p_c_class IN camping.c_class%type,
     p_price IN camping.price%type,
@@ -685,12 +689,29 @@ create or replace procedure updateCampingRoom(
 )
 is
 begin
-    update product set c_class=p_c_class, price=p_price, min_people=p_min_people, max_people=p_max_people,
+    update camping set c_class=p_c_class, price=p_price, min_people=p_min_people, max_people=p_max_people,
     c_image=p_c_image
     where cseq = p_cseq;
     commit;
 end;
 
+-- 캠핑장 객실 추가
+CREATE OR REPLACE PROCEDURE insertCampingRoom(
+    p_bseq IN camping.bseq%type,
+    p_cname IN camping.cname%type,
+    p_c_class IN camping.c_class%type,
+    p_c_content IN camping.c_content%type,
+    p_price IN camping.price%type,
+    p_min_people IN camping.min_people%type,
+    p_max_people IN camping.max_people%type,
+    p_c_image IN camping.c_image%type
+)
+IS
+BEGIN
+    insert into camping ( cseq, bseq, cname, c_class, c_content, price, min_people, max_people, c_image)
+    values( camping_seq.nextval, p_bseq, p_cname, p_c_class, p_c_content, p_price, p_min_people, p_max_people, p_c_image);
+    commit;
+END;
 
 
 

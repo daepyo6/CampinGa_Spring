@@ -83,6 +83,7 @@
       }
    	</select>
    	
+   	<!-- 캠핑룸 한개 -->
    	<select id="campingRoomOne" statementType="CALLABLE" parameterType="java.util.HashMap">
       {  
          CALL campingRoomOne( 
@@ -91,6 +92,15 @@
          ) 
       }
    	</select>
+   	
+   	<!-- 캠핑룸 삽입 -->
+   	<insert id="insertCampingRoom" statementType="CALLABLE">
+      {
+         CALL insertCampingRoom(
+            #{bseq}, #{cname}, #{c_class}, #{c_content}, #{price}, #{min_people}, #{max_people}, #{c_image}
+         )
+      }
+   </insert>
    	
    	<!-- 캠핑룸 삭제 -->
    	<delete id="deleteCampingRoom">
