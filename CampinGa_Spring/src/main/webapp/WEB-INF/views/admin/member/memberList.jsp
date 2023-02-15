@@ -15,7 +15,7 @@
          <th>이름</th>
          <th>전화번호</th>
          <th>이메일</th>
-         <th>삭제</th>
+         <th>휴면설정</th>
       </tr>
        <c:forEach items="${memberList}" var="memberVO">
           <tr>
@@ -23,12 +23,25 @@
              <td>${memberVO.NAME}</td>
              <td>${memberVO.MPHONE}</td>
              <td>${memberVO.EMAIL}</td>
-             <td><input type="checkbox" name="mid" value="${memberVO.MID}"></td>      
+             <c:choose>
+	             <c:when test="${memberVO.chkyn==Y}">
+	             	<td>
+	             		<span style="color: blue;">활동계정
+	             		<input type="checkbox" name="mid" value="${memberVO.MID}">
+	             	</td> 
+	             </c:when>
+	             <c:otherwise>
+	             	<td>
+	             		<span style="font-weight: bold; color: red">휴면계정
+	             		<input type="checkbox" name="mid" value="${memberVO.MID}">
+	             	</td> 
+	             </c:otherwise>
+             </c:choose>     
           </tr>
      </c:forEach>
    </table>
     <div style="float:right;" id="mypagebtn">
-     <input type="button" value="회원 삭제하기" onClick="go_members_delete();">
+     <input type="button" value="휴면회원 설정" onClick="go_members_dormant();">
     </div><br><br><br>
     <div>
    <jsp:include page="../paging/paging.jsp">   

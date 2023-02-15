@@ -71,82 +71,79 @@ public class BusinessController {
 		}
 		return url;
 	}
-	
-	  // 사업자 아이디 체크
-	   @RequestMapping("/BidCheckForm")
-	   public String idCheckForm(@RequestParam("bid") String bid, Model model, HttpServletRequest request) {
 
-	      HashMap<String, Object> paramMap = new HashMap<String, Object>();
-	      paramMap.put("bid", bid);
-	      paramMap.put("ref_cursor", null);
-	      bs.getBusinessCam(paramMap);
+	// 사업자 아이디 체크
+	@RequestMapping("/BidCheckForm")
+	public String idCheckForm(@RequestParam("bid") String bid, 
+			Model model, HttpServletRequest request) {
 
-	      ArrayList<HashMap<String, Object>> list 
-	         = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
-	      if (list.size() == 0) {
-	         model.addAttribute("result", -1);
-	      } else {
-	         model.addAttribute("result", 1);
-	      }
-	      model.addAttribute("bid", bid);
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("bid", bid);
+		paramMap.put("ref_cursor", null);
+		bs.getBusinessCam(paramMap);
 
-	      return "business/idCheck";
-	   }
-	   
-	   
-	   
-	   
-	   // 사업자 회원 가입
-	   
-	   @RequestMapping(value = "/businessJoin", method = RequestMethod.POST)
-	   public ModelAndView join(@ModelAttribute("dto") @Valid BusinessVO businessvo, BindingResult result,
-	         @RequestParam(value = "reid", required = false) String reid,
-	         @RequestParam(value = "pwd_check", required = false) String pwdCheck) {
+		ArrayList<HashMap<String, Object>> list = 
+				(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+		if (list.size() == 0) {
+			model.addAttribute("result", -1);
+		} else {
+			model.addAttribute("result", 1);
+		}
+		model.addAttribute("bid", bid);
 
-	      ModelAndView mav = new ModelAndView();
-	      mav.setViewName("business/joinForm");
-	      mav.addObject("reid", reid);
-	      
-	      if (result.getFieldError("bid") != null)
-	         mav.addObject("message", result.getFieldError("bid").getDefaultMessage());
-	      else if (result.getFieldError("name") != null)
-	         mav.addObject("message", result.getFieldError("name").getDefaultMessage());
-	      else if (result.getFieldError("cname") != null)
-	         mav.addObject("message", result.getFieldError("cname").getDefaultMessage());
-	      else if (result.getFieldError("pwd") != null)
-	         mav.addObject("message", result.getFieldError("pwd").getDefaultMessage());
-	      else if (result.getFieldError("phone") != null)
-	         mav.addObject("message", result.getFieldError("phone").getDefaultMessage());
-	      else if (result.getFieldError("email") != null)
-	         mav.addObject("message", result.getFieldError("email").getDefaultMessage());
-	      else if (result.getFieldError("caddress1") != null)
-	         mav.addObject("message", result.getFieldError("caddress1").getDefaultMessage());
-	      else if (result.getFieldError("caddress2") != null)
-	         mav.addObject("message", result.getFieldError("caddress2").getDefaultMessage());
-	      else if (result.getFieldError("caddress3") != null)
-	         mav.addObject("message", result.getFieldError("caddress3").getDefaultMessage());
-	      
-	      else if (!businessvo.getBid().equals(reid))
-	         mav.addObject("message", "아이디 중복체크가 되지 않았습니다");
-	      else if (!businessvo.getPwd().equals(pwdCheck))
-	         mav.addObject("message", "비밀번호 확인이 일치하지 않습니다");
-	      else {
-	         bs.insertBusinessCam(businessvo);
+		return "business/idCheck";
+	}
 
-	         mav.addObject("message", "회원가입이 완료되었습니다. 로그인하세요");
-	         mav.setViewName("member/login");
-	      }
-	      return mav;
-	   }
+	// 사업자 회원 가입
 
+	@RequestMapping(value = "/businessJoin", method = RequestMethod.POST)
+	public ModelAndView join(@ModelAttribute("dto") @Valid BusinessVO businessvo, BindingResult result,
+			@RequestParam(value = "reid", required = false) String reid,
+			@RequestParam(value = "pwd_check", required = false) String pwdCheck) {
 
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("business/joinForm");
+		mav.addObject("reid", reid);
+
+		if (result.getFieldError("bid") != null)
+			mav.addObject("message", result.getFieldError("bid").getDefaultMessage());
+		else if (result.getFieldError("name") != null)
+			mav.addObject("message", result.getFieldError("name").getDefaultMessage());
+		else if (result.getFieldError("cname") != null)
+			mav.addObject("message", result.getFieldError("cname").getDefaultMessage());
+		else if (result.getFieldError("pwd") != null)
+			mav.addObject("message", result.getFieldError("pwd").getDefaultMessage());
+		else if (result.getFieldError("phone") != null)
+			mav.addObject("message", result.getFieldError("phone").getDefaultMessage());
+		else if (result.getFieldError("email") != null)
+			mav.addObject("message", result.getFieldError("email").getDefaultMessage());
+		else if (result.getFieldError("caddress1") != null)
+			mav.addObject("message", result.getFieldError("caddress1").getDefaultMessage());
+		else if (result.getFieldError("caddress2") != null)
+			mav.addObject("message", result.getFieldError("caddress2").getDefaultMessage());
+		else if (result.getFieldError("caddress3") != null)
+			mav.addObject("message", result.getFieldError("caddress3").getDefaultMessage());
+
+		else if (!businessvo.getBid().equals(reid))
+			mav.addObject("message", "아이디 중복체크가 되지 않았습니다");
+		else if (!businessvo.getPwd().equals(pwdCheck))
+			mav.addObject("message", "비밀번호 확인이 일치하지 않습니다");
+		else {
+			bs.insertBusinessCam(businessvo);
+
+			mav.addObject("message", "회원가입이 완료되었습니다. 로그인하세요");
+			mav.setViewName("member/login");
+		}
+		return mav;
+	}
 
 	// 사업자 마이페이지 이동
 	@RequestMapping("/businessmanMypage")
 	public ModelAndView businessmanMypage(HttpServletRequest request, Model model) {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
-		HashMap<String, Object> loginBusinessman = (HashMap<String, Object>) session.getAttribute("loginBusinessman");
+		HashMap<String, Object> loginBusinessman = 
+				(HashMap<String, Object>) session.getAttribute("loginBusinessman");
 		if (loginBusinessman == null) {
 			mav.setViewName("member/login");
 		} else {
@@ -159,9 +156,10 @@ public class BusinessController {
 	@RequestMapping(value = "/businessmanEditForm")
 	public String businessmanEditForm(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-		HashMap<String, Object> loginBusinessman = (HashMap<String, Object>) session.getAttribute("loginBusinessman");
+		HashMap<String, Object> loginBusinessman = 
+				(HashMap<String, Object>) session.getAttribute("loginBusinessman");
 		BusinessVO dto = new BusinessVO();
-		dto.setBseq(Integer.parseInt(loginBusinessman.get("BSEQ")+""));
+		dto.setBseq(Integer.parseInt(loginBusinessman.get("BSEQ") + ""));
 		dto.setBid((String) loginBusinessman.get("BID"));
 		dto.setName((String) loginBusinessman.get("NAME"));
 		dto.setPhone((String) loginBusinessman.get("PHONE"));
@@ -172,7 +170,8 @@ public class BusinessController {
 
 	// 사업자 정보 수정
 	@RequestMapping(value = "/updateBusinessInfo", method = RequestMethod.POST)
-	public ModelAndView updateBusinessInfo(@ModelAttribute("dto") @Valid BusinessVO businessvo, BindingResult result,
+	public ModelAndView updateBusinessInfo(@ModelAttribute("dto") @Valid BusinessVO businessvo,
+			BindingResult result,
 			HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 
@@ -191,7 +190,7 @@ public class BusinessController {
 			paramMap.put("PHONE", businessvo.getPhone());
 			paramMap.put("EMAIL", businessvo.getEmail());
 			bs.updateBusiness(paramMap);
-			
+
 			HttpSession session = request.getSession();
 			session.setAttribute("loginBusinessman", paramMap);
 			mav.setViewName("redirect:/businessmanMypage");
@@ -202,7 +201,8 @@ public class BusinessController {
 	// 사업자 마이페이지 회원탈퇴
 	@RequestMapping("deleteBusinessman")
 	public String deleteBusinessman(HttpSession session, Model model) {
-		HashMap<String, Object> loginBusinessman = (HashMap<String, Object>) session.getAttribute("loginBusinessman");
+		HashMap<String, Object> loginBusinessman = 
+				(HashMap<String, Object>) session.getAttribute("loginBusinessman");
 		if (loginBusinessman == null) {
 			return "member/login";
 		} else {
@@ -219,7 +219,8 @@ public class BusinessController {
 	public ModelAndView businessmanRestList(HttpServletRequest request, Model model) {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
-		HashMap<String, Object> loginBusinessman = (HashMap<String, Object>) session.getAttribute("loginBusinessman");
+		HashMap<String, Object> loginBusinessman = 
+				(HashMap<String, Object>) session.getAttribute("loginBusinessman");
 		if (loginBusinessman == null) {
 			mav.setViewName("member/login");
 		} else {
@@ -229,7 +230,8 @@ public class BusinessController {
 			paramMap.put("ref_cursor", null);
 			bs.getBusinessRestList(paramMap);
 
-			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+			ArrayList<HashMap<String, Object>> list = 
+					(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
 
 			mav.addObject("paging", (Paging) paramMap.get("paging"));
 
@@ -244,7 +246,8 @@ public class BusinessController {
 	public ModelAndView businessmanQnaList(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
-		HashMap<String, Object> bvo = (HashMap<String, Object>) session.getAttribute("loginBusinessman");
+		HashMap<String, Object> bvo = 
+				(HashMap<String, Object>) session.getAttribute("loginBusinessman");
 		if (bvo == null)
 			mav.setViewName("member/login");
 		else {
@@ -258,7 +261,8 @@ public class BusinessController {
 			paramMap.put("bseq", Integer.parseInt(bvo.get("BSEQ") + ""));
 			paramMap.put("ref_cursor", null);
 			bs.getBusinessQnaList(paramMap);
-			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+			ArrayList<HashMap<String, Object>> list = 
+					(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
 			mav.addObject("paging", (Paging) paramMap.get("paging"));
 			mav.addObject("qnalist", list);
 			mav.setViewName("business/qna/qnaList");
@@ -268,7 +272,8 @@ public class BusinessController {
 
 	// 사업자 qna 상세
 	@RequestMapping("/businessmanQnaView")
-	public ModelAndView businessmanQnaView(@RequestParam("qseq") int qseq, HttpServletRequest request) {
+	public ModelAndView businessmanQnaView(@RequestParam("qseq") int qseq, 
+			HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
 
@@ -279,7 +284,8 @@ public class BusinessController {
 			paramMap.put("ref_cursor", null);
 			paramMap.put("qseq", qseq);
 			bs.getQnaOne(paramMap);
-			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+			ArrayList<HashMap<String, Object>> list = 
+					(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
 			mav.addObject("qnaVO", list.get(0));
 			mav.setViewName("business/qna/qnaForm");
 		}
@@ -297,7 +303,8 @@ public class BusinessController {
 	public ModelAndView campingRoomList(HttpServletRequest request, HttpSession session) {
 
 		ModelAndView mav = new ModelAndView();
-		HashMap<String, Object> loginBusinessman = (HashMap<String, Object>) session.getAttribute("loginBusinessman");
+		HashMap<String, Object> loginBusinessman = 
+				(HashMap<String, Object>) session.getAttribute("loginBusinessman");
 
 		if (loginBusinessman == null) {
 			mav.setViewName("member/login");
@@ -307,7 +314,8 @@ public class BusinessController {
 			paramMap.put("bseq", Integer.parseInt(loginBusinessman.get("BSEQ") + ""));
 			paramMap.put("request", request);
 			bs.campingRoomList(paramMap);
-			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+			ArrayList<HashMap<String, Object>> list = 
+					(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
 			mav.addObject("campingList", list);
 			mav.addObject("paging", (Paging) paramMap.get("paging"));
 			mav.setViewName("business/room/campingRoomList");
@@ -316,7 +324,8 @@ public class BusinessController {
 	}
 
 	@RequestMapping("deleteCampingRoom")
-	public String deleteCampingRoom(@RequestParam("cseq") int cseq, Model model, HttpServletRequest request) {
+	public String deleteCampingRoom(@RequestParam("cseq") int cseq, 
+			Model model, HttpServletRequest request) {
 
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("cseq", cseq);
@@ -335,8 +344,8 @@ public class BusinessController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 
 		try {
-			MultipartRequest multi = new MultipartRequest(request, path, 5 * 1024 * 1024, "UTF-8",
-					new DefaultFileRenamePolicy());
+			MultipartRequest multi = new MultipartRequest(
+					request, path, 5 * 1024 * 1024, "UTF-8", new DefaultFileRenamePolicy());
 			result.put("STATUS", 1);
 			result.put("FILENAME", multi.getFilesystemName("c_image"));
 		} catch (IOException e) {
@@ -350,7 +359,8 @@ public class BusinessController {
 	public String insertCampingRoomForm(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 
-		HashMap<String, Object> loginBusinessman = (HashMap<String, Object>) session.getAttribute("loginBusinessman");
+		HashMap<String, Object> loginBusinessman = 
+				(HashMap<String, Object>) session.getAttribute("loginBusinessman");
 		String url = "business/room/insertCampingRoom";
 		if (loginBusinessman == null) {
 			url = "member/login";
@@ -364,7 +374,8 @@ public class BusinessController {
 		String savePath = context.getRealPath("/images/campingImage");
 		ModelAndView mav = new ModelAndView();
 
-		HashMap<String, Object> loginBusinessman = (HashMap<String, Object>) session.getAttribute("loginBusinessman");
+		HashMap<String, Object> loginBusinessman = 
+				(HashMap<String, Object>) session.getAttribute("loginBusinessman");
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 
 		try {
@@ -396,7 +407,8 @@ public class BusinessController {
 
 		bs.campingRoomOne(paramMap);
 
-		ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+		ArrayList<HashMap<String, Object>> list = 
+				(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
 		mav.addObject("campVO", list.get(0));
 		mav.setViewName("business/room/updateCampingRoom");
 		return mav;
@@ -408,7 +420,8 @@ public class BusinessController {
 		int cseq = 0;
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		try {
-			MultipartRequest multi = new MultipartRequest(request, savePath, 5 * 1024 * 1024, "UTF-8",
+			MultipartRequest multi = new MultipartRequest(
+					request, savePath, 5 * 1024 * 1024, "UTF-8",
 					new DefaultFileRenamePolicy());
 			paramMap.put("cseq", Integer.parseInt(multi.getParameter("cseq")));
 			cseq = Integer.parseInt(multi.getParameter("cseq"));
@@ -426,110 +439,102 @@ public class BusinessController {
 		}
 		return "redirect:/campingRoomList";
 	}
-	
-	
-	
+
 	// 관리자 캠핑 정보
-	   @RequestMapping("/businessmanCampingInfo")
-	   public ModelAndView businessmanCampingInfo(HttpServletRequest request) {
+	@RequestMapping("/businessmanCampingInfo")
+	public ModelAndView businessmanCampingInfo(HttpServletRequest request) {
 
-	      ModelAndView mav = new ModelAndView();
-	      HttpSession session = request.getSession();
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
 
-	      HashMap<String, Object>loginBusinessman
-	         = (HashMap<String, Object>)session.getAttribute("loginBusinessman");
+		HashMap<String, Object> loginBusinessman = 
+				(HashMap<String, Object>) session.getAttribute("loginBusinessman");
 
-	      if(loginBusinessman==null) {
-	         mav.setViewName("member/login");
-	      } else {
-	         HashMap<String, Object> paramMap = new HashMap<String, Object>();
-	         paramMap.put("bid", loginBusinessman.get("BID"));
-	         paramMap.put("ref_cursor", null);
+		if (loginBusinessman == null) {
+			mav.setViewName("member/login");
+		} else {
+			HashMap<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("bid", loginBusinessman.get("BID"));
+			paramMap.put("ref_cursor", null);
 
-	         bs.getBusinessCam(paramMap);
+			bs.getBusinessCam(paramMap);
 
-	         ArrayList<HashMap<String, Object>> list = 
-	               (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
-	         HashMap<String, Object> bvo = list.get(0);
-	            
-	         mav.addObject("businessVO", bvo);
-	         mav.setViewName("business/camping/campingList");         
-	      }
-	      return mav;
-	   }
-	   
-	   
-	   // 관리자 캠핑 정보 수정 이동
-	   @RequestMapping("BsCampingInfoUpdateForm")
-	     public ModelAndView BsCampingInfoUpdateForm(HttpServletRequest request) {
-	  
-	       ModelAndView mav = new ModelAndView();
-	       HttpSession session = request.getSession();
-	       
-	       HashMap<String, Object>loginBusinessman
-	         = (HashMap<String, Object>)session.getAttribute("loginBusinessman");
-	       
-	       HashMap<String, Object> paramMap = new HashMap<String, Object>();
-	       paramMap.put("bid", loginBusinessman.get("BID"));
-	       paramMap.put("ref_cursor" , null);
-	       bs.getBusinessCam(paramMap);
-	        
-	       ArrayList< HashMap<String, Object> > list 
-	          =  ( ArrayList< HashMap<String, Object> > ) paramMap.get("ref_cursor");
-	       HashMap<String, Object> bvo = list.get(0);
-	      
-	       mav.addObject("businessVO", bvo);
-	       String [] cateMap = {"오토캠핑", "캠핑", "카라반", "캠프닉"};
-	       mav.addObject("cateMap", cateMap );
-	       mav.setViewName("business/camping/campingListDetail");
-	       return mav;
-	     }
-	   
-	   
-	   // 관리자 캠핑 정보 수정
-	   @RequestMapping(value="/BsCampingInfoUpdate", method=RequestMethod.POST)
-	   public String BsCampingInfoUpdate(HttpServletRequest request) {
-	      
-	      String path = context.getRealPath("/images/campingImage");
-	      HttpSession session = request.getSession();
-	      int bseq=0;
-	      HashMap<String, Object>loginBusinessman
-	         = (HashMap<String, Object>)session.getAttribute("loginBusinessman");
-	          
-	      HashMap<String, Object> paramMap = new HashMap<String, Object>();
-	      try {
-	         MultipartRequest multi = new MultipartRequest(
-	               request, path, 5*1024*1024,  "UTF-8", new DefaultFileRenamePolicy()
-	         );
-	         
-	         paramMap.put("bseq", Integer.parseInt(multi.getParameter("bseq")));
-	         bseq = Integer.parseInt(multi.getParameter("bseq"));
-	   
-	         paramMap.put("cname", multi.getParameter("cname"));
-	         paramMap.put("caddress1", multi.getParameter("caddress1"));
-	         paramMap.put("caddress2", multi.getParameter("caddress2"));
-	         paramMap.put("caddress3", multi.getParameter("caddress3"));
-	         paramMap.put("content", multi.getParameter("content"));
-	         paramMap.put("category", multi.getParameter("category"));
+			ArrayList<HashMap<String, Object>> list = 
+					(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+			HashMap<String, Object> bvo = list.get(0);
 
-	         String facilities = String.join(", ", multi.getParameterValues("facilities"));
-	         paramMap.put("facilities", facilities);
-	               
-	         if( multi.getFilesystemName("newimg") == null ) 
-	               paramMap.put("image", multi.getParameter("oldimg") );
-	         else    
-	               paramMap.put("image", multi.getFilesystemName("newimg") );
-	               
-	         bs.BsCampingInfoUpdate(paramMap);
-	         
-	      
-	      } catch (IOException e) { e.printStackTrace();
-	      }
-	      
-	      return "redirect:/businessmanCampingInfo?bseq=" + bseq;
-	   }
+			mav.addObject("businessVO", bvo);
+			mav.setViewName("business/camping/campingList");
+		}
+		return mav;
+	}
 
-	
-	
+	// 관리자 캠핑 정보 수정 이동
+	@RequestMapping("BsCampingInfoUpdateForm")
+	public ModelAndView BsCampingInfoUpdateForm(HttpServletRequest request) {
+
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+
+		HashMap<String, Object> loginBusinessman = 
+				(HashMap<String, Object>) session.getAttribute("loginBusinessman");
+
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("bid", loginBusinessman.get("BID"));
+		paramMap.put("ref_cursor", null);
+		bs.getBusinessCam(paramMap);
+
+		ArrayList<HashMap<String, Object>> list = 
+				(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+		HashMap<String, Object> bvo = list.get(0);
+
+		mav.addObject("businessVO", bvo);
+		String[] cateMap = { "오토캠핑", "캠핑", "카라반", "캠프닉" };
+		mav.addObject("cateMap", cateMap);
+		mav.setViewName("business/camping/campingListDetail");
+		return mav;
+	}
+
+	// 관리자 캠핑 정보 수정
+	@RequestMapping(value = "/BsCampingInfoUpdate", method = RequestMethod.POST)
+	public String BsCampingInfoUpdate(HttpServletRequest request) {
+
+		String path = context.getRealPath("/images/campingImage");
+		HttpSession session = request.getSession();
+		int bseq = 0;
+		HashMap<String, Object> loginBusinessman = 
+				(HashMap<String, Object>) session.getAttribute("loginBusinessman");
+
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		try {
+			MultipartRequest multi = new MultipartRequest(request, path, 5 * 1024 * 1024, "UTF-8",
+					new DefaultFileRenamePolicy());
+
+			paramMap.put("bseq", Integer.parseInt(multi.getParameter("bseq")));
+			bseq = Integer.parseInt(multi.getParameter("bseq"));
+
+			paramMap.put("cname", multi.getParameter("cname"));
+			paramMap.put("caddress1", multi.getParameter("caddress1"));
+			paramMap.put("caddress2", multi.getParameter("caddress2"));
+			paramMap.put("caddress3", multi.getParameter("caddress3"));
+			paramMap.put("content", multi.getParameter("content"));
+			paramMap.put("category", multi.getParameter("category"));
+
+			String facilities = String.join(", ", multi.getParameterValues("facilities"));
+			paramMap.put("facilities", facilities);
+
+			if (multi.getFilesystemName("newimg") == null)
+				paramMap.put("image", multi.getParameter("oldimg"));
+			else
+				paramMap.put("image", multi.getFilesystemName("newimg"));
+
+			bs.BsCampingInfoUpdate(paramMap);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/businessmanCampingInfo?bseq=" + bseq;
+	}
 
 }

@@ -823,6 +823,6 @@ BEGIN
     commit;
 END;
 
+select * from member;
 
 
-select * from businessman;

@@ -112,6 +112,19 @@ public class AdminController {
 		return mav;
 	}	
 	
+	// 사용자회원 휴면 전환
+	@RequestMapping("/adminMemberDormant")
+	public String adminMemberDormant( HttpServletRequest request, Model model ) {
+		
+		String [] mid = request.getParameterValues("mid");
+
+		for (String memberid : mid) {
+			System.out.println(memberid);
+		}
+		
+		return "admin/member/memberList";
+	}	
+	
 	// 캠핑장 관리 페이지
 	@RequestMapping("/adminCampingList")
 	public ModelAndView adminCampingList(

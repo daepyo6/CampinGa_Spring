@@ -439,7 +439,7 @@ function go_total(action) {
 
 
 
-function go_members_delete() {
+function go_members_dormant() {
 	var count = 0;
 	if (document.frm.mid.length == undefined) {
 		if (document.frm.mid.checked == true) count++;
@@ -451,10 +451,10 @@ function go_members_delete() {
 		}
 	}
 	if (count == 0) {
-		alert("삭제할 회원을 선택하세요");
+		alert("휴면정지시킬 회원을 선택하세요");
 	}
 	else {
-		document.frm.action = "camp.do?command=adminMemberDelete";
+		document.frm.action = "adminMemberDormant";
 		document.frm.submit();
 	}
 }
