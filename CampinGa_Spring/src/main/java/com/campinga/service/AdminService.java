@@ -299,4 +299,13 @@ public class AdminService {
 		adao.adminBannerDelete(mbseq);		
 	}
 
+	public void adminCampingDelete(int bseq) {
+		adao.adminCampingDelete(bseq);
+		
+	}
+
+	public void adminCampingJoinDormant(HashMap<String, Object> paramMap) {
+		adao.adminCampingJoinDormant(paramMap);		
+	}
+
 }

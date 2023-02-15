@@ -146,6 +146,50 @@ public class AdminController {
 		}
 		return mav;
 	}
+	
+	
+	// 가입 승인 or 휴면
+	@RequestMapping("/adminCampingJoinDormant")
+	public String adminCampingJoinDormant(HttpServletRequest request,
+			@RequestParam("bseq") int bseq,
+			@RequestParam("chkyn") String chkyn) {
+		HttpSession session = request.getSession();
+
+		HashMap<String, Object>loginAdmin
+			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+		
+		String url = "redirect:/adminCampingList";
+		if(loginAdmin==null) {
+			url = "admin/adminlogin";			
+		} else {
+			HashMap<String, Object>paramMap = new HashMap<String, Object>();
+			paramMap.put("bseq", bseq);
+			paramMap.put("chkyn", chkyn);
+			as.adminCampingJoinDormant(paramMap);
+		}		
+		return url;
+	}
+	
+	
+	// 사업자(캠핑장) 계정 삭제
+	@RequestMapping("/adminCampingDelete")
+	public String adminCampingDelete(@RequestParam("bseq") int bseq,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+
+		HashMap<String, Object>loginAdmin
+			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+		
+		String url = "redirect:/adminCampingList";
+		if(loginAdmin==null) {
+			url = "admin/adminlogin";			
+		} else {
+			as.adminCampingDelete(bseq);
+		}		
+		return url;
+	}
+	
+	
 
 	// 예약 관리
 	@RequestMapping("/adminRestList")

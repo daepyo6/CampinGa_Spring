@@ -38,4 +38,5 @@ public class BusinessVO {
 	private String image;
 	private String content;
 	private String category;
+	private String chkyn;
 }

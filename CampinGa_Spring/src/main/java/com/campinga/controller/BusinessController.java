@@ -57,6 +57,8 @@ public class BusinessController {
 			HashMap<String, Object> bvo = list.get(0);
 			if (!bvo.get("PWD").equals(businessvo.getPwd()))
 				model.addAttribute("message", "비밀번호가 맞지않습니다");
+			else if (bvo.get("CHKYN").equals("N"))
+				model.addAttribute("message", "가입대기 중 / 휴면계정 입니다.");
 			else if (bvo.get("PWD").equals(businessvo.getPwd())) {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginBusinessman", bvo);

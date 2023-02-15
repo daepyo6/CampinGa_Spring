@@ -17,23 +17,33 @@
 				<th>이름</th>
 				<th>주소</th>
 				<th>연락처</th>
-				<th>on / off</th>
+				<th>가입승인</th>
+				<th>계정삭제</th>
 			</tr>
-			<c:forEach items="${campingList}" var="campingList">
+			<c:forEach items="${campingList}" var="camp">
 				<tr>
-					<td height="2" align="center">${campingList.BSEQ}</td>
-					<td height="2" align="center">${campingList.CNAME}</td>
+					<td height="2" align="center">${camp.BSEQ}</td>
+					<td height="2" align="center">${camp.CNAME}</td>
 					<td height="2" align="center">
-						${campingList.CADDRESS1} ${campingList.CADDRESS2}<br> 
-						${campingList.CADDRESS3}</td>
-					<td height="2" align="center">${campingList.PHONE}</td>
+						${camp.CADDRESS1}&nbsp;${camp.CADDRESS2}<br> 
+						${camp.CADDRESS3}</td>
+					<td height="2" align="center">${camp.PHONE}</td>
 					<td>
-						<input type="checkbox" name="onOff" disabled="disabled" checked="checked"
-						onchange="#">											
+						<c:choose>
+							<c:when test="${camp.CHKYN=='Y'}">
+								<input type="checkbox" name="onOff" checked="checked" 
+									   onchange="joinDormant('${camp.BSEQ}')">
+							</c:when>
+							<c:otherwise>
+								<input type="checkbox" name="onOff" onchange="joinDormant('${camp.BSEQ}')">
+							</c:otherwise>
+						</c:choose>										
+					</td>
+					<td>
+						<input type="button" value="삭제" onclick="businessDel('${camp.BSEQ}')">
 					</td>
 				</tr>
 			</c:forEach>
-			<!-- on/off : 비지니스에 useyn을 추가해서 가입 승인, 휴면처리를 한 번에 처리 -->
 		</table>
 		<div style="float:right;" id="mypagebtn">
 		     	<input type="button" value="삭제" onClick="go_delete();">

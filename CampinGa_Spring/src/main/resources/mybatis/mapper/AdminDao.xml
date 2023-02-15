@@ -46,6 +46,14 @@
 		}
 	</select>
 	
+	<update id="adminCampingJoinDormant" parameterType="java.util.HashMap">
+		update businessman set chkyn=#{chkyn} where bseq=#{bseq}
+	</update>
+	
+	<delete id="adminCampingDelete"  parameterType="_int">
+		delete from businessman where bseq=#{param1} 
+	</delete>
+	
 	
 	<!-- 예약관리 -->
 	<select id="adminRestList" statementType="CALLABLE" parameterType="java.util.HashMap">

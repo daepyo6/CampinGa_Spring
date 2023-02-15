@@ -16,6 +16,8 @@ public interface IAdminDao {
 	void adminMemberList(HashMap<String, Object> paramMap);
 
 	void adminCampingList(HashMap<String, Object> paramMap);
+	void adminCampingJoinDormant(HashMap<String, Object> paramMap);
+	void adminCampingDelete(int bseq);
 	
 	void adminRestList(HashMap<String, Object> paramMap);
 	
@@ -36,8 +38,6 @@ public interface IAdminDao {
 	void bannerSelectOne(HashMap<String, Object> paramMap);
 
 	
-	
 
-	
 	
 }

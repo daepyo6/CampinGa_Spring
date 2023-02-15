@@ -476,23 +476,22 @@ function notiecDeleteChk(nseq) {
 	}	
 }
 
-// admin camping
-function go_delete() {
-	var count = 0;
-	if (document.frm.bseq.length == undefined) {
-		if (document.frm.bseq.checked == true) count++;
+// admin campingList
+function joinDormant(bseq){
+	alert("가입승인/휴면전환 합니다.")
+	if(document.frm.onOff.checked){
+		chk="N";
 	} else {
-		for (var i = 0; i < document.frm.bseq.length; i++) {
-			if (document.frm.bseq[i].checked == true) {
-				count++;
-			}
-		}
+		chk="Y";
 	}
-	if (count == 0) {
-		alert("삭제할 항목을 선택하세요");
-	} else {
-		document.frm.action = "camp.do?command=adminCampingDelete";
-		document.frm.submit();
+	location.href="adminCampingJoinDormant?bseq="+bseq+"&chkyn="+chk;	
+}
+
+function businessDel(bseq){
+	if(confirm("계정을 삭제하시겠습니까? 계정삭제시 복구되지 않습니다.")){
+		location.href="adminCampingDelete?bseq="+bseq;
+	}else{
+		return;
 	}
 }
 
