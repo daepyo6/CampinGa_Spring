@@ -85,6 +85,18 @@ function idcheck(type){
 	window.open(url, "idCheck", opt);
 }
 
+function Bsidcheck(){
+    if(document.joinForm.bid.value==""){
+        alert("체크할 아이디를 입력해주세요");
+        document.joinForm.bid.focus();
+        return;
+    }   
+    var id = document.joinForm.bid.value;
+    var url = "BidCheckForm?bid="+ document.joinForm.bid.value;
+   var opt = "toolbar=no, menubar=no, resizable=no, width=600, height=400, scrollbars=no";
+   window.open(url, "idCheck", opt);
+}
+
 function idok(id){
     opener.document.joinForm.id.value=id;
    	opener.document.joinForm.reid.value=id;
@@ -141,7 +153,7 @@ function go_next(){
     if(document.contractFrm.okon[1].checked==true){
     alert("회원 약관에 동의 하셔야 회원으로 가입이 가능합니다.")
     }else{
-    document.contractFrm.action = "camp.do?command=joinForm";
+    document.contractFrm.action = "joinForm";
     document.contractFrm.submit();
     }
 }

@@ -4,11 +4,13 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.campinga.dao.IBusinessDao;
+import com.campinga.dto.BusinessVO;
 import com.campinga.dto.Paging;
 import com.campinga.dto.QnaVO;
 
@@ -156,4 +158,18 @@ public class BusinessService {
 	public void updateCampingRoom(HashMap<String, Object> paramMap) {
 		bdao.updateCampingRoom(paramMap);
 	}
+
+	public void insertBusinessCam(BusinessVO businessvo) {
+		bdao.insertBusinessCam(businessvo);
+	}
+
+	public void BsCampingInfoUpdate(HashMap<String, Object> paramMap) {
+		bdao.BsCampingInfoUpdate(paramMap);
+	}
+
+
+
+
 }
+
+
