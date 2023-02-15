@@ -318,8 +318,15 @@ BEGIN
         ) WHERE rn <= p_endNum;
 END;
 
-
-
+-- 관리자 : 리뷰 삭제
+CREATE OR REPLACE  PROCEDURE deleteReview(
+    p_rseq IN review.rseq%type
+)
+IS
+BEGIN
+        delete from review where rseq=p_rseq;
+        commit;
+END;
 
 -- 관리자 : 공지사항
 CREATE OR REPLACE  PROCEDURE adminNoticeList(

@@ -490,7 +490,7 @@ public class BusinessController {
 	   @RequestMapping(value="/BsCampingInfoUpdate", method=RequestMethod.POST)
 	   public String BsCampingInfoUpdate(HttpServletRequest request) {
 	      
-	      String path = context.getRealPath("/images");
+	      String path = context.getRealPath("/images/campingImage");
 	      HttpSession session = request.getSession();
 	      int bseq=0;
 	      HashMap<String, Object>loginBusinessman
