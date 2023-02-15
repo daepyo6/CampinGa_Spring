@@ -10,9 +10,11 @@ DROP TABLE favorites CASCADE CONSTRAINTS;
 DROP TABLE review CASCADE CONSTRAINTS;
 DROP TABLE businessman CASCADE CONSTRAINTS;
 DROP TABLE member CASCADE CONSTRAINTS;
+DROP TABLE mainBanners CASCADE CONSTRAINTS;
 
+/* Main banner create sequence */
 
-
+CREATE SEQUENCE mb_seq INCREMENT BY 1 START WITH 1;
 
 /* Create Tables */
 
@@ -129,6 +131,14 @@ CREATE TABLE review
 	PRIMARY KEY (rseq)
 );
 
+CREATE TABLE mainBanners( 
+  mbseq NUMBER(5) NOT NULL unique,
+  NAME VARCHAR2(100),
+  ORDER_SEQ NUMBER(1),
+  IMAGE VARCHAR2(50 BYTE),
+  USEYN CHAR(1 BYTE) DEFAULT 'Y',
+  INDATE DATE DEFAULT sysdate 
+ );
 
 
 /* Create Foreign Keys */

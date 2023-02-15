@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../../include/header.jsp"%>
+<%@ include file="../../include/business/header.jsp"%>
 <%@ include file="../../include/business/sub_menu.jsp"%>
 
 <article style="height: 1400px">
@@ -70,4 +70,4 @@
 	</form>
 </article>
 
-<%@ include file="../../include/footer.jsp"%>
+<%@ include file="../../include/business/footer.jsp"%>
