@@ -79,8 +79,8 @@ function idcheck(type){
         document.joinForm.id.focus();
         return;
     }	
-    var id = document.joinForm.id.value;
-    var url = "camp.do?command=idCheckForm&id="+id+"&type="+type;
+    var mid = document.joinForm.mid.value;
+    var url = "idCheckForm?mid="+mid+"&type="+type;
 	var opt = "toolbar=no, menubar=no, resizable=no, width=600, height=400, scrollbars=no";
 	window.open(url, "idCheck", opt);
 }
