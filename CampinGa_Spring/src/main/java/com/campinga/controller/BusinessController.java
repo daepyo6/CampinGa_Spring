@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.campinga.dto.BusinessVO;
@@ -137,50 +136,36 @@ public class BusinessController {
 	@Autowired
 	ServletContext context;
 	
-	@RequestMapping(value="fileup", method=RequestMethod.POST)
-	@ResponseBody
-	public HashMap<String, Object> fileup(Model model, HttpServletRequest request ){
-		// 현재 메서드는 다른 메서드처럼 jsp 파일이름을 리턴해서 파일이름.jsp롤 이동하는 메서드가 아닙니다.
-		// ajax에 의해서 호출된 지점으로 다시 되돌아가서 화면 이동없이 운영이 계속되어야 하기때문에 이동할때
-		// 가져갈 데이터가 리턴됩니다
-		String path = context.getRealPath("/images/campingImage");
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		
-		try {
-			MultipartRequest multi = new MultipartRequest(
-					request, path, 5*1024*1024, "UTF-8", new DefaultFileRenamePolicy()
-			);
-			result.put("FILENAME", multi.getFilesystemName("c_image"));
-		}catch (IOException e) { e.printStackTrace();
-		}
-		
-		return result;  // result 는 목적지의 매개변수 data 객체로 전달됩니다.
-	}
-	
 	@RequestMapping(value="insertCampingRoom", method=RequestMethod.POST)
 	public String insertCampingRoom(Model model , HttpServletRequest request, HttpSession session) {
 		
-		ModelAndView mav = new ModelAndView();
-		HashMap<String, Object>loginBusinessman 
-			= (HashMap<String, Object>)session.getAttribute("loginBusinessman");
-		
-		if(loginBusinessman==null) {
-			mav.setViewName("member/login");
-		} else {
-		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		
-		paramMap.put("bseq", Integer.parseInt(loginBusinessman.get("BSEQ")+""));
-		paramMap.put("cname", loginBusinessman.get("CNAME"));
-		paramMap.put("c_class", request.getParameter("c_class"));
-		paramMap.put("c_content", request.getParameter("c_content"));
-		paramMap.put("price", Integer.parseInt( request.getParameter("price")));
-		paramMap.put("min_people", Integer.parseInt( request.getParameter("min_people")));
-		paramMap.put("max_people", Integer.parseInt( request.getParameter("max_people")));
-		paramMap.put("c_image", request.getParameter("c_image"));
-		
-		bs.insertCampingRoom(paramMap);
-		}
-		return "redirect:/campingRoomList";
-		
+	    String savePath = context.getRealPath("/images/campingImage");
+	    ModelAndView mav = new ModelAndView();
+	    
+	    HashMap<String, Object>loginBusinessman 
+	       = (HashMap<String, Object>)session.getAttribute("loginBusinessman");
+	    HashMap<String, Object> paramMap = new HashMap<String, Object>();
+        
+	    	try {
+	    		MultipartRequest multi = new MultipartRequest(
+	    				request, savePath, 5*1024*1024, "UTF-8", new DefaultFileRenamePolicy()
+	    		);
+	    		
+			    paramMap.put("bseq", Integer.parseInt(loginBusinessman.get("BSEQ")+""));
+			    paramMap.put("cname", loginBusinessman.get("CNAME")+"");
+			    paramMap.put("c_class", multi.getParameter("c_class"));
+			    paramMap.put("c_content", multi.getParameter("c_content"));
+			    paramMap.put("price", Integer.parseInt( multi.getParameter("price")));
+			    paramMap.put("min_people", Integer.parseInt( multi.getParameter("min_people")));
+			    paramMap.put("max_people", Integer.parseInt( multi.getParameter("max_people")));
+			    paramMap.put("c_image", multi.getFilesystemName("c_image"));
+	    
+	    bs.insertCampingRoom(paramMap);
+	    }catch (IOException e) {  e.printStackTrace();}
+	    return "redirect:/campingRoomList";
 	}
 }
+    
+ 
+
+

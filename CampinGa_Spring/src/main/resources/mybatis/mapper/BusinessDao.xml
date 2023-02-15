@@ -61,7 +61,7 @@
 		}
 	</delete>
 	
-	<insert id="insertCampingRoom" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<insert id="insertCampingRoom" statementType="CALLABLE">
 		{
 			CALL insertCampingRoom(
 				#{bseq}, #{cname}, #{c_class}, #{c_content}, #{price}, #{min_people}, #{max_people}, #{c_image}
