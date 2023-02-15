@@ -24,7 +24,7 @@
              <td>${memberVO.MPHONE}</td>
              <td>${memberVO.EMAIL}</td>
              <c:choose>
-	             <c:when test="${memberVO.chkyn==Y}">
+	             <c:when test="${memberVO.CHKYN=='Y'}">
 	             	<td>
 	             		<span style="color: blue;">활동계정
 	             		<input type="checkbox" name="mid" value="${memberVO.MID}">

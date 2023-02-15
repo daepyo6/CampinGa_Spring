@@ -308,4 +308,9 @@ public class AdminService {
 		adao.adminCampingJoinDormant(paramMap);		
 	}
 
+	public void updateMemberDormant(String memberid) {
+		adao.updateMemberDormant(memberid);
+		System.out.println(memberid);
+	}
+
 }

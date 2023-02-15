@@ -37,6 +37,8 @@ public interface IAdminDao {
 	void bannerOrderUpdate(HashMap<String, Object> paramMap);
 	void bannerSelectOne(HashMap<String, Object> paramMap);
 
+	void updateMemberDormant(String memberid);
+
 	
 
 	

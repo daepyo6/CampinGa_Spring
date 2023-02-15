@@ -161,6 +161,12 @@
 	<delete id="adminBannerDelete" parameterType="_int">
 		delete mainBanners where mbseq=#{param1}	
 	</delete>
+	
+	<update id="updateMemberDormant">
+		{
+			CALL updateMemberDormant( #{param1} )
+		}
+	</update>
 
 
 
