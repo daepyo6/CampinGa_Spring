@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../../header.jsp"%>
-<%@ include file="/business/sub_menu.jsp"%>
+<%@ include file="../../include/business/header.jsp"%>
+<%@ include file="../../include/business/sub_menu.jsp"%>
 
 
 <div class="detail_title"><span>캠핑장 정보</span></div>
@@ -43,8 +43,8 @@
 	</table>
 	<div>
 		<input type="button" value="수정하기" class="adpage_btn"
-		onclick="location.href='camp.do?command=businessmanCampingListDetail'">
+		onclick="location.href='businessmanCampingListDetail'">
 	</div>
 </div>
 
-<%@ include file="../../footer.jsp"%>
+<%@ include file="../../include/business/footer.jsp"%>

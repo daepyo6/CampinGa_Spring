@@ -72,6 +72,51 @@
 	<update id="SaveQnaRep" parameterType="com.campinga.dto.QnaVO">
 		update camp_qna set reply=#{reply}, repyn='y' where bseq=#{bseq}
 	</update>
+	
+	<!-- 캠핑룸 리스트 -->
+   	<select id="campingRoomList" statementType="CALLABLE" parameterType="java.util.HashMap">
+      {  
+         CALL campingRoomList( 
+            #{bseq}, #{startNum}, #{endNum},
+            #{ref_cursor , mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=businessMap}
+         ) 
+      }
+   	</select>
+   	
+   	<!-- 캠핑룸 한개 -->
+   	<select id="campingRoomOne" statementType="CALLABLE" parameterType="java.util.HashMap">
+      {  
+         CALL campingRoomOne( 
+            #{cseq},
+            #{ref_cursor , mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=businessMap}
+         ) 
+      }
+   	</select>
+   	
+   	<!-- 캠핑룸 삽입 -->
+   	<insert id="insertCampingRoom" statementType="CALLABLE">
+      {
+         CALL insertCampingRoom(
+            #{bseq}, #{cname}, #{c_class}, #{c_content}, #{price}, #{min_people}, #{max_people}, #{c_image}
+         )
+      }
+   </insert>
+   	
+   	<!-- 캠핑룸 삭제 -->
+   	<delete id="deleteCampingRoom">
+      {
+         CALL deleteCampingRoom(#{cseq})
+      }
+   	</delete>
+   	
+   	<update id="updateCampingRoom" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{ 
+			CALL updateCampingRoom( 
+				#{c_class}, #{price}, #{min_people}, #{max_people}, 
+				#{c_image}, #{cseq}
+			) 
+		}
+	</update>
 
 
 </mapper>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../../include/header.jsp" %>
-<%@ include file="../sub_menu.jsp"%>
+<%@ include file="../../include/business/header.jsp" %>
+<%@ include file="../../include/business/sub_menu.jsp"%>
 <article id="mypage" class="adminPage">
 <div class="detail_title"><span>캠핑장 예약 조회</span></div>
    <form method="post" name="reservateInfo">      
@@ -33,9 +33,9 @@
       </table>
    </form>
    
-    <jsp:include page="../../include/paging.jsp">   
+   <jsp:include page="../../include/paging.jsp">   
        <jsp:param name="command" value="businessmanRestList" />
    </jsp:include>
 	
 </article>
-<%@ include file="../../include/footer.jsp"%>
+<%@ include file="../../include/business/footer.jsp"%>

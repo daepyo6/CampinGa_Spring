@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../../include/header.jsp"%>
-<%@ include file="../sub_menu.jsp"%>
+<%@ include file="../../include/business/header.jsp"%>
+<%@ include file="../../include/business/sub_menu.jsp"%>
 <article id="mypage" class="adminPage">
   <div class="detail_title"><span>Q&amp;A</span></div>
   <table id="reviewList">
@@ -14,7 +14,7 @@
 		<c:forEach items="${qnalist}" var="camp_qnaVO">
 			<input type="hidden" name="bseq" value="${loginBusinessman.BSEQ}">
 			<tr>
-				<td>${camp_qnaVO.qseq}<c:choose>
+				<td>${camp_qnaVO.QSEQ}<c:choose>
 						<c:when test='${camp_qnaVO.REPYN=="n"}'>(미처리)</c:when>
 						<c:otherwise>(답변처리완료)</c:otherwise>
 					</c:choose></td>
@@ -32,4 +32,4 @@
 
 </article>
 
-<%@ include file="../../include/footer.jsp"%>
+<%@ include file="../../include/business/footer.jsp"%>

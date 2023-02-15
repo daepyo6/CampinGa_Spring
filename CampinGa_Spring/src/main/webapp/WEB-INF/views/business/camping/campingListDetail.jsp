@@ -2,11 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ include file="../../header.jsp"%>
-<%@ include file="/business/sub_menu.jsp"%>
+<%@ include file="../../include/business/header.jsp"%>
+<%@ include file="../../include/business/sub_menu.jsp"%>
 
 <article style="height: 1600px">
-	<form action="camp.do?command=businessmanCampingListUpdate" method="post" enctype="multipart/form-data">
+	<form action="businessmanCampingListUpdate" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="bseq" value="${BusinessmanVO.bseq}">
 		<input type="hidden" name="oldimg" value="${BusinessmanVO.image}" >
 		<div class="roomInsert">
@@ -127,4 +127,4 @@
 		</div>
 	</form>
 </article>
-<%@ include file="../../footer.jsp"%>
+<%@ include file="../../include/business/footer.jsp"%>
