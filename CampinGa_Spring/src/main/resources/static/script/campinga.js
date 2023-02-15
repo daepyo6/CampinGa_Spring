@@ -47,14 +47,17 @@ $(function() {
 	    reader.readAsDataURL(file);
 	});	
 	
-	var mainNum=0;
+	// 메인 이미지 롤링
+	var index=0;
+	const order = new Array(1,2,3,4,3,2,1,0)
 	setInterval(function(){
-        $('#mainImg').animate({ left : mainNum * -1400 },1000);
-            mainNum++;
-            if(mainNum==5)mainNum=0;
+        $('#mainImg').animate({ left : order[index] * -1400 },4000);
+            index++;
+            if(index==8)index=0;
     }, 2000);
     
 })
+
 
 
 // member JavaScript 
@@ -69,7 +72,6 @@ function login(){
 	    document.loginFrm.submit();
 	}
 }
-
 
 function idcheck(type){
     if(document.joinForm.id.value==""){
@@ -495,3 +497,16 @@ function go_delete() {
 }
 
 
+// banner 삭제
+function orderChange( mbseq ){
+	var selectTag = document.getElementById(mbseq);  	 
+	var selectVal = selectTag.options[ selectTag.selectedIndex ].value;	
+	location.href='orderChange?mbseq='+ mbseq +'&changeval='+selectVal;
+}
+function delBanner(mbseq){
+	if(confirm("정말로 삭제하시겠습니까?")){
+		location.href="adminBannerDelete?mbseq="+mbseq
+	}else{
+		return;
+	}	
+}

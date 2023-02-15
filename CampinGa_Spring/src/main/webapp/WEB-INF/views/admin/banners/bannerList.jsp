@@ -1,20 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp"%>
 <%@ include file="../include/sub_menu.jsp"%>
-<script type="text/javascript">
-function orderChange( mbseq ){
-	var selectTag = document.getElementById(mbseq);  	 
-	var selectVal = selectTag.options[ selectTag.selectedIndex ].value;	
-	location.href='orderChange?mbseq='+ mbseq +'&changeval='+selectVal;
-}
-function delBanner(mbseq){
-	if(confirm("정말로 삭제하시겠습니까?")){
-		location.href="adminBannerDelete?mbseq="+mbseq
-	}else{
-		return;
-	}	
-}
-</script>
 
 <article id="mypage" class="adminPage">
 	<h1>메인 이미지 관리</h1>

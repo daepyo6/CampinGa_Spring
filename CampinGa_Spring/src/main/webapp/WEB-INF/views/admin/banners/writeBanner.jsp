@@ -1,33 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp"%>
 <%@ include file="../include/sub_menu.jsp"%>
-<script type="text/javascript">
-$(function(){
-	$('#fileAddBtn').click( function(){
-		var formselect = $("#fileupForm")[0];  
-		var formdata = new FormData(formselect); 
-		$.ajax({ 
-			url:"<%=request.getContextPath() %>/fileup", 
-			type:"POST",
-			enctype:"multipart/form-data",
-			async: false,
-			data: formdata,
-	    	timeout: 10000,
-	    	contentType : false,
-	        processData : false,
-	        success : function(data){
-	            if(data.STATUS == 1){
-	            	$("#filename").empty();
-	            	$("#filename").append("<div>"+data.FILENAME+"</div>");
-	            	$("#image").val(data.FILENAME);
-	            	$("#filename").append("<img src='images/"+data.FILENAME+"' height='150'/>");
-	            }
-	        },
-	        error: function() {	alert("파일 업로드 실패");}
-		});
-	});
-});
-</script>
 <article style="text-align: center;">
 <h1>배너 등록</h1>  
 <form name="frm" action="adminBannerWrite" style="margin: 20px auto;">

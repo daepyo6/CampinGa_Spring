@@ -431,11 +431,11 @@ public class AdminController {
   	@Autowired
   	ServletContext context;
   	
-  	// 배너 이미지 업로드
-  	@RequestMapping(value="fileup", method=RequestMethod.POST)
+  	// 배너 이미지파일 업로드
+  	@RequestMapping(value="banFileUp", method=RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> fileup(Model model, HttpServletRequest request){
-		String path = context.getRealPath("/images");
+		String path = context.getRealPath("/images/banner");
 		HashMap<String, Object> result = new HashMap<String, Object>();		
 		try {
 			MultipartRequest multi = new MultipartRequest(
