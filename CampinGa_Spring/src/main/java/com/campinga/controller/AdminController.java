@@ -1,8 +1,10 @@
 package com.campinga.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -16,11 +18,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.campinga.dto.BannerVO;
 import com.campinga.dto.NoticeVO;
 import com.campinga.dto.Paging;
 import com.campinga.service.AdminService;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 @Controller
 public class AdminController {
@@ -140,6 +146,50 @@ public class AdminController {
 		}
 		return mav;
 	}
+	
+	
+	// 가입 승인 or 휴면
+	@RequestMapping("/adminCampingJoinDormant")
+	public String adminCampingJoinDormant(HttpServletRequest request,
+			@RequestParam("bseq") int bseq,
+			@RequestParam("chkyn") String chkyn) {
+		HttpSession session = request.getSession();
+
+		HashMap<String, Object>loginAdmin
+			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+		
+		String url = "redirect:/adminCampingList";
+		if(loginAdmin==null) {
+			url = "admin/adminlogin";			
+		} else {
+			HashMap<String, Object>paramMap = new HashMap<String, Object>();
+			paramMap.put("bseq", bseq);
+			paramMap.put("chkyn", chkyn);
+			as.adminCampingJoinDormant(paramMap);
+		}		
+		return url;
+	}
+	
+	
+	// 사업자(캠핑장) 계정 삭제
+	@RequestMapping("/adminCampingDelete")
+	public String adminCampingDelete(@RequestParam("bseq") int bseq,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+
+		HashMap<String, Object>loginAdmin
+			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+		
+		String url = "redirect:/adminCampingList";
+		if(loginAdmin==null) {
+			url = "admin/adminlogin";			
+		} else {
+			as.adminCampingDelete(bseq);
+		}		
+		return url;
+	}
+	
+	
 
 	// 예약 관리
 	@RequestMapping("/adminRestList")
@@ -386,9 +436,147 @@ public class AdminController {
   	}
     
     
+  	// 롤링 이미지 리스트
+  	@RequestMapping("/adminBannerList")
+  	public ModelAndView adminMainimgList(HttpServletRequest request) {
+  		ModelAndView mav = new ModelAndView();
+  		HttpSession session = request.getSession();
+
+ 		HashMap<String, Object>loginAdmin
+ 			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+ 		if(loginAdmin==null) {
+ 			mav.setViewName("admin/adminlogin");			
+ 		} else {
+ 			HashMap<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("ref_cursor", null);
+			as.adminBannerlist(paramMap);
+			ArrayList<HashMap<String, Object>>list
+				= (ArrayList<HashMap<String, Object>>)paramMap.get("ref_cursor");
+			mav.addObject("bannerList", list); 			
+ 			mav.setViewName("admin/banners/bannerList");
+ 		}  		
+  		return mav;
+  	}
+  	
+  	
+  	// 롤링 이미지 등록 페이지
+  	@RequestMapping("/adminBannerWriteForm")
+  	public String adminBannerWriteForm(HttpServletRequest request) {
+  		HttpSession session = request.getSession();
+ 		HashMap<String, Object>loginAdmin
+ 			= (HashMap<String, Object>)session.getAttribute("loginAdmin");
+ 		String url = "admin/banners/writeBanner";
+ 		if(loginAdmin==null) {
+ 			url = "admin/adminlogin";			
+ 		}  		
+  		return url;
+  	}
     
+  	@Autowired
+  	ServletContext context;
+  	
+  	// 배너 이미지파일 업로드
+  	@RequestMapping(value="banFileUp", method=RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> fileup(Model model, HttpServletRequest request){
+		String path = context.getRealPath("/images/banner");
+		HashMap<String, Object> result = new HashMap<String, Object>();		
+		try {
+			MultipartRequest multi = new MultipartRequest(
+					request, path, 10*1024*1024, "UTF-8",  new DefaultFileRenamePolicy()
+			);
+			result.put("STATUS", 1);
+			result.put("FILENAME", multi.getFilesystemName("fileimage"));
+		} catch (IOException e) {e.printStackTrace();
+		}
+		return result;
+	}
     
-    
+  	
+  	
+  	// 배너 이미지 등록
+  	@RequestMapping("/adminBannerWrite")
+  	public String adminBannerWrite(@ModelAttribute("dto") @Valid BannerVO bannervo,
+  			BindingResult result, Model model) {
+  		
+  		String url = "redirect:/adminBannerList";
+  		if(result.getFieldError("name")!=null) {
+  			url = "admin/banners/writeBanner";
+  			model.addAttribute("message", result.getFieldError("name").getDefaultMessage());
+  		} else if(result.getFieldError("image")!=null) {
+  			url = "admin/banners/writeBanner";
+  			model.addAttribute("message", result.getFieldError("image").getDefaultMessage());
+  		} else {
+  			if(bannervo.getOrder_seq()==6) bannervo.setUseyn("N");
+  			else bannervo.setUseyn("Y");
+  			as.adminBannerWrite(bannervo);  			
+  		}  		
+  		return url;
+  	}
+  	
+  	
+  	
+  	// 배너 순서 변경
+  	@RequestMapping("/orderChange")
+  	public String orderChange(
+  			@RequestParam("mbseq") int mbseq,
+  			@RequestParam("changeval") int order_seq) {
+  		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+  		paramMap.put("mbseq", mbseq);
+  		paramMap.put("order_seq", order_seq);
+  		as.bannerOrderUpdate(paramMap);
+  		
+  		return "redirect:/adminBannerList";
+  	}
+  	
+  	
+  	
+  	// 배너 수정 페이지
+  	@RequestMapping("/bannerUpdateForm")
+  	public ModelAndView adminBannerUpdate(@RequestParam("mbseq") int mbseq,
+  			HttpServletRequest request) {
+  		
+  		ModelAndView mav = new ModelAndView();
+  		HashMap<String, Object> loginAdmin
+  			= (HashMap<String, Object>)request.getSession().getAttribute("loginAdmin");
+  		if(loginAdmin==null) {
+  			mav.setViewName("admin/adminlogin");
+  		} else {
+  			HashMap<String, Object>paramMap = new HashMap<String, Object>();
+  			paramMap.put("mbseq", mbseq);
+  			paramMap.put("ref_cursor", null);
+  			as.bannerSelectOne(paramMap);
+  			ArrayList<HashMap<String, Object>>list
+  			= (ArrayList<HashMap<String, Object>>)paramMap.get("ref_cursor");
+  			mav.addObject("banner", list.get(0));  			
+  			mav.setViewName("admin/banners/editBannerForm");
+  		}  		  		
+  		return mav;
+  	}
+  	
+  	
+  	// 배너 수정하기
+  	@RequestMapping("/adminBannerUpdate")
+  	public ModelAndView adminBannerUpdate(@ModelAttribute("banner") BannerVO bannervo,
+  			@RequestParam("oldimage") String oldimage) {
+  		ModelAndView mav = new ModelAndView();  		
+  		if(bannervo.getOrder_seq()<6) bannervo.setUseyn("Y");
+  		else bannervo.setUseyn("N");
+  		if(bannervo.getImage().equals("")) bannervo.setImage(oldimage);
+  		as.adminBannerUpdate(bannervo);  
+  		mav.setViewName("redirect:/adminBannerList");
+  		return mav;
+  	}
+  	
+  	
+  	// 배너 삭제
+  	@RequestMapping("/adminBannerDelete")
+  	public String adminBannerDelete(@RequestParam("mbseq") int mbseq) {
+  		as.adminBannerDelete(mbseq);
+  		return "redirect:/adminBannerList";
+  	}
+  	
+  	
     
 
 		

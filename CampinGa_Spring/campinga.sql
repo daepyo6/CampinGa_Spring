@@ -1,4 +1,4 @@
--- 신규/추천 캠핑장
+-- �ű�/��õ ķ����
 create or replace procedure getNewRecoCamping(
     p_cur1 out SYS_REFCURSOR,
     p_cur2 out SYS_REFCURSOR
@@ -41,7 +41,7 @@ BEGIN
 END;
 
 
--- 메인에서 캠핑장 검색
+-- ���ο��� ķ���� �˻�
 create or replace procedure getSearchResult(
     p_address1 in businessman.caddress1%type, 
     p_address2 in businessman.caddress2%type, 
@@ -58,7 +58,7 @@ BEGIN
 END;
 
 -- 02-08
--- 카테고리 : ALL
+-- ī�װ� : ALL
 create or replace PROCEDURE categoryAll(
     p_rc OUT SYS_REFCURSOR
 )
@@ -69,7 +69,7 @@ BEGIN
         FROM businessman;
 END;
 
--- 카테고리 조회
+-- ī�װ� �ȸ
 create or replace PROCEDURE categoryList(
     p_cate IN businessman.category%type,
     p_rc OUT SYS_REFCURSOR
@@ -84,7 +84,7 @@ END;
 
 
 -- 02-09
--- 캠핑장 이름 검색
+-- ķ���� �̸� �˻�
 CREATE OR REPLACE PROCEDURE campNameSerch(
     p_name IN businessman.cname%type,
     p_rc OUT SYS_REFCURSOR
@@ -97,7 +97,7 @@ BEGIN
 END;
 
 
--- bseq로 캠핑장 정보 검색
+-- bseq�� ķ���� ��� �˻�
 CREATE OR REPLACE PROCEDURE campDetailByBseq(
     p_bseq IN businessman.bseq%type,
     p_rc OUT SYS_REFCURSOR
@@ -110,7 +110,7 @@ BEGIN
 END;
 
 
--- 즐겨찾기 조회 ()
+-- ���ã�� �ȸ ()
 
 CREATE OR REPLACE PROCEDURE getFav(
     p_mid IN member.mid%type,
@@ -128,7 +128,7 @@ EXCEPTION
 END;
 
 
--- 캠핑장 객실 한개 조회
+-- ķ���� ���� �Ѱ� �ȸ
 create or replace PROCEDURE selectCampOne(
     p_cseq IN camping_view.cseq%type,
     p_rc OUT SYS_REFCURSOR
@@ -139,7 +139,7 @@ BEGIN
     SELECT * FROM camping_view WHERE cseq=p_cseq;
 END;
 
--- bseq로 캠핑장 객실 리스트 검색
+-- bseq�� ķ���� ���� ����Ʈ �˻�
 CREATE OR REPLACE PROCEDURE selectCampingList(
     p_bseq IN businessman.bseq%type,
     p_rc OUT SYS_REFCURSOR
@@ -151,7 +151,7 @@ BEGIN
 END;
 
 
--- 캠핑장 qna, review count조회
+-- ķ���� qna, review count�ȸ
 CREATE OR REPLACE PROCEDURE getCount(
     p_tableName IN number,
     p_bseq IN businessman.bseq%type,
@@ -170,7 +170,7 @@ END;
 
 
 
--- 캠핑장 qna 조회
+-- ķ���� qna �ȸ
 CREATE OR REPLACE PROCEDURE selectQnaByBseq(
     p_bseq IN businessman.bseq%type,
     p_startNum IN number,
@@ -190,7 +190,7 @@ END;
 
 
 
--- 캠핑장 review 조회
+-- ķ���� review �ȸ
 CREATE OR REPLACE PROCEDURE selectReviewByBseq(
     p_bseq IN businessman.bseq%type,
     p_startNum IN number,
@@ -208,7 +208,7 @@ BEGIN
         ) WHERE rn <= p_endNum;
 END;
 
--- 멤버 조회
+-- ��� �ȸ
 CREATE OR REPLACE PROCEDURE getMemberCam(
     p_mid IN member.mid%type,
     p_curvar OUT SYS_REFCURSOR
@@ -220,7 +220,7 @@ BEGIN
         p_curvar := result_cur;
 END;
 
--- 멤버 회원가입 등록
+-- ��� ȸ���� ���
 CREATE OR REPLACE PROCEDURE insertMemberCam(
     p_mid IN member.mid%type,
     p_pwd IN member.pwd%type,
@@ -235,7 +235,7 @@ BEGIN
     commit;
 END;
 
--- 사업자 조회 One
+-- ����� �ȸ One
 CREATE OR REPLACE PROCEDURE getBusinessCam(
     p_bid IN businessman.bid%type,
     p_curvar OUT SYS_REFCURSOR
@@ -249,7 +249,7 @@ END;
 
 
 -- 02-10
--- 관리자 조회
+-- ���� �ȸ
 CREATE OR REPLACE  PROCEDURE getAdminList(
     p_aid IN admin.aid%type,
     p_rc OUT SYS_REFCURSOR 
@@ -262,7 +262,7 @@ END;
 
 
 
--- 관리자 count
+-- ���� count
 create or replace PROCEDURE AdminCount(
     p_key IN VARCHAR2,
     p_tableName IN number,
@@ -287,7 +287,7 @@ END;
 
 
 
--- 관리자 : 회원 조회
+-- ���� : ȸ�� �ȸ
 CREATE OR REPLACE  PROCEDURE adminMemberList(
     p_key IN member.name%type,
     p_startNum IN number,
@@ -308,7 +308,7 @@ END;
 
 
 
---  관리자 :  캠핑장 관리 조회 
+--  ���� :  ķ���� �� �ȸ 
 CREATE OR REPLACE  PROCEDURE adminCampingList(
     p_key IN businessman.cname%type,
     p_startNum IN number,
@@ -328,7 +328,7 @@ END;
 
 
 
--- 관리자 : 캠핑장 리뷰 조회
+-- ���� : ķ���� ���� �ȸ
 CREATE OR REPLACE  PROCEDURE adminReviewList(
      p_key IN review.content%type,
     p_startNum IN number,
@@ -349,7 +349,7 @@ END;
 
 
 
--- 관리자 : 공지사항
+-- ���� : �������
 CREATE OR REPLACE  PROCEDURE adminNoticeList(
     p_startNum IN number,
     p_endNum IN number,
@@ -369,7 +369,7 @@ END;
 select*from notice;
 
 
--- 관리자 :  예약
+-- ���� :  ����
 CREATE OR REPLACE  PROCEDURE adminRestList(
     p_key IN reservate_view.c_class%type,
     p_startNum IN number,
@@ -389,7 +389,7 @@ END;
 
 
 
--- 공지사항 상세
+-- ������� ��
 CREATE OR REPLACE  PROCEDURE selectNoticeOne(
     p_nseq IN number,
     p_rc OUT SYS_REFCURSOR
@@ -402,7 +402,7 @@ END;
 
 
 -- 02-13
--- 사업자 정보수정
+-- ����� ������
 create or replace PROCEDURE updateBusiness(
     p_bid IN businessman.bid%TYPE ,
     p_name IN businessman.name%TYPE ,
@@ -418,7 +418,7 @@ END;
 
 
 
--- 사업자 회원 탈퇴
+-- ����� ȸ�� Ż��
 CREATE OR REPLACE PROCEDURE deleteBusiness(
     p_bid IN businessman.bid%TYPE )
 IS
@@ -428,7 +428,7 @@ BEGIN
 END;
 
 
--- 사업자  count
+-- �����  count
 create or replace PROCEDURE BusinessGetAllCount(
     p_bseq IN businessman.bseq%type,
     p_tableName IN number,
@@ -447,14 +447,7 @@ BEGIN
     p_cnt := v_cnt;
 END;
 
-
-
-
-
-
-
-
--- 사업자 QnA 리스트 
+-- ����� QnA ����Ʈ 
 CREATE OR REPLACE  PROCEDURE getBusinessQnaList(
     p_bseq IN businessman.bseq%type,
     p_startNum IN number,
@@ -474,7 +467,7 @@ END;
 
 
 
--- 사업자 QnA 한개 가져오기
+-- ����� QnA �Ѱ� ������
 CREATE OR REPLACE  PROCEDURE getQnaOne(
     p_qseq IN camp_qna.qseq%type,
     p_rc OUT SYS_REFCURSOR
@@ -487,7 +480,7 @@ END;
 
 
 
--- 사업자 예약 리스트
+-- ����� ���� ����Ʈ
 CREATE OR REPLACE PROCEDURE getBusinessRestList(
      p_bseq IN businessman.bseq%type,
      p_startNum IN NUMBER,
@@ -504,10 +497,6 @@ BEGIN
             )WHERE rn>=p_startNum
         )WHERE rn<=p_endNum;
 END;
-
-
-
-
 
 
 -- Member Mypage
@@ -530,7 +519,7 @@ END;
 
 
 
--- 사용자 예약 리스트
+-- ����� ���� ����Ʈ
 CREATE OR REPLACE PROCEDURE getReservateList(
     p_mid IN member.mid%type,
     p_startNum IN number,
@@ -549,7 +538,7 @@ END;
 
 
 
--- 사용자 즐겨찾기 리스트
+-- ����� ���ã�� ����Ʈ
 CREATE OR REPLACE PROCEDURE getFavoritesList(
     p_mid IN member.mid%type,
     p_startNum IN number,
@@ -569,7 +558,7 @@ END;
 
 
 
--- 사용자 업데이트
+-- ����� ����Ʈ
 create or replace PROCEDURE updateMember(
     p_mid IN member.mid%TYPE ,
     p_name IN member.name%TYPE ,
@@ -585,7 +574,7 @@ END;
 
 
 
--- 사용자 탈퇴
+-- ����� Ż��
 CREATE OR REPLACE PROCEDURE deleteMember(
     p_mid IN member.mid%TYPE )
 IS
@@ -596,7 +585,7 @@ END;
 
 
 
--- 사용자 예약 취소
+-- ����� ���� ���
 CREATE OR REPLACE PROCEDURE cancelReservate(
     p_reseq IN reservation.reseq%TYPE )
 IS
@@ -609,7 +598,7 @@ select * from  favorites;
 
 
 
--- 사용자 즐겨찾기 삭제
+-- ����� ���ã�� ���
 CREATE OR REPLACE PROCEDURE deleteMyFavorites(
    p_fseq IN favorites.fseq%TYPE )
 IS
@@ -673,10 +662,114 @@ CREATE OR REPLACE  PROCEDURE campingRoomOne(
     p_rc OUT SYS_REFCURSOR
 )
 IS
-BEGIN
-    OPEN p_rc FOR
+BEGIN    
+  OPEN p_rc FOR
         select * from camping_view where cseq=p_cseq;
 END;
+
+-- 02-14
+-- ���� �Ѹ� �̹��� ��� ���̺�, ���� ��
+CREATE TABLE mainBanners( 
+  mbseq NUMBER(5) NOT NULL unique,
+  NAME VARCHAR2(100),
+  ORDER_SEQ NUMBER(1),
+  IMAGE VARCHAR2(50 BYTE),
+  USEYN CHAR(1 BYTE) DEFAULT 'Y',
+  INDATE DATE DEFAULT sysdate );
+
+CREATE SEQUENCE mb_seq INCREMENT BY 1 START WITH 1;
+
+
+-- ���� �̹��� ����Ʈ ������
+CREATE OR REPLACE PROCEDURE adminBannerlist(
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR SELECT * FROM mainBanners ORDER BY useyn DESC, order_seq ASC;    
+END;
+
+-- ��� �߰�
+CREATE OR REPLACE PROCEDURE adminBannerWrite(
+    p_name IN mainBanners.name%type,
+    p_order_seq IN mainBanners.order_seq%type,
+    p_useyn IN mainBanners.useyn%type,
+    p_image IN mainBanners.image%type
+)
+IS
+BEGIN
+    UPDATE mainBanners SET order_seq=order_seq+1 WHERE order_seq>=p_order_seq and order_seq<=5;    
+    INSERT INTO mainBanners ( mbseq, name, order_seq, useyn, image )
+    VALUES ( mb_seq.nextval, p_name, p_order_seq, p_useyn, p_image);
+    UPDATE mainBanners SET useyn='N'  WHERE order_seq=6;
+    COMMIT;
+END;
+
+
+
+-- ��� �� �ٲٱ�
+CREATE OR REPLACE PROCEDURE bannerOrderUpdate(
+    p_mbseq IN mainBanners.mbseq%type,
+    p_order_seq IN mainBanners.order_seq%type
+)
+IS
+BEGIN
+    IF p_order_seq < 6 THEN
+        UPDATE mainBanners SET order_seq=order_seq+1 WHERE order_seq>=p_order_seq and order_seq<=5;
+    END IF;
+    UPDATE mainBanners SET order_seq=p_order_seq WHERE mbseq=p_mbseq;
+    UPDATE mainBanners SET useyn='N'  WHERE order_seq=6;
+    COMMIT;
+END;
+
+
+
+-- ��� �ϳ� ������
+CREATE OR REPLACE PROCEDURE bannerSelectOne(
+    p_mbseq IN mainBanners.mbseq%type,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR SELECT * FROM mainBanners WHERE mbseq=p_mbseq;    
+END;
+
+
+
+-- ��� ��ü ���
+CREATE OR REPLACE PROCEDURE adminBannerUpdate(
+    p_name IN mainBanners.name%type,
+    p_order_seq IN mainBanners.order_seq%type,
+    p_useyn IN mainBanners.useyn%type,
+    p_image IN mainBanners.image%type,
+    p_mbseq IN mainBanners.mbseq%type
+)
+IS
+BEGIN
+    UPDATE mainBanners SET order_seq=order_seq+1 WHERE order_seq>=p_order_seq and order_seq<=5;
+    UPDATE mainBanners SET useyn='N'  WHERE order_seq=6;
+    UPDATE mainBanners SET name=p_name, order_seq=p_order_seq, useyn=p_useyn, image=p_image
+    WHERE mbseq=p_mbseq;
+    COMMIT;
+END;
+
+
+ UPDATE mainBanners SET useyn='N'  WHERE order_seq=6;
+select*from mainBanners;
+
+commit;
+
+
+
+-- ���ο��� �ȸ
+CREATE OR REPLACE PROCEDURE getBannerList(
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR SELECT * FROM mainBanners WHERE order_seq<=5 ORDER BY order_seq;    
+END;
+
 
 -- 캠핑장 객실 수정
 create or replace procedure updateCampingRoom(

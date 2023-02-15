@@ -159,13 +159,15 @@ header{
 	height:750px;
 }
 #main_img{	
-	width:100%;	
+	position:relative;
+	width:1400px;	
 	height:100%;
-	margin:20px auto;
-    text-align: center;
+	margin:0 auto;
+    text-align: left;
+    overflow:hidden;
 }
 #mainImg{
-	width:1400px;
+	width:7000px;
 	height:100%; 
     display:inline-block;        
 }

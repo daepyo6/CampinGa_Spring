@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class BusinessVO {
 	// 사업자 정보
-	private Integer bseq;
+	private int bseq;
 	@NotNull(message="사업자 아이디를 입력하세요")
 	@NotEmpty(message="사업자 아이디를 입력하세요")
 	private String bid;
@@ -38,4 +38,5 @@ public class BusinessVO {
 	private String image;
 	private String content;
 	private String category;
+	private String chkyn;
 }

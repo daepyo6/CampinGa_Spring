@@ -19,6 +19,8 @@ public interface ICampingDao {
 	void selectQnaByBseq(HashMap<String, Object> paramMap);
 	void selectReviewByBseq(HashMap<String, Object> paramMap);
 
+	void getBannerList(HashMap<String, Object> paramMap);
+	
 	void getNewRecoCamping(HashMap<String, Object> paramMap);
 	void getSearchResult(HashMap<String, Object> paramMap);
 	
@@ -33,5 +35,6 @@ public interface ICampingDao {
 	
 	void insertFavorites(HashMap<String, Object> paramMap);
 	void deleteFavorites(HashMap<String, Object> paramMap);
+	
 
 }

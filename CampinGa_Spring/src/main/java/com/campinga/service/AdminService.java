@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.campinga.dao.IAdminDao;
+import com.campinga.dto.BannerVO;
 import com.campinga.dto.NoticeVO;
 import com.campinga.dto.Paging;
 
@@ -228,11 +229,22 @@ public class AdminService {
 			session.removeAttribute("page");
 		}
 		
+		String key = "";
+		if(requset.getParameter("key")!=null) {
+			key = requset.getParameter("key");
+		    session.setAttribute("key", key);
+		} else if(session.getAttribute("key")!=null){
+		    key = (String)session.getAttribute("key");
+		} else {
+		    session.removeAttribute("key");
+		}
+		
 		Paging paging = new Paging();
 		paging.setPage(page);
 
 		HashMap<String, Object> cntMap = new HashMap<String, Object>();
 		cntMap.put("cnt", 0);
+		cntMap.put("key", key);
 		cntMap.put("tableName", 5); 		
 		adao.AdminCount(cntMap);
 
@@ -255,12 +267,45 @@ public class AdminService {
 		adao.adminNoticeUpdate(noticevo);		
 	}
 
-	public void adminNoticeWrite(@Valid NoticeVO noticevo) {
+	public void adminNoticeWrite(NoticeVO noticevo) {
 		adao.adminNoticeWrite(noticevo);		
 	}
 
 	public void adminNoticeDelete(int nseq) {
 		adao.adminNoticeDelete(nseq);		
+	}
+
+	public void adminBannerlist(HashMap<String, Object> paramMap) {
+		adao.adminBannerlist(paramMap);		
+	}
+
+	public void adminBannerWrite(BannerVO bannervo) {
+		adao.adminBannerWrite(bannervo);		
+	}
+
+	public void bannerOrderUpdate(HashMap<String, Object> paramMap) {
+		adao.bannerOrderUpdate(paramMap);		
+	}
+
+	public void bannerSelectOne(HashMap<String, Object> paramMap) {
+		adao.bannerSelectOne(paramMap);		
+	}
+
+	public void adminBannerUpdate(BannerVO bannervo) {
+		adao.adminBannerUpdate(bannervo);		
+	}
+
+	public void adminBannerDelete(int mbseq) {
+		adao.adminBannerDelete(mbseq);		
+	}
+
+	public void adminCampingDelete(int bseq) {
+		adao.adminCampingDelete(bseq);
+		
+	}
+
+	public void adminCampingJoinDormant(HashMap<String, Object> paramMap) {
+		adao.adminCampingJoinDormant(paramMap);		
 	}
 
 }

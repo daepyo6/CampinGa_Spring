@@ -30,11 +30,14 @@ $(function() {
 		$(this).children('.iconImg1').animate({opacity:"1"}, 500)
 		$(this).children('.iconImg2').animate({opacity:"0"}, 500)
 	})
+	
 	$("#file").on('change',function(event){
 	  	var fileName = $("#file").val();
+	  	console.log("fileName"+fileName);
 	  	$(".upload-name").val(fileName);
     
 		var file = event.target.files[0];
+		console.log("file"+file);
 
 	    var reader = new FileReader(); 
 	    reader.onload = function(e) {	
@@ -43,7 +46,18 @@ $(function() {
 	
 	    reader.readAsDataURL(file);
 	});	
+	
+	// 메인 이미지 롤링
+	var index=0;
+	const order = new Array(1,2,3,4,3,2,1,0)
+	setInterval(function(){
+        $('#mainImg').animate({ left : order[index] * -1400 },4000);
+            index++;
+            if(index==8)index=0;
+    }, 2000);
+    
 })
+
 
 
 // member JavaScript 
@@ -58,7 +72,6 @@ function login(){
 	    document.loginFrm.submit();
 	}
 }
-
 
 function idcheck(type){
     if(document.joinForm.id.value==""){
@@ -463,22 +476,36 @@ function notiecDeleteChk(nseq) {
 	}	
 }
 
-// admin camping
-function go_delete() {
-	var count = 0;
-	if (document.frm.bseq.length == undefined) {
-		if (document.frm.bseq.checked == true) count++;
+// admin campingList
+function joinDormant(bseq){
+	alert("가입승인/휴면전환 합니다.")
+	if(document.frm.onOff.checked){
+		chk="N";
 	} else {
-		for (var i = 0; i < document.frm.bseq.length; i++) {
-			if (document.frm.bseq[i].checked == true) {
-				count++;
-			}
-		}
+		chk="Y";
 	}
-	if (count == 0) {
-		alert("삭제할 항목을 선택하세요");
-	} else {
-		document.frm.action = "camp.do?command=adminCampingDelete";
-		document.frm.submit();
+	location.href="adminCampingJoinDormant?bseq="+bseq+"&chkyn="+chk;	
+}
+
+function businessDel(bseq){
+	if(confirm("계정을 삭제하시겠습니까? 계정삭제시 복구되지 않습니다.")){
+		location.href="adminCampingDelete?bseq="+bseq;
+	}else{
+		return;
 	}
+}
+
+
+// banner 삭제
+function orderChange( mbseq ){
+	var selectTag = document.getElementById(mbseq);  	 
+	var selectVal = selectTag.options[ selectTag.selectedIndex ].value;	
+	location.href='orderChange?mbseq='+ mbseq +'&changeval='+selectVal;
+}
+function delBanner(mbseq){
+	if(confirm("정말로 삭제하시겠습니까?")){
+		location.href="adminBannerDelete?mbseq="+mbseq
+	}else{
+		return;
+	}	
 }

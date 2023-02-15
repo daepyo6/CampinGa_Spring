@@ -23,6 +23,7 @@ import com.campinga.dto.Paging;
 import com.campinga.dto.QnaVO;
 import com.campinga.dto.ReviewVO;
 import com.campinga.dto.ReservationVO;
+import com.campinga.service.AdminService;
 import com.campinga.service.CampingService;
 
 @Controller
@@ -40,22 +41,26 @@ public class CampingController {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("ref_cursor1", null);
 		paramMap.put("ref_cursor2", null);
-		// paramMap.put("ref_cursor3", null);
+		paramMap.put("ref_cursor3", null);
 
-		cs.getNewRecoCamping(paramMap);
+		cs.getNewRecoCamping(paramMap);		
 
 		// 새로운 캠핑장 리스트
-		ArrayList<HashMap<String, Object>> newCampList = (ArrayList<HashMap<String, Object>>) paramMap
-				.get("ref_cursor1");
+		ArrayList<HashMap<String, Object>> newCampList 
+			= (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor1");
+		
 		// 추천 캠핑장 리스트
-		ArrayList<HashMap<String, Object>> recoCampList = (ArrayList<HashMap<String, Object>>) paramMap
-				.get("ref_cursor2");
-		// ArrayList<HashMap<String , Object>> list3
-		// = (ArrayList<HashMap<String , Object>>) paramMap.get("ref_cursor3");
+		ArrayList<HashMap<String, Object>> recoCampList 
+			= (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor2");
+		
+		// 메인 롤링 리스트
+		cs.getBannerList(paramMap);
+		ArrayList<HashMap<String, Object>> bannerList
+			= (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor3");
 
 		mav.addObject("newCampList", newCampList);
 		mav.addObject("recoCampList", recoCampList);
-		// mav.addObject("bannerList", list3);
+		mav.addObject("bannerList", bannerList);
 
 		mav.setViewName("main");
 		return mav;
@@ -380,8 +385,53 @@ public class CampingController {
 	}
 
 	
+	@Autowired
+	AdminService as;
+	
+	// 공지사항 페이지
+	@RequestMapping("noticeList")
+	public ModelAndView noticeList(HttpServletRequest request,
+ 			@RequestParam(value="first", required=false) String first) {
+
+ 		ModelAndView mav = new ModelAndView();
+ 		HttpSession session = request.getSession();
+
+		if(first!=null) {
+			request.removeAttribute("page");
+			session.removeAttribute("page");
+		}
+		HashMap<String, Object>paramMap = new HashMap<String,Object>();
+		paramMap.put("ref_cursor", null);
+		paramMap.put("request", request);
+		as.adminNoticeList(paramMap);
+		ArrayList<HashMap<String, Object>>list
+			=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+		mav.addObject("noticeList", list);
+		mav.addObject("paging", (Paging)paramMap.get("paging"));
+		mav.setViewName("notice/noticeList");			
+ 		
+ 		return mav;
+ 	} 
 	
 	
+	// 공지사항 보기
+	@RequestMapping("/noticeDetail")
+ 	public ModelAndView noticeDetail(@RequestParam("nseq") int nseq,
+ 			HttpServletRequest request) {
+ 		ModelAndView mav = new ModelAndView();
+ 		HttpSession session = request.getSession();
+
+		HashMap<String, Object>paramMap = new HashMap<String,Object>();
+ 		paramMap.put("nseq", nseq);
+ 		paramMap.put("ref_cursor", null);
+ 		as.selectNoticeOne(paramMap);
+ 		ArrayList<HashMap<String, Object>>list
+ 			=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+ 		mav.addObject("noticeVO", list.get(0));
+ 		mav.setViewName("notice/noticeDetail"); 			
+ 			
+ 		return mav;
+ 	}
 	
 	
 	

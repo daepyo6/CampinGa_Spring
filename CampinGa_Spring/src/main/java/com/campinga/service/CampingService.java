@@ -154,4 +154,8 @@ public class CampingService {
 		cdao.deleteFavorites(paramMap);
 	}
 
+	public void getBannerList(HashMap<String, Object> paramMap) {
+		cdao.getBannerList(paramMap);		
+	}
+
 }
