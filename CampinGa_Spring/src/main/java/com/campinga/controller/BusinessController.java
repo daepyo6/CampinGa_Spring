@@ -71,6 +71,75 @@ public class BusinessController {
 		}
 		return url;
 	}
+	
+	  // 사업자 아이디 체크
+	   @RequestMapping("/BidCheckForm")
+	   public String idCheckForm(@RequestParam("bid") String bid, Model model, HttpServletRequest request) {
+
+	      HashMap<String, Object> paramMap = new HashMap<String, Object>();
+	      paramMap.put("bid", bid);
+	      paramMap.put("ref_cursor", null);
+	      bs.getBusinessCam(paramMap);
+
+	      ArrayList<HashMap<String, Object>> list 
+	         = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+	      if (list.size() == 0) {
+	         model.addAttribute("result", -1);
+	      } else {
+	         model.addAttribute("result", 1);
+	      }
+	      model.addAttribute("bid", bid);
+
+	      return "business/idCheck";
+	   }
+	   
+	   
+	   
+	   
+	   // 사업자 회원 가입
+	   
+	   @RequestMapping(value = "/businessJoin", method = RequestMethod.POST)
+	   public ModelAndView join(@ModelAttribute("dto") @Valid BusinessVO businessvo, BindingResult result,
+	         @RequestParam(value = "reid", required = false) String reid,
+	         @RequestParam(value = "pwd_check", required = false) String pwdCheck) {
+
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("business/joinForm");
+	      mav.addObject("reid", reid);
+	      
+	      if (result.getFieldError("bid") != null)
+	         mav.addObject("message", result.getFieldError("bid").getDefaultMessage());
+	      else if (result.getFieldError("name") != null)
+	         mav.addObject("message", result.getFieldError("name").getDefaultMessage());
+	      else if (result.getFieldError("cname") != null)
+	         mav.addObject("message", result.getFieldError("cname").getDefaultMessage());
+	      else if (result.getFieldError("pwd") != null)
+	         mav.addObject("message", result.getFieldError("pwd").getDefaultMessage());
+	      else if (result.getFieldError("phone") != null)
+	         mav.addObject("message", result.getFieldError("phone").getDefaultMessage());
+	      else if (result.getFieldError("email") != null)
+	         mav.addObject("message", result.getFieldError("email").getDefaultMessage());
+	      else if (result.getFieldError("caddress1") != null)
+	         mav.addObject("message", result.getFieldError("caddress1").getDefaultMessage());
+	      else if (result.getFieldError("caddress2") != null)
+	         mav.addObject("message", result.getFieldError("caddress2").getDefaultMessage());
+	      else if (result.getFieldError("caddress3") != null)
+	         mav.addObject("message", result.getFieldError("caddress3").getDefaultMessage());
+	      
+	      else if (!businessvo.getBid().equals(reid))
+	         mav.addObject("message", "아이디 중복체크가 되지 않았습니다");
+	      else if (!businessvo.getPwd().equals(pwdCheck))
+	         mav.addObject("message", "비밀번호 확인이 일치하지 않습니다");
+	      else {
+	         bs.insertBusinessCam(businessvo);
+
+	         mav.addObject("message", "회원가입이 완료되었습니다. 로그인하세요");
+	         mav.setViewName("member/login");
+	      }
+	      return mav;
+	   }
+
+
 
 	// 사업자 마이페이지 이동
 	@RequestMapping("/businessmanMypage")
@@ -355,5 +424,110 @@ public class BusinessController {
 		}
 		return "redirect:/campingRoomList";
 	}
+	
+	
+	
+	// 관리자 캠핑 정보
+	   @RequestMapping("/businessmanCampingInfo")
+	   public ModelAndView businessmanCampingInfo(HttpServletRequest request) {
+
+	      ModelAndView mav = new ModelAndView();
+	      HttpSession session = request.getSession();
+
+	      HashMap<String, Object>loginBusinessman
+	         = (HashMap<String, Object>)session.getAttribute("loginBusinessman");
+
+	      if(loginBusinessman==null) {
+	         mav.setViewName("member/login");
+	      } else {
+	         HashMap<String, Object> paramMap = new HashMap<String, Object>();
+	         paramMap.put("bid", loginBusinessman.get("BID"));
+	         paramMap.put("ref_cursor", null);
+
+	         bs.getBusinessCam(paramMap);
+
+	         ArrayList<HashMap<String, Object>> list = 
+	               (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+	         HashMap<String, Object> bvo = list.get(0);
+	            
+	         mav.addObject("businessVO", bvo);
+	         mav.setViewName("business/camping/campingList");         
+	      }
+	      return mav;
+	   }
+	   
+	   
+	   // 관리자 캠핑 정보 수정 이동
+	   @RequestMapping("BsCampingInfoUpdateForm")
+	     public ModelAndView BsCampingInfoUpdateForm(HttpServletRequest request) {
+	  
+	       ModelAndView mav = new ModelAndView();
+	       HttpSession session = request.getSession();
+	       
+	       HashMap<String, Object>loginBusinessman
+	         = (HashMap<String, Object>)session.getAttribute("loginBusinessman");
+	       
+	       HashMap<String, Object> paramMap = new HashMap<String, Object>();
+	       paramMap.put("bid", loginBusinessman.get("BID"));
+	       paramMap.put("ref_cursor" , null);
+	       bs.getBusinessCam(paramMap);
+	        
+	       ArrayList< HashMap<String, Object> > list 
+	          =  ( ArrayList< HashMap<String, Object> > ) paramMap.get("ref_cursor");
+	       HashMap<String, Object> bvo = list.get(0);
+	      
+	       mav.addObject("businessVO", bvo);
+	       String [] cateMap = {"오토캠핑", "캠핑", "카라반", "캠프닉"};
+	       mav.addObject("cateMap", cateMap );
+	       mav.setViewName("business/camping/campingListDetail");
+	       return mav;
+	     }
+	   
+	   
+	   // 관리자 캠핑 정보 수정
+	   @RequestMapping(value="/BsCampingInfoUpdate", method=RequestMethod.POST)
+	   public String BsCampingInfoUpdate(HttpServletRequest request) {
+	      
+	      String path = context.getRealPath("/images");
+	      HttpSession session = request.getSession();
+	      int bseq=0;
+	      HashMap<String, Object>loginBusinessman
+	         = (HashMap<String, Object>)session.getAttribute("loginBusinessman");
+	          
+	      HashMap<String, Object> paramMap = new HashMap<String, Object>();
+	      try {
+	         MultipartRequest multi = new MultipartRequest(
+	               request, path, 5*1024*1024,  "UTF-8", new DefaultFileRenamePolicy()
+	         );
+	         
+	         paramMap.put("bseq", Integer.parseInt(multi.getParameter("bseq")));
+	         bseq = Integer.parseInt(multi.getParameter("bseq"));
+	   
+	         paramMap.put("cname", multi.getParameter("cname"));
+	         paramMap.put("caddress1", multi.getParameter("caddress1"));
+	         paramMap.put("caddress2", multi.getParameter("caddress2"));
+	         paramMap.put("caddress3", multi.getParameter("caddress3"));
+	         paramMap.put("content", multi.getParameter("content"));
+	         paramMap.put("category", multi.getParameter("category"));
+
+	         String facilities = String.join(", ", multi.getParameterValues("facilities"));
+	         paramMap.put("facilities", facilities);
+	               
+	         if( multi.getFilesystemName("newimg") == null ) 
+	               paramMap.put("image", multi.getParameter("oldimg") );
+	         else    
+	               paramMap.put("image", multi.getFilesystemName("newimg") );
+	               
+	         bs.BsCampingInfoUpdate(paramMap);
+	         
+	      
+	      } catch (IOException e) { e.printStackTrace();
+	      }
+	      
+	      return "redirect:/businessmanCampingInfo?bseq=" + bseq;
+	   }
+
+	
+	
 
 }

@@ -2,14 +2,18 @@ package com.campinga.dao;
 
 import java.util.HashMap;
 
+import javax.validation.Valid;
+
 import org.apache.ibatis.annotations.Mapper;
 
+import com.campinga.dto.BusinessVO;
 import com.campinga.dto.QnaVO;
 
 @Mapper
 public interface IBusinessDao {
 
 	void getBusinessCam(HashMap<String, Object> paramMap);
+	void insertBusinessCam(@Valid BusinessVO businessvo);
 	void updateBusiness(HashMap<String, Object> paramMap);
 	void deleteBusiness(HashMap<String, Object> paramMap);
 	void BusinessGetAllCount(HashMap<String, Object> cntMap);
@@ -25,6 +29,9 @@ public interface IBusinessDao {
 	void insertCampingRoom(HashMap<String, Object> paramMap);
 	void deleteCampingRoom(HashMap<String, Object> paramMap);
 	void updateCampingRoom(HashMap<String, Object> paramMap);
+	
+	void BsCampingInfoUpdate(HashMap<String, Object> paramMap);
+	
 	
 	
 
