@@ -10,7 +10,7 @@
 </head>
 <body>
    <h1>ID 중복 확인</h1>
-   <form method="post" name="idCheckForm" action="idCheckForm">
+   <form method="post" name="idCheckForm" action="BidCheckForm">
       <input type="hidden" name="type" value="${type}">
       ID : <input type="text" name="bid" value="${bid}">
       <input type="submit" value="검색" class="submit"> <br><br><br>

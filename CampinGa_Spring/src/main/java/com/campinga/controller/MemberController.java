@@ -98,7 +98,8 @@ public class MemberController {
 
 	// 멤버 아이디 체크
 	@RequestMapping("/idCheckForm")
-	public String idCheckForm(@RequestParam("mid") String mid, Model model, HttpServletRequest request) {
+	public String idCheckForm(@RequestParam("mid") String mid, 
+			Model model, HttpServletRequest request) {
 
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("mid", mid);
