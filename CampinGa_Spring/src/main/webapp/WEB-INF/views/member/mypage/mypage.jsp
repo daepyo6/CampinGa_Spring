@@ -57,7 +57,9 @@
             	  <fmt:parseDate value="${resVO.CHK_OUT}" var = "check_out" pattern = "yy-MM-dd" />
             	  <fmt:formatDate type="date" value="${check_out}"/>
                </td>
-               <td>${resVO.PRICE}</td> 
+               <td>
+                    <fmt:formatNumber value="${resVO.PRICE}" pattern="#,###"/>
+               </td>
                <td><input type="button" value="취소" onclick="myResCancel('${resVO.RESEQ}');"></td>
             </tr>
          </c:forEach>

@@ -18,7 +18,11 @@
                </div>
                <div class="room_info-text">
                   <div><span>기준인원 ${campVO.MIN_PEOPLE}명/최대인원 ${campVO.MAX_PEOPLE}명</span></div>
-                  <div><span>${campVO.PRICE}원</span></div>
+                  <div>
+                     <span>
+                        <fmt:formatNumber value="${campVO.PRICE}" pattern="#,###"/>원
+                     </span>
+                  </div>
                </div>
                <div class="roomInfo-bar"></div>
                <div class="bmresbtns">            

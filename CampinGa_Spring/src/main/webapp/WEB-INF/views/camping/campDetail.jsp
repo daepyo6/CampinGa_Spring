@@ -26,7 +26,11 @@
 					</div>
 					<div class="room_info-text">
 						<div><span>가격</span></div>
-						<div><span>${campVO.PRICE}원</span></div>
+						<div>
+		                     <span>
+		                        <fmt:formatNumber value="${campVO.PRICE}" pattern="#,###"/>원
+		                     </span>
+                 		</div>
 					</div>
 					<div class="roomInfo-bar"></div>					
 					<div class="resbtn" onclick="location.href='reserveForm?cseq=${campVO.CSEQ}'">
