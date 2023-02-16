@@ -680,6 +680,26 @@ h2 {
     background-color:#e2edf6;
 }
 
+/* join contract */
+.contract{
+	width: 1000px;
+	height: 600px;
+	margin:0 auto;
+	text-align:center;
+}
+.contract form{
+	width: 800px;
+	height: 500px;
+	margin: 30px auto;
+}
+.conView{
+	width:100%;
+	height:330px;
+	margin:25px auto;
+	background-color:#abccd0;
+	padding: 35px 0;
+}
+
 /* join css*/
 .joinTable{
   width: 600px;

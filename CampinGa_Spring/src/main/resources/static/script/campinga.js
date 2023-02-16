@@ -138,12 +138,12 @@ function joinCheck(){
 }
 
 function joinChoose(type){
-    if(type==1){
-        document.contractFrm.contract.value = "일반회원 가입약관";
+    if(type==1){		
+        document.getElementById("contract").innerHTML = "일반회원 가입약관";
         document.contractFrm.user.value = 1;
         return;
     } else if(type==2){
-        document.contractFrm.contract.value = "사업자회원 가입약관";
+        document.getElementById("contract").innerHTML = "사업자회원 가입약관";
         document.contractFrm.user.value = 2;
         return;
     }
