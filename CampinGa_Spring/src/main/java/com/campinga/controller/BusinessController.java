@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -98,7 +99,8 @@ public class BusinessController {
 	@RequestMapping(value = "/businessJoin", method = RequestMethod.POST)
 	public ModelAndView join(@ModelAttribute("dto") @Valid BusinessVO businessvo, BindingResult result,
 			@RequestParam(value = "reid", required = false) String reid,
-			@RequestParam(value = "pwd_check", required = false) String pwdCheck) {
+			@RequestParam(value = "pwd_check", required = false) String pwdCheck,
+			HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("business/joinForm");
@@ -128,6 +130,11 @@ public class BusinessController {
 		else if (!businessvo.getPwd().equals(pwdCheck))
 			mav.addObject("message", "비밀번호 확인이 일치하지 않습니다");
 		else {
+			String caddress1 = request.getParameter("caddress1");
+			String [] sido = {"","서울시","부산시","대구광역시","인천광역시","광주광역시","대전광역시","울산광역시","강원도","경기도","경상남도","경상북도","전라남도","전라북도","제주도","충청남도","충청북도"};
+			caddress1 = sido[Integer.parseInt(caddress1)];
+			businessvo.setCaddress1(caddress1);
+			System.out.println(businessvo.getCaddress1()); 
 			bs.insertBusinessCam(businessvo);
 
 			mav.addObject("message", "회원가입이 완료되었습니다. 로그인하세요");
