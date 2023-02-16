@@ -699,7 +699,7 @@ CREATE TABLE mainBanners(
 
 CREATE SEQUENCE mb_seq INCREMENT BY 1 START WITH 1;
 
-
+select * from mainbanners;
 -- 메인 이미지 리스트 가져오기
 CREATE OR REPLACE PROCEDURE adminBannerlist(
     p_rc OUT SYS_REFCURSOR
@@ -733,16 +733,21 @@ CREATE OR REPLACE PROCEDURE bannerOrderUpdate(
     p_order_seq IN mainBanners.order_seq%type
 )
 IS
+    v_oseq number(1);
 BEGIN
-    IF p_order_seq < 6 THEN
-        UPDATE mainBanners SET order_seq=order_seq+1 WHERE order_seq>=p_order_seq and order_seq<=5;
+    -- 바꾸려는 순서를 가지고 있는 사진을 원래의 본인의 순서로 배정
+    -- 그 이후 바꾸려는 순서를 본인의 사진에 배정  
+    -- 순서 외랑 변경할 경우도 같은데 변경후 사용여부를 N으로 변경 후 본인건 Y로 변경
+    IF p_order_seq = 6 THEN
+        UPDATE mainBanners SET order_seq=6 WHERE mbseq=p_mbseq;
+    else
+        select order_seq into v_oseq from mainBanners where mbseq=p_mbseq; 
+        update mainBanners set order_seq=v_oseq where order_seq=p_order_seq;  
+        update mainBanners set order_seq=p_order_seq, useyn='Y' where mbseq=p_mbseq;  
     END IF;
-    UPDATE mainBanners SET order_seq=p_order_seq WHERE mbseq=p_mbseq;
-    UPDATE mainBanners SET useyn='N'  WHERE order_seq=6;
+    UPDATE mainBanners SET useyn='N' WHERE order_seq=6;
     COMMIT;
 END;
-
-
 
 -- 배너 하나 가져오기
 CREATE OR REPLACE PROCEDURE bannerSelectOne(
@@ -774,7 +779,7 @@ BEGIN
 END;
 
 
- UPDATE mainBanners SET useyn='N'  WHERE order_seq=6;
+UPDATE mainBanners SET useyn='N'  WHERE order_seq=6;
 select*from mainBanners;
 
 commit;
@@ -787,7 +792,7 @@ CREATE OR REPLACE PROCEDURE getBannerList(
 )
 IS
 BEGIN
-    OPEN p_rc FOR SELECT * FROM mainBanners WHERE order_seq<=5 ORDER BY order_seq;    
+    OPEN p_rc FOR SELECT * FROM mainBanners WHERE order_seq<=5 and useyn='Y' ORDER BY order_seq;    
 END;
 
 -- 사업자 캠핑장 정보 수정 프로시져 
