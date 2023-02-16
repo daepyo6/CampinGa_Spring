@@ -27,7 +27,9 @@
             	  <fmt:parseDate value = "${resVO.CHK_OUT}" var = "check_out" pattern = "yy-MM-dd" />
             	  <fmt:formatDate type = "date" value="${check_out}"/>
                 </td>
-               <td>${resVO.PRICE}</td>
+               	<td>
+                   <fmt:formatNumber value="${resVO.PRICE}" pattern="#,###"/>
+                </td>
             </tr>
          </c:forEach>
       </table>

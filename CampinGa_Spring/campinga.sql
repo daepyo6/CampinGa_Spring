@@ -7,10 +7,10 @@ IS
 BEGIN
     open p_cur1 for
         select bseq, cname, content, image 
-        from (select * from businessman order by bseq desc) where rownum<=4;
+        from (select * from businessman order by bseq desc) where chkyn='Y' and rownum<=4;
     open p_cur2 for
         select cname, image, bseq 
-        from businessman where rownum<=8;
+        from businessman where chkyn='Y' and rownum<=8;
 END;
 
 -- 메인에서 캠핑장 검색
@@ -24,7 +24,8 @@ IS
 BEGIN
     open p_cur for
         select * from businessman 
-        where caddress1 like '%'||p_address1||'%' 
+        where chkyn='Y' 
+            and caddress1 like '%'||p_address1||'%' 
             and caddress2 like '%'||p_address2||'%' 
             and cname like '%'||p_cname||'%';
 END;
@@ -38,7 +39,7 @@ IS
 BEGIN
     OPEN p_rc FOR    
         SELECT bseq, cname, category, facilities, caddress1, caddress2, caddress3, phone, image
-        FROM businessman;
+        FROM businessman where chkyn='Y';
 END;
 
 -- 카테고리 조회
@@ -50,7 +51,7 @@ IS
 BEGIN
     OPEN p_rc FOR    
         SELECT bseq, cname, category, facilities, caddress1, caddress2, caddress3, phone, image
-        FROM businessman where category=p_cate;
+        FROM businessman where chkyn='Y' and category=p_cate;
 END;
 
 
@@ -65,7 +66,7 @@ IS
 BEGIN
     OPEN p_rc FOR    
         SELECT bseq, cname, category, facilities, caddress1, caddress2, caddress3, phone, image
-        FROM businessman where cname LIKE '%'||p_name||'%';
+        FROM businessman where chkyn='Y' and cname LIKE '%'||p_name||'%';
 END;
 
 
@@ -78,7 +79,7 @@ IS
 BEGIN
     OPEN p_rc FOR    
         SELECT cname, phone, email, caddress1, caddress2, caddress3, facilities, image, content, category
-        FROM businessman where bseq=p_bseq;
+        FROM businessman where chkyn='Y' and bseq=p_bseq;
 END;
 
 
@@ -111,7 +112,7 @@ BEGIN
     OPEN p_rc FOR 
     SELECT * FROM camping_view WHERE cseq=p_cseq;
     OPEN p_resdate FOR
-    select to_char(chk_in,'yyyy-mm-dd'), to_char(chk_out,'yyyy-mm-dd') from reservation
+    select to_char(chk_in,'yyyy-mm-dd') as chk_in, to_char(chk_out,'yyyy-mm-dd') as chk_out from reservation
 	where cseq=81 and chk_out>=sysdate order by chk_in;
 END;
 

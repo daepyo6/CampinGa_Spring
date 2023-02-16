@@ -40,7 +40,9 @@
                  <fmt:formatDate type = "date" value="${check_out}"/>
                 </td>
             <td>${reservationVO.MID}</td>
-            <td>${reservationVO.PRICE}</td>
+            <td>
+               <fmt:formatNumber value="${reservationVO.PRICE}" pattern="#,###"/>원
+            </td>
          </tr>
       </c:forEach>
    </table>
