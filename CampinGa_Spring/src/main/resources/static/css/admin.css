@@ -258,6 +258,25 @@
 }
 
 
+/* Banner 관리 */
+.bannerTable{
+	width: 1000px;
+	height:800px;		
+}
+.bannerTable th{
+	width: 250px;
+	font-size:18px;
+	font-weight:bold;
+	color:#e1e4e5;
+	background-color:#4e796b;
+}
+
+
+
+
+
+
+
 
 
 

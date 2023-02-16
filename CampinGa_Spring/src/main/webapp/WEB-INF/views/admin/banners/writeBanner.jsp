@@ -4,7 +4,7 @@
 <article style="text-align: center;">
 <h1>배너 등록</h1>  
 <form name="frm" action="adminBannerWrite" style="margin: 20px auto;">
-	<table>
+	<table class="bannerTable">
 		<tr><th>제목 </th><td width="642" ><input type="text" name="name" size="47" value="${dto.name}"></td></tr>
 		<tr><th>순위 </th>
 			<td width="642">
