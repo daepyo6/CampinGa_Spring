@@ -9,7 +9,7 @@
          <div class="inputDiv">
          <label>아이디</label>
             <input type="text" class="joinInput" name="bid" size="20" value="${dto.bid}">
-            <input type="button" value="ID중복체크" onclick="Bsidcheck();" class="btn">
+            <input type="button" value="ID중복체크" onclick="Bsidcheck(1);" class="btn">
             <input type="hidden" name="reid">
          </div>   
          <div class="inputDiv">

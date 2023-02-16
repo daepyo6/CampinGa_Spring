@@ -825,4 +825,21 @@ END;
 
 select * from member;
 
+SET SERVEROUTPUT ON;
+-- 관리자 : 사용자 휴면 설정/해제 
+CREATE OR REPLACE PROCEDURE updateMemberDormant(
+    p_mid in member.mid%type
+)
+IS
+    v_chkyn varchar2(20);
+BEGIN
+    select chkyn into v_chkyn from member where mid=p_mid;
+    IF (v_chkyn='Y') THEN
+        update member set chkyn='N' where mid=p_mid;
+        commit;
+    ELSIF (v_chkyn='N') THEN
+        update member set chkyn='Y' where mid=p_mid;
+        commit;
+    END IF;
+END;
 

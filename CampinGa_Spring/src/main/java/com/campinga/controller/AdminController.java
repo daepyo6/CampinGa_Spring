@@ -119,10 +119,11 @@ public class AdminController {
 		String [] mid = request.getParameterValues("mid");
 
 		for (String memberid : mid) {
-			System.out.println(memberid);
+			// 각각의 사용자 아이디로 CHKYN을 Y -> N, N -> Y로 변경
+			as.updateMemberDormant(memberid);
 		}
 		
-		return "admin/member/memberList";
+		return "redirect:/adminMemberList";
 	}	
 	
 	// 캠핑장 관리 페이지

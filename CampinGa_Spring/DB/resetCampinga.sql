@@ -92,6 +92,7 @@ CREATE TABLE member
 	name varchar2(20) NOT NULL,
 	mphone varchar2(20) NOT NULL,
 	email varchar2(30) NOT NULL,
+	chkyn varchar2(20) DEFAULT 'Y',
 	PRIMARY KEY (mid)
 );
 
