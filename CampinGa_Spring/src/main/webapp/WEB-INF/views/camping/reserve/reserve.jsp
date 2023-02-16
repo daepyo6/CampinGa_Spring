@@ -2,6 +2,7 @@
 <%@ include file="../../include/header.jsp"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+<link href="css/reserve.css" rel="stylesheet">
 <script type="text/javascript">
 	$.datepicker.setDefaults({
 		dateFormat: 'yy-mm-dd',
@@ -26,15 +27,14 @@
 		$('#endDate').datepicker({
 			
 		});
-		
 	});
 
 	function disableDates(date){
 		var dateRange = [];
 		var dateString = jQuery.datepicker.formatDate('yy-mm-dd', date);
 		<c:forEach var = "reList" items="${reDateList}">
-		    var startdate = "${reList.chk_in}"
-		    var enddate = "${reList.chk_out}";
+		    var startdate = "${reList.CHK_IN}"
+		    var enddate = "${reList.CHK_OUT}";
 			
 		    console.log(startdate);
 		    console.log(enddate);

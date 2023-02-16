@@ -103,13 +103,18 @@ END;
 -- 캠핑장 객실 한개 조회
 create or replace PROCEDURE selectCampOne(
     p_cseq IN camping_view.cseq%type,
-    p_rc OUT SYS_REFCURSOR
+    p_rc OUT SYS_REFCURSOR,
+    p_resdate OUT SYS_REFCURSOR
 )
 IS
 BEGIN
     OPEN p_rc FOR 
     SELECT * FROM camping_view WHERE cseq=p_cseq;
+    OPEN p_resdate FOR
+    select to_char(chk_in,'yyyy-mm-dd'), to_char(chk_out,'yyyy-mm-dd') from reservation
+	where cseq=81 and chk_out>=sysdate order by chk_in;
 END;
+
 
 -- bseq로 캠핑장 객실 리스트 검색
 CREATE OR REPLACE PROCEDURE selectCampingList(

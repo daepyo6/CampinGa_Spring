@@ -314,7 +314,8 @@ public class CampingController {
 	public ModelAndView reserveForm(HttpServletRequest request, @RequestParam("cseq") int cseq) {
 		ModelAndView mav = new ModelAndView();
 
-		HashMap<String, Object> loginUser = (HashMap<String, Object>) request.getSession().getAttribute("loginUser");
+		HashMap<String, Object> loginUser = 
+				(HashMap<String, Object>) request.getSession().getAttribute("loginUser");
 		if (loginUser == null) {
 			mav.addObject("message", "예약하려면 로그인해주세요.");
 			mav.setViewName("member/login");
@@ -322,9 +323,14 @@ public class CampingController {
 			HashMap<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("cseq", cseq);
 			paramMap.put("ref_cursor", null);
+			paramMap.put("ref_cursor2", null);
 			cs.selectCampOne(paramMap);
-			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+			ArrayList<HashMap<String, Object>> list = 
+					(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+			ArrayList<HashMap<String, Object>> resDate = 
+					(ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor2");
 			mav.addObject("campVO", list.get(0));
+			mav.addObject("reDateList", resDate);
 			mav.setViewName("camping/reserve/reserve");
 		}
 		return mav;

@@ -133,7 +133,8 @@
 		{
 			CALL selectCampOne(
 			#{cseq},
-			#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap}
+			#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap},
+			#{ref_cursor2, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=campMap2}
 			)
 		}
 	</select>
