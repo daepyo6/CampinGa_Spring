@@ -103,6 +103,12 @@ function idok(id){
     self.close();
 }
 
+function bidok(bid){
+    opener.document.joinForm.bid.value=bid;
+      opener.document.joinForm.reid.value=bid;
+    self.close();
+}
+
 function joinCheck(){
     if(document.joinForm.id.value==""){
         alert('아이디를 입력해주세요');

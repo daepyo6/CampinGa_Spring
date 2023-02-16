@@ -48,5 +48,6 @@ public class BusinessVO {
 	   @NotNull (message="카테고리를 입력하세요")
 	   @NotEmpty(message="카테고리를 입력하세요")
 	   private String category;
+	   private String chkyn;
 
 }

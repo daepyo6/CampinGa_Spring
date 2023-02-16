@@ -301,11 +301,14 @@ public class AdminService {
 
 	public void adminCampingDelete(int bseq) {
 		adao.adminCampingDelete(bseq);
-		
 	}
 
 	public void adminCampingJoinDormant(HashMap<String, Object> paramMap) {
 		adao.adminCampingJoinDormant(paramMap);		
+	}
+
+	public void updateMemberDormant(String memberid) {
+		adao.updateMemberDormant(memberid);
 	}
 
 }

@@ -95,7 +95,6 @@ public class BusinessController {
 	}
 
 	// 사업자 회원 가입
-
 	@RequestMapping(value = "/businessJoin", method = RequestMethod.POST)
 	public ModelAndView join(@ModelAttribute("dto") @Valid BusinessVO businessvo, BindingResult result,
 			@RequestParam(value = "reid", required = false) String reid,
@@ -323,6 +322,7 @@ public class BusinessController {
 		return mav;
 	}
 
+	// 사업자 캠핑장 객실 삭제
 	@RequestMapping("deleteCampingRoom")
 	public String deleteCampingRoom(@RequestParam("cseq") int cseq, 
 			Model model, HttpServletRequest request) {
@@ -336,7 +336,7 @@ public class BusinessController {
 
 	@Autowired
 	ServletContext context;
-
+	// 파일 업로드용 
 	@RequestMapping(value = "fileup", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> fileup(Model model, HttpServletRequest request) {
@@ -354,7 +354,8 @@ public class BusinessController {
 
 		return result; // result 는 목적지의 매개변수 data 객체로 전달됩니다.
 	}
-
+	
+	// 사업자 캠핑장 객실 추가 형식으로 이동
 	@RequestMapping("insertCampingRoomForm")
 	public String insertCampingRoomForm(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -367,7 +368,8 @@ public class BusinessController {
 		}
 		return url;
 	}
-
+	
+	// 사업자 캠핑장 객실 추가
 	@RequestMapping(value = "insertCampingRoom", method = RequestMethod.POST)
 	public String insertCampingRoom(Model model, HttpServletRequest request, HttpSession session) {
 
@@ -398,6 +400,7 @@ public class BusinessController {
 		return "redirect:/campingRoomList";
 	}
 
+	// 사업자 캠핑장 객실 수정폼 이동
 	@RequestMapping("campingRoomUpdateForm")
 	public ModelAndView campingRoomUpdateForm(@RequestParam("cseq") int cseq) {
 		ModelAndView mav = new ModelAndView();
@@ -414,6 +417,7 @@ public class BusinessController {
 		return mav;
 	}
 
+	// 사업자 캠핑장 객실 수정
 	@RequestMapping(value = "/updateCampingRoom", method = RequestMethod.POST)
 	public String campingRoomUpdate(HttpServletRequest request) {
 		String savePath = context.getRealPath("/images");
@@ -440,7 +444,7 @@ public class BusinessController {
 		return "redirect:/campingRoomList";
 	}
 
-	// 관리자 캠핑 정보
+	// 사업자 캠핑장 정보
 	@RequestMapping("/businessmanCampingInfo")
 	public ModelAndView businessmanCampingInfo(HttpServletRequest request) {
 
@@ -469,7 +473,7 @@ public class BusinessController {
 		return mav;
 	}
 
-	// 관리자 캠핑 정보 수정 이동
+	// 사업자 캠핑 정보 수정 이동
 	@RequestMapping("BsCampingInfoUpdateForm")
 	public ModelAndView BsCampingInfoUpdateForm(HttpServletRequest request) {
 
@@ -495,7 +499,7 @@ public class BusinessController {
 		return mav;
 	}
 
-	// 관리자 캠핑 정보 수정
+	// 사업자 캠핑 정보 수정
 	@RequestMapping(value = "/BsCampingInfoUpdate", method = RequestMethod.POST)
 	public String BsCampingInfoUpdate(HttpServletRequest request) {
 
@@ -512,9 +516,13 @@ public class BusinessController {
 
 			paramMap.put("bseq", Integer.parseInt(multi.getParameter("bseq")));
 			bseq = Integer.parseInt(multi.getParameter("bseq"));
-
 			paramMap.put("cname", multi.getParameter("cname"));
-			paramMap.put("caddress1", multi.getParameter("caddress1"));
+			
+			String caddress1 = multi.getParameter("caddress1");
+			String [] sido = {"","서울시","부산시","대구광역시","인천광역시","광주광역시","대전광역시","울산광역시","강원도","경기도","경상남도","경상북도","전라남도","전라북도","제주도","충청남도","충청북도"};
+			caddress1 = sido[Integer.parseInt(caddress1)];
+			
+			paramMap.put("caddress1", caddress1);
 			paramMap.put("caddress2", multi.getParameter("caddress2"));
 			paramMap.put("caddress3", multi.getParameter("caddress3"));
 			paramMap.put("content", multi.getParameter("content"));
