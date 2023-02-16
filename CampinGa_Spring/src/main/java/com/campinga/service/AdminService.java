@@ -301,7 +301,6 @@ public class AdminService {
 
 	public void adminCampingDelete(int bseq) {
 		adao.adminCampingDelete(bseq);
-		
 	}
 
 	public void adminCampingJoinDormant(HashMap<String, Object> paramMap) {
@@ -310,7 +309,6 @@ public class AdminService {
 
 	public void updateMemberDormant(String memberid) {
 		adao.updateMemberDormant(memberid);
-		System.out.println(memberid);
 	}
 
 }

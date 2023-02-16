@@ -103,6 +103,12 @@ function idok(id){
     self.close();
 }
 
+function bidok(bid){
+    opener.document.joinForm.bid.value=bid;
+      opener.document.joinForm.reid.value=bid;
+    self.close();
+}
+
 function joinCheck(){
     if(document.joinForm.id.value==""){
         alert('아이디를 입력해주세요');
@@ -415,11 +421,6 @@ function adminCheck() {
 
 // admin member
 
-function joinDormant(bseq, chkyn){
-   alert("가입승인/휴면전환 합니다.");
-   location.href="adminCampingJoinDormant?bseq="+bseq+"&chkyn="+chkyn;   
-}
-
 function go_search(action) {
 	var key = document.frm.key.value;
 	var url =  action + "?page=1&key=" + key;
@@ -494,14 +495,9 @@ function notiecDeleteChk(nseq) {
 }
 
 // admin campingList
-function joinDormant(bseq){
-	alert("가입승인/휴면전환 합니다.")
-	if(document.frm.onOff.checked){
-		chk="N";
-	} else {
-		chk="Y";
-	}
-	location.href="adminCampingJoinDormant?bseq="+bseq+"&chkyn="+chk;	
+function joinDormant(bseq, chkyn){
+   alert("가입승인/휴면전환 합니다.");
+   location.href="adminCampingJoinDormant?bseq="+bseq+"&chkyn="+chkyn;   
 }
 
 function businessDel(bseq){

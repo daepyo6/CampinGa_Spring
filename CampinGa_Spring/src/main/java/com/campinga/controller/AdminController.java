@@ -121,7 +121,6 @@ public class AdminController {
 		for (String memberid : mid) {
 			// 각각의 사용자 아이디로 CHKYN을 Y -> N, N -> Y로 변경
 			as.updateMemberDormant(memberid);
-			System.out.println(memberid);
 		}
 		
 		return "redirect:/adminMemberList";
