@@ -22,23 +22,25 @@ function bannerUpdate(){
 </script>
 <article>
 <h1>배너 등록</h1>  
-<form name="frm" method="post" action="adminBannerUpdate">
-	<table id="list">
+<form name="frm" method="post" action="adminBannerUpdate" style="text-align: center">
+	<table class="bannerTable">
 		<tr>
-			<th>번호</th>
-			<td width="642" >
+			<th width="100px">번호</th>
+			<td width="350px" >
 				${banner.MBSEQ}<input type="hidden" name="mbseq" size="47" value="${banner.MBSEQ}">
 			</td>
+			<th width="100px">등록일</th>
+			<td width="350px"><fmt:formatDate value="${banner.INDATE}"/></td>
 		</tr>
 		<tr>
-			<th>제목 </th>
-			<td width="642" >
+			<th>제목</th>
+			<td colspan="3" id="banTitle">
 				<input type="text" name="name" size="47" value="${banner.NAME}">
 			</td>
 		</tr>
-		<tr><th>순위 </th>
-			<td width="642">
-				<select name="order_seq" >
+		<tr><th>순위</th>
+			<td>
+				<select name="order_seq" style="width:200px">
 					<c:forEach var="cnt" begin="1" end="5" varStatus="status">
 				    	<c:choose>
 							<c:when test="${cnt==banner.ORDER_SEQ}">
@@ -59,33 +61,31 @@ function bannerUpdate(){
 						</c:choose>
 			    	</select>
 			</td>
+			<th>사용유무</th><td>${banner.USEYN}</td>
 		</tr>
-		<tr><th>사용유무</th><td>${banner.USEYN}</td></tr>
-		<tr><th>등록일</th><td><fmt:formatDate value="${banner.INDATE}"/></td></tr>
-		<tr height="200">
-			<th>이전 배너 이미지</th>
-	    	<td width="642" style="vertical-align:top;">
+		<tr>
+			<th height="350px">이전 이미지</th>
+	    	<td style="vertical-align:top;">
 	   			<input type="hidden" name="oldimage" value="${banner.IMAGE}">
-	   			<img src="images/banner/${banner.IMAGE}" height="150">
-	   			<div>${banner.IMAGE}</div>
+	   			<img src="images/banner/${banner.IMAGE}" height="200px" style="margin-top: 20px;">
+	   			<div style="margin-top: 10px;">${banner.IMAGE}</div>
 	   		</td>
-	   	</tr>
-		<tr height="250">
-			<th>새 배너 이미지</th>
-	    	<td width="642" style="vertical-align:top;">
+	   		<th>새 이미지</th>
+	    	<td style="vertical-align:top;">
 	   			<input type="hidden" name="image" id="image" value="">
-	   			<div id="filename"></div>
+	   			<div id="filename" style="margin:15px 0;"></div>
 	   		</td>
 	   	</tr>
 	</table>
-	<input class="btn" type="button" value="등록" onClick="bannerUpdate()">  
-	<input class="btn" type="button" value="취소" onClick="location.href='adminBannerList'">
-	<input type="button" value="삭제" onclick="delBanner('${banner.MBSEQ}')"> 
+	<input class="banBtn" type="button" value="등록" onClick="bannerUpdate()" style="margin-right: 30px;">  
+	<input class="banBtn" type="button" value="취소" onClick="location.href='adminBannerList'" style="margin-right: 30px;">
+	<input class="banBtn" type="button" value="삭제" onclick="delBanner('${banner.MBSEQ}')"> 
 	</form>
 	
-	<div style="position:relative; top:-80px; ">
+	<div style="position:relative; top:-120px;  width: 300px; float: right;">
 	<form name="fromm" id="fileupForm" method="post" enctype="multipart/form-data">
-		<input type="file" name="fileimage"><input type="button" id="fileAddBtn" value="이미지 업로드">
+		<input type="file" name="fileimage"><br>
+		<input type="button" id="fileAddBtn" value="이미지 업로드">
 	</form>
 	</div>
 	
