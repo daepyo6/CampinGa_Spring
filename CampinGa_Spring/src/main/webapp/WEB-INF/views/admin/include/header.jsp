@@ -29,7 +29,7 @@ $(function(){
 	            	$("#filename").empty();
 	            	$("#filename").append("<div>"+data.FILENAME+"</div>");
 	            	$("#image").val(data.FILENAME);
-	            	$("#filename").append("<img src='images/banner/"+data.FILENAME+"' height='150'/>");
+	            	$("#filename").append("<img src='images/banner/"+data.FILENAME+"' height='200'/>");
 	            }
 	        },
 	        error: function() {	alert("파일 업로드 실패");}

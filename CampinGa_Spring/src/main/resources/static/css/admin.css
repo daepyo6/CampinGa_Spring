@@ -258,6 +258,74 @@
 }
 
 
+/* Banner 관리 */
+.bannerTable{
+	border : 1.5px solid #444746;
+    border-collapse : collapse;
+    margin:30px 0;
+    text-align:center;
+    color:#07593e;
+    font-size:16px;
+    font-weight:bold;
+}
+.bannerTable tr{
+	border : 1.5px solid #444746;
+	height:60px;
+}
+.bannerTable th{
+	border : 1.5px solid #444746;
+	width: 200px;
+	font-size:18px;
+	font-weight:bold;
+	color:#e1e4e5;
+	background-color:#4e796b;	
+	vertical-align:middle;
+}
+.bannerTable td{
+	border : 1.5px solid #444746;
+	background-color:#c2dce0;
+	vertical-align:middle;
+}
+.bannerTable td input[type="text"],
+.bannerTable td select{
+	margin-left:50px;
+	width:400px;
+	border-style: none;
+	outline-style: none;
+	background-color:transparent;
+	font-weight:bold;
+}
+.bannerTable td input[type="text"]{
+	font-size:20px;
+}
+.bannerTable td input[type="text"]:focus{
+	border-style: none;
+	background-color:transparent;
+	border-style: none;
+}
+.bannerTable td select{
+	font-size:16px;
+	text-align:center;
+}
+.banBtn{
+	border: 1.5px solid #00744e;
+	border-radius: 7px;
+	height: 35px;
+	text-align:center;
+	vertical-align:middle;
+	color:#00744e;
+	background-color:white;
+}
+.banBtn:hover{
+	cursor:pointer;
+	background-color:#00744e;
+	color:white;
+}
+#banTitle{
+	text-align:left;
+}
+
+
 
 
 
