@@ -5,7 +5,7 @@
 <article id="mypage" class="adminPage">
 	<h1>캠핑장 정보</h1>
 	<form name="frm" method="post">
-	   <table class="adSearch" style="float:right;"><br>
+	   <table class="adSearch" style="float:right; width:500px;"><br>
       <tr><td class="searchTd">캠핑장 이름 <input type="text" name="key" value="${key}">
       <input class="adpage_btn" type="button" value="검색" onclick="go_search('adminCampingList')">
       <input class="adpage_btn" type="button" name="btn_total" value="전체보기 " onClick="go_total('adminCampingList')"></td> </tr>

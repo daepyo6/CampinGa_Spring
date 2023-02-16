@@ -29,7 +29,7 @@
 		    </tr>
 	  </c:forEach>
 	  <tr>
-     <th colspan="4"><a href="#" onClick="go_review_delete();">리뷰 삭제하기</a></th>
+     <th colspan="5"><a href="#" onClick="go_review_delete();">리뷰 삭제하기</a></th>
 	  </tr>
 	</table>
 	<jsp:include page="../paging/paging.jsp">   
