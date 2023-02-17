@@ -49,6 +49,14 @@
             </div>
          </div>
          <br>
+         
+         <div class="roomInput">
+         <span>캠핑장 소개용 이미지 선택</span><br>
+         	<input class="imagefiles" value="첨부파일" placeholder="첨부파일">
+         	<input type="button" value="이미지 등록" onclick="selectimg();">
+         </div>
+         <br>
+         
          <div class="roomInput">
             <span>캠핑장 주소</span>
             <div class="roomInput_div">
