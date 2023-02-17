@@ -39,7 +39,7 @@
          <div class="roomInput">
             <span>이미지 파일 선택</span><br>
             <div style="text-align: center; margin-top: 15px;">
-               <img id="previewImg" src="images/imgfile.png" 
+               <img id="previewImg" src="images/main/imgfile.png" 
                style="width: 300px; height: 200px; border-radius: 10px;">
             </div>
             <div class="filebox" >

@@ -11,6 +11,7 @@
 <script type="text/javascript" src="script/campinga.js"></script>
 <script type="text/javascript">
 //배너파일 업로드
+var str = '';
 $(function(){
 	$('#fileAddBtn').click( function(){
 		var formselect = $("#fileupForm")[0];  
@@ -30,6 +31,8 @@ $(function(){
 	            	$("#filename").append("<div>"+data.FILENAME+"</div>");
 	            	$("#image").val(data.FILENAME);
 	            	$("#filename").append("<img src='images/banner/"+data.FILENAME+"' height='200'/>");
+	            	str += data.FILENAME+'#';
+	            	console.log(str);
 	            }
 	        },
 	        error: function() {	alert("파일 업로드 실패");}
