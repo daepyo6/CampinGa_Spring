@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="include/header.jsp"%>
+
+<div id="weathers" style="width:1400px; height: 45px; margin: 10px auto; overflow:hidden; background-color:maroon;">
+</div>
+
 <div id="mainSearch">
 	<div id="main_img">		
 		<div id="mainImg" style="position:absolute;left:0px;top:0px;text-align:left;">
