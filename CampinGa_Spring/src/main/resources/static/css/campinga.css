@@ -896,9 +896,20 @@ h1 {
 	color:#3a0ca3;
 	line-height:1.5;
 }
+.detail_text{
+	width:600px;
+	height:50px;
+	margin:20px auto;
+	padding:25px;
+	font-size:1.2;
+	color:black;
+	font-weight:700;
+	text-align:center;
+	vertical-align:middle;
+}
 #campingdetail{
-	width:100%;
-	height:1100px;
+	width:1400px;	
+	height:550px;
 	display: flex;
   	justify-content: center;
   	align-items: center;
@@ -908,7 +919,7 @@ h1 {
 #campMain{
 	width:75%;
 	height:500px;
-	margin:0 auto;
+	margin:25px auto;
 	display: flex;
   	justify-content:space-around;
   	align-items: center;
@@ -1009,14 +1020,13 @@ h1 {
     background-color:#e2edf6;
 }
 
+/*캠핑장 설명, 지도*/
 #campDetail{
-	width:80%;
-	height:550px;	
+	width:1400px;
 	text-align:center;
 	margin:20px auto 0 auto;
 	padding:0 30px;
 	border-top:2px solid #a8dadc;
-	border-bottom:2px solid #a8dadc;
 }
 #campDetail_imgs{
 	width:80%;
@@ -1033,14 +1043,24 @@ h1 {
 	margin-left: 0;
 }
 
+/* 지도 */
+#map{
+	width:800px;
+	height:450px;
+	margin: 10px auto 45px auto;
+}
+
+
+
 /*객실정보*/
 #roomBox_main{
-	width:1300px;
+	width:1400px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
     margin:0 auto 80px auto;
+    border-top:2px solid #a8dadc;
 }
 #roomBox{
 	border-radius: 5px;
@@ -1145,7 +1165,7 @@ h1 {
     margin:4% auto;
 }
 .view{
-	width:80%;
+	width:78%;
    	margin:3% auto;
    	text-align:center;
    	line-height:1.5;
@@ -1242,7 +1262,7 @@ h1 {
 	font-weight:bold;
 }
 .bar2{
-	width:80%;
+	width:1400px;
 	height:2px;
 	background-color:#a8dadc;
 	margin:0 auto;
