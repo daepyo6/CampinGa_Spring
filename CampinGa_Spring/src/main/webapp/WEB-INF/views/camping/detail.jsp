@@ -44,9 +44,6 @@
 		<div class="detail_title"><span>캠핑장 소개</span></div>
 		<!-- 아래 이미지 3개 DB에서 불러올거라면 수정해야 함 -->
 		<div id="campDetail_imgs">
-			<img src="images/campingImage/camp01.jpg" class="campDetail_img" /> <img
-				src="images/campingImage/camp02.jpg" class="campDetail_img" /> <img
-				src="images/campingImage/camp01.jpg" class="campDetail_img" /><br>
 		</div>
 		<h3>${campMain.CONTENT}</h3>
 	</div>
