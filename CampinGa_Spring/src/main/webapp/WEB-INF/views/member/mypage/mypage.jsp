@@ -30,8 +30,12 @@
    </form>
 	<br><br>
    <!-- "예약 조회" 현재 예약조회, 지난 예약조회-->
-   <form method="post" name="reservateInfo">
+   <form method="post" name="reservateInfo" style="text-align: center">
       <h1>예약 조회</h1>
+      <c:if test="${cancelMsg!=null}">
+      <br><br>
+      <h2 style="color:red;">${cancelMsg}</h2>
+      </c:if>
       <table class="memberInfoList2">
          <tr id="myrest">
             <th>예약일자</th>

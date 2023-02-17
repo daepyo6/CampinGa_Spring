@@ -7,6 +7,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.campinga.dao.IMemberDao;
 import com.campinga.dto.MemberVO;
@@ -101,8 +104,21 @@ public class MemberService {
 	}
 
 
+	@Autowired
+	TransactionTemplate tt;
+	
 	public void cancelReservate(HashMap<String, Object> paramMap) {
-		mdao.cancelReservate(paramMap);		
+		try {
+			tt.execute(new TransactionCallbackWithoutResult() {				
+				@Override
+				protected void doInTransactionWithoutResult(TransactionStatus status) {
+					mdao.cancelReservate(paramMap);					
+				}			
+			});			
+			System.out.println("Transaction Commit");
+		} catch (Exception e) {
+	        System.out.println("Transaction RollBack");
+		}
 	}
 
 	public void deleteMyFavorites(HashMap<String, Object> paramMap) {

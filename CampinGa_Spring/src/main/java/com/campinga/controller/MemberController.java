@@ -164,7 +164,6 @@ public class MemberController {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("mid", loginUser.get("MID"));
 		paramMap.put("request", request);
-		System.out.println("1 " + loginUser.get("MID"));
 		
 		//예약조회
 		paramMap.put("ref_cursor1", null);
@@ -254,18 +253,16 @@ public class MemberController {
 	
 	//마이페이지 예약 취소
 	@RequestMapping(value = "/cancelReservate")
-	public String cancelReservate( HttpSession session, Model model,
+	public String cancelReservate( HttpServletRequest request, Model model,
 			@RequestParam("reseq") int reseq) {
-		
+		HttpSession session = request.getSession();
 		HashMap<String, Object> loginUser = (HashMap<String, Object>)session.getAttribute("loginUser");
 		if( loginUser == null ) {
 			return "member/login";
 		}else {
-		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		System.out.println(reseq);
-		paramMap.put("reseq", reseq);
-		ms.cancelReservate( paramMap);
-		
+			HashMap<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("reseq", reseq);
+			ms.cancelReservate( paramMap);
 		}	
 		return "redirect:/myPage";
 	}
