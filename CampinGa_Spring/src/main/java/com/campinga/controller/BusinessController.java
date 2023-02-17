@@ -550,5 +550,14 @@ public class BusinessController {
 
 		return "redirect:/businessmanCampingInfo?bseq=" + bseq;
 	}
+	
+	
+	
+	
+	@RequestMapping("multiImages")
+	public String multiImages(HttpServletRequest request) {
+		return "business/camping/selectimg";
+	}
+
 
 }

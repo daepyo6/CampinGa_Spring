@@ -30,7 +30,7 @@ $(function(){
 	            	$("#filename").empty();
 	            	$("#filename").append("<div>"+data.FILENAME+"</div>");
 	            	$("#image").val(data.FILENAME);
-	            	$("#filename").append("<img src='images/banner/"+data.FILENAME+"' height='200'/>");
+	            	$("#filename").append("<img src='images/banner/"+data.FILENAME+"'height='200'/>");
 	            	str += data.FILENAME+'#';
 	            	console.log(str);
 	            }
