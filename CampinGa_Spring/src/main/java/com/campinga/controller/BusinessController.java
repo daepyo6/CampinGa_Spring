@@ -541,7 +541,10 @@ public class BusinessController {
 				paramMap.put("image", multi.getParameter("oldimg"));
 			else
 				paramMap.put("image", multi.getFilesystemName("newimg"));
-
+			
+			// 캠핑장 상세 페이지에 들어갈 사진 여러장
+			paramMap.put("campimages", multi.getParameter("imagefiles"));
+			
 			bs.BsCampingInfoUpdate(paramMap);
 
 		} catch (IOException e) {
@@ -553,16 +556,16 @@ public class BusinessController {
 	
 	
 	
-	
+	// 캠핑장 상세 페이지에 들어갈 사진 여러장 등록하는 곳으로 으동
 	@RequestMapping("multiImages")
 	public String multiImages(HttpServletRequest request) {
 		return "business/camping/selectimg";
 	}
 	
+	// 캠핑장 상세 페이지에 들어갈 사진 여러장
 	@RequestMapping("bsCampingImgs")
 	public String bsCampingImgs(@RequestParam("image") String image, 
 			HttpServletRequest request, Model model) {
-		System.out.println(image);
 		model.addAttribute("image", image);
 		return "business/camping/completupload";
 	}

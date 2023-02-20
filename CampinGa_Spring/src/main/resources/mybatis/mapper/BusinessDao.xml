@@ -133,7 +133,7 @@
          { 
          CALL BsCampingInfoUpdate( 
             #{bseq}, #{cname}, #{image}, #{content}, #{category}, 
-            #{caddress1}, #{caddress2}, #{caddress3}, #{facilities} 
+            #{caddress1}, #{caddress2}, #{caddress3}, #{facilities}, #{campimages}
          ) 
          }
    </update>

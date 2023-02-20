@@ -7,7 +7,6 @@
 		</div>
 		<div id="adBtn">
 			<a href="adminLoginForm">administrator</a>
-			<input type="button" value="multiImages" onclick="selectimg();">
 		</div>
 	</div>
 	<div class="foot" style="height: 100px">

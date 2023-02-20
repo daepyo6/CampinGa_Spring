@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="bar"></div>
 <div id="campingdetail">
 	<div id="campMain">
@@ -42,7 +43,18 @@
 </div>
 <div id="campDetail">
 	<div class="detail_title"><span>캠핑장 소개</span></div>
-	<div class="detail_text"><h3>${campMain.CONTENT}</h3></div>
+	
+	<div id="campDetail_imgs">
+		<c:set var="campimgs" value="${fn:split(campMain.CAMPIMAGES,',')}"/>
+		${fn:length(campimgs)}
+		<c:forEach var="images" items="${campimgs}">
+		    <img src="images/campingImage/${images}" class="campDetail_img" />
+		</c:forEach>
+	</div>
+	
+	<div class="detail_text">
+		<h3>${campMain.CONTENT}</h3>
+	</div>
 </div>
 
 <div id="campDetail">	
