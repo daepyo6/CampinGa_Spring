@@ -46,7 +46,7 @@
 	
 	<div id="campDetail_imgs">
 		<c:set var="campimgs" value="${fn:split(campMain.CAMPIMAGES,',')}"/>
-		${fn:length(campimgs)}
+		<!-- ${fn:length(campimgs)} -->
 		<c:forEach var="images" items="${campimgs}">
 		    <img src="images/campingImage/${images}" class="campDetail_img" />
 		</c:forEach>
