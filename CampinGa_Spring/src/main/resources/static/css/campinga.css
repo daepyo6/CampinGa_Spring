@@ -1029,19 +1029,46 @@ h1 {
 	border-top:2px solid #a8dadc;
 }
 #campDetail_imgs{
-	width:80%;
-	height:200px;
-	margin: 40px auto;
+	width:800px;
+	height:400px;
+	margin:40px auto;
+	position:relative;
+	overflow:hidden;
 }
-#campDetail_imgs img{
-	margin-left: 60px;
-	border-radius: 100%;
-	width:200px;
-	height:200px;
+#campImgs{
+	text-align:left;
+	height:400px;
+	position:absolute;
+	left:0;
 }
-#campDetail_imgs img:first-child{
-	margin-left: 0;
+#leftBtn,
+#RightBtn{
+	width:35px;
+	height:400px;
+	position:absolute;	
+	z-index:5;	
 }
+#leftBtn{
+	left:0;
+}
+#RightBtn{
+	right:0;
+}	
+#leftBtn img:hover,
+#RightBtn img:hover{
+	cursor:pointer;	
+}
+#leftBtn img,
+#RightBtn img{
+	margin-top:200px;
+	width:30px;
+	height:50px;
+	opacity:0.8;
+}
+#leftBtn img{margin-left:5px;}
+#RightBtn img{margin-right:5px;}
+
+
 
 /* 지도 */
 #map{

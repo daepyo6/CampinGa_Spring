@@ -1,6 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script type="text/javascript">
+$(function() {
+	// 캠핑장 상세 페이지 : 캠핑장 이미지 롤링
+	let imgArr = '${campMain.CAMPIMAGES}';
+	let imgsNum = imgArr.split(",").length-2;
+	let orders = 0;
+	$('#leftBtn').click(function() {
+		if (orders == 0) return;
+		orders--;
+		dist = -1 * 800 * orders;
+		$('#campImgs').animate({ left: dist }, 500)
+	})
+	$('#RightBtn').click(function() {
+		if (orders == imgsNum) return;
+		orders++;
+		dist = -1 * 800 * orders;
+		$('#campImgs').animate({ left: dist }, 500)
+	})
+})
+</script>
+
 <div class="bar"></div>
 <div id="campingdetail">
 	<div id="campMain">
@@ -44,43 +65,24 @@
 <div id="campDetail">
 	<div class="detail_title"><span>캠핑장 소개</span></div>
 	
-	<div class="btnA" id="btnL">
-		<img src="images/main/arrL.png">
-	</div>
 	<div id="campDetail_imgs">
-		<div id="imgs">
+		<div id="leftBtn">
+			<img src="images/main/arrL.png"">
+		</div>	
+		<div id="campImgs" style="width:8000px">
 			<c:set var="campimgs" value="${fn:split(campMain.CAMPIMAGES,',')}"/>
 			<!-- ${fn:length(campimgs)} -->
-			<c:forEach var="images" items="${campimgs}">
-			    <img src="images/campingImage/${images}" class="campDetail_img" />
-			</c:forEach>
+			<c:forEach var="images" items="${campimgs}"><img id="camImg" src="images/campingImage/${images}" class="campDetail_img" width=800 height=400/></c:forEach>
+		</div>	
+		<div id="RightBtn">
+			<img src="images/main/arrR.png"">
 		</div>
-	</div>
-	<div class="btnA" id="btnR">
-		<img src="images/main/arrR.png">
 	</div>
 	
 	<div class="detail_text">
 		<h3>${campMain.CONTENT}</h3>
 	</div>
 </div>
-
-<script type="text/javascript">
-let num = 0;
-let dist;
-$('#btnL').click(function() {
-	if (num == 0) return;
-	num--;
-	dist = -1 * 260 * num;
-	$('.imgs').animate({ left: dist }, 500)
-})
-$('#btnR').click(function() {
-	if (num == 4) return;
-	num++;
-	dist = -1 * 260 * num;
-	$('.imgs').animate({ left: dist }, 500)
-})
-</script>
 
 <div id="campDetail">	
 	<div class="detail_title"><span>캠핑장 위치</span></div>

@@ -20,7 +20,7 @@ $(function() {
 		num++;
 		dist = -1 * 260 * num;
 		$('.cards').animate({ left: dist }, 500)
-	})
+	})	
 	
 	$('.icons').mouseenter(function(){
 		$(this).children('.iconImg1').animate({opacity:"0"}, 500)
