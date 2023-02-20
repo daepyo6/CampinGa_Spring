@@ -39,7 +39,7 @@
          <div class="roomInput">
             <span>이미지 파일 선택</span><br>
             <div style="text-align: center; margin-top: 15px;">
-               <img id="previewImg" src="images/imgfile.png" 
+               <img id="previewImg" src="images/main/imgfile.png" 
                style="width: 300px; height: 200px; border-radius: 10px;">
             </div>
             <div class="filebox" >
@@ -49,6 +49,16 @@
             </div>
          </div>
          <br>
+         
+         <div class="roomInput">
+         <span>캠핑장 소개용 이미지 선택</span><br>
+	         <div class="filebox" >
+	         	<input class="upload-name" name="imagefiles" value="첨부파일" placeholder="첨부파일">
+	         	<input type="button" value="이미지 등록" onclick="selectimg();">
+	         </div>	
+         </div>
+         <br>
+         
          <div class="roomInput">
             <span>캠핑장 주소</span>
             <div class="roomInput_div">

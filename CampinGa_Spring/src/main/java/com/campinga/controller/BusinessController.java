@@ -346,14 +346,14 @@ public class BusinessController {
 	@RequestMapping(value = "fileup", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> fileup(Model model, HttpServletRequest request) {
-		String path = context.getRealPath("/images");
+		String path = context.getRealPath("/images/campingImage");
 		HashMap<String, Object> result = new HashMap<String, Object>();
 
 		try {
 			MultipartRequest multi = new MultipartRequest(
 					request, path, 5 * 1024 * 1024, "UTF-8", new DefaultFileRenamePolicy());
 			result.put("STATUS", 1);
-			result.put("FILENAME", multi.getFilesystemName("c_image"));
+			result.put("FILENAME", multi.getFilesystemName("fileimage"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -541,7 +541,10 @@ public class BusinessController {
 				paramMap.put("image", multi.getParameter("oldimg"));
 			else
 				paramMap.put("image", multi.getFilesystemName("newimg"));
-
+			
+			// 캠핑장 상세 페이지에 들어갈 사진 여러장
+			paramMap.put("campimages", multi.getParameter("imagefiles"));
+			
 			bs.BsCampingInfoUpdate(paramMap);
 
 		} catch (IOException e) {
@@ -550,5 +553,22 @@ public class BusinessController {
 
 		return "redirect:/businessmanCampingInfo?bseq=" + bseq;
 	}
+	
+	
+	
+	// 캠핑장 상세 페이지에 들어갈 사진 여러장 등록하는 곳으로 으동
+	@RequestMapping("multiImages")
+	public String multiImages(HttpServletRequest request) {
+		return "business/camping/selectimg";
+	}
+	
+	// 캠핑장 상세 페이지에 들어갈 사진 여러장
+	@RequestMapping("bsCampingImgs")
+	public String bsCampingImgs(@RequestParam("image") String image, 
+			HttpServletRequest request, Model model) {
+		model.addAttribute("image", image);
+		return "business/camping/completupload";
+	}
+
 
 }

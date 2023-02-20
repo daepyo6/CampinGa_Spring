@@ -139,6 +139,7 @@ public class CampingController {
 		cs.campDetailByBseq(paramMap);
 		ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
 		mav.addObject("campMain", list.get(0));
+		System.out.println(list.get(0).get("CAMPIMAGES"));
 
 		// 로그인한 경우 즐겨찾기 조회
 		HashMap<String, Object> loginUser = (HashMap<String, Object>) request.getSession().getAttribute("loginUser");

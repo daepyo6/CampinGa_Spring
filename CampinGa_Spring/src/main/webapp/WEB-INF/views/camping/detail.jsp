@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="bar"></div>
 <div id="campingdetail">
 	<div id="campMain">
@@ -42,8 +43,44 @@
 </div>
 <div id="campDetail">
 	<div class="detail_title"><span>캠핑장 소개</span></div>
-	<div class="detail_text"><h3>${campMain.CONTENT}</h3></div>
+	
+	<div class="btnA" id="btnL">
+		<img src="images/main/arrL.png">
+	</div>
+	<div id="campDetail_imgs">
+		<div id="imgs">
+			<c:set var="campimgs" value="${fn:split(campMain.CAMPIMAGES,',')}"/>
+			<!-- ${fn:length(campimgs)} -->
+			<c:forEach var="images" items="${campimgs}">
+			    <img src="images/campingImage/${images}" class="campDetail_img" />
+			</c:forEach>
+		</div>
+	</div>
+	<div class="btnA" id="btnR">
+		<img src="images/main/arrR.png">
+	</div>
+	
+	<div class="detail_text">
+		<h3>${campMain.CONTENT}</h3>
+	</div>
 </div>
+
+<script type="text/javascript">
+let num = 0;
+let dist;
+$('#btnL').click(function() {
+	if (num == 0) return;
+	num--;
+	dist = -1 * 260 * num;
+	$('.imgs').animate({ left: dist }, 500)
+})
+$('#btnR').click(function() {
+	if (num == 4) return;
+	num++;
+	dist = -1 * 260 * num;
+	$('.imgs').animate({ left: dist }, 500)
+})
+</script>
 
 <div id="campDetail">	
 	<div class="detail_title"><span>캠핑장 위치</span></div>

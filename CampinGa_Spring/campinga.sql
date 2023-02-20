@@ -78,10 +78,10 @@ CREATE OR REPLACE PROCEDURE campDetailByBseq(
 IS
 BEGIN
     OPEN p_rc FOR    
-        SELECT cname, phone, email, caddress1, caddress2, caddress3, facilities, image, content, category
+        SELECT cname, phone, email, caddress1, caddress2, caddress3, facilities, image, content, category, campimages
         FROM businessman where chkyn='Y' and bseq=p_bseq;
 END;
-
+ select * from businessman;
 
 -- 즐겨찾기 조회
 
@@ -805,15 +805,18 @@ CREATE OR REPLACE PROCEDURE BsCampingInfoUpdate(
     p_caddress1  IN businessman.caddress1%type,
     p_caddress2  IN businessman.caddress2%type,
     p_caddress3  IN businessman.caddress3%type,
-    p_facilities  IN businessman.facilities%type
+    p_facilities  IN businessman.facilities%type,
+    p_campimages IN businessman.campimages%type
 )
 IS
 BEGIN
     UPDATE businessman SET cname=p_cname, image=p_image, content=p_content, category=p_category, caddress1=p_caddress1, 
-    caddress2=p_caddress2, caddress3=p_caddress3, facilities=p_facilities
+    caddress2=p_caddress2, caddress3=p_caddress3, facilities=p_facilities, campimages=p_campimages
     WHERE bseq=p_bseq;
     commit;
 END;
+
+select * from businessman;
 
 -- 사업자 가입 프로시져
 CREATE OR REPLACE PROCEDURE insertBusinessCam(

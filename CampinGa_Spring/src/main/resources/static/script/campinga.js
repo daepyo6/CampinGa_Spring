@@ -59,6 +59,11 @@ $(function() {
 })
 
 
+function selectimg(){
+	var opt = "toolbar=no, scrollbars=no, location=no, menubar=no, resizable=no, width=810, height=600";
+	window.open( 'multiImages' , 'selectimg',  opt);
+}
+
 
 // member JavaScript 
 function login(){
