@@ -339,6 +339,7 @@ public class MemberController {
 			mav.setViewName("loginForm");
 		}
 		mav.addObject("idkey",idkey);
+		mav.addObject("pwkey", request.getParameter("pwkey"));
 		return mav;
 	}
 	
@@ -380,7 +381,7 @@ public class MemberController {
 			}			
 			mav.setViewName("find/findPW");
 		}else if(pwkey.equals("bpw")){
-			bs.confirmMid(paramMap);
+			bs.confirmBid(paramMap);
 			ArrayList<HashMap<String, Object>>list
 			=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
 			if(list.size()==0) {
