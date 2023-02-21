@@ -167,6 +167,10 @@ public class BusinessService {
 		bdao.BsCampingInfoUpdate(paramMap);
 	}
 
+	public void dormantBusiness(HashMap<String, Object> paramMap) {
+		 bdao.dormantBusiness(paramMap);
+	}
+
 
 
 

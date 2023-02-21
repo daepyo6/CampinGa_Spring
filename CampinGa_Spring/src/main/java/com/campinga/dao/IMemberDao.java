@@ -20,5 +20,6 @@ public interface IMemberDao {
 	void deleteMember(HashMap<String, Object> paramMap);
 	void cancelReservate(HashMap<String, Object> paramMap);
 	void deleteMyFavorites(HashMap<String, Object> paramMap);
+	void dormantMember(HashMap<String, Object> paramMap);
 
 }

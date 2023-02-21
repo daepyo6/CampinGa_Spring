@@ -198,7 +198,6 @@ public class MemberController {
 		dto.setMphone( (String)loginUser.get("MPHONE") );
 		dto.setEmail( (String)loginUser.get("EMAIL") );
 		
-		System.out.println("1");
 		model.addAttribute("dto" , dto);
 		return "member/mypage/updateInfo";
 	}
@@ -208,8 +207,6 @@ public class MemberController {
 	public ModelAndView updateUserInfo( 
 			@ModelAttribute("dto") @Valid MemberVO membervo, BindingResult result,
 		HttpServletRequest request	) {
-		
-		System.out.println("2");
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("member/mypage/updateInfo");
@@ -234,22 +231,22 @@ public class MemberController {
 		return mav;
 	}
 	
-	
-	//멤버 마이페이지 회원 탈퇴
+	// 멤버 마이페이지 회원 휴면계정 전환
 	@RequestMapping("deleteMember")
-	public String deleteMember( HttpSession session, Model model) {
-		HashMap<String, Object> loginUser = (HashMap<String, Object>)session.getAttribute("loginUser");
-		if( loginUser == null ) {
+	public String deleteMember(HttpSession session, Model model) {
+		HashMap<String, Object> loginUser = 
+				(HashMap<String, Object>) session.getAttribute("loginUser");
+		if (loginUser == null) {
 			return "member/login";
-		}else {
-		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("mid", loginUser.get("MID"));
-		ms.deleteMember( paramMap);
-		session.removeAttribute("loginUser");
-	}	
-		return "main";
+		} else {
+			HashMap<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("mid", loginUser.get("MID"));
+			ms.dormantMember(paramMap);
+			session.removeAttribute("loginUser");
+			model.addAttribute("message", "휴면 처리되었습니다. 탈퇴를 원하시면 관리자에게 문의하세요.");
+		}
+		return "member/login";
 	}
-	
 	
 	//마이페이지 예약 취소
 	@RequestMapping(value = "/cancelReservate")

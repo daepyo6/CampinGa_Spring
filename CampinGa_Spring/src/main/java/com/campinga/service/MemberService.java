@@ -125,6 +125,10 @@ public class MemberService {
 		mdao.deleteMyFavorites(paramMap);		
 	}
 
+	public void dormantMember(HashMap<String, Object> paramMap) {
+		mdao.dormantMember(paramMap);	
+	}
+
 	
 
 }

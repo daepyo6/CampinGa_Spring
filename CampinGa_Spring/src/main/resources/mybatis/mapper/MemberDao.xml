@@ -65,6 +65,11 @@
 		}
 	</update>
 	
+	<update id="dormantMember" statementType="CALLABLE" parameterType="java.util.HashMap" >
+		{ 
+			CALL dormantMember( #{mid} ) 
+		}
+	</update>
 	
 	<delete id="deleteMember" statementType="CALLABLE" parameterType="java.util.HashMap" >
 		{

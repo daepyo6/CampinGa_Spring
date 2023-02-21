@@ -401,7 +401,14 @@ BEGIN
     commit;
 END;
 
-
+-- 사업자 휴면 전환
+CREATE OR REPLACE PROCEDURE dormantBusiness(
+    p_bid IN businessman.bid%TYPE )
+IS
+BEGIN
+    update businessman set chkyn='N' where bid=p_bid;
+    commit;
+END;
 
 -- 사업자 회원 탈퇴
 CREATE OR REPLACE PROCEDURE deleteBusiness(
@@ -483,7 +490,8 @@ BEGIN
         )WHERE rn<=p_endNum;
 END;
 
-
+SELECT * FROM camping;
+SELECT * FROM businessman;
 SELECT * FROM reservation;
 -- Member Mypage
 -- count
@@ -555,6 +563,14 @@ IS
 BEGIN
     update member set name=p_name, mphone=p_mphone ,email=p_email
     where mid=p_mid;
+    commit;
+END;
+
+CREATE OR REPLACE PROCEDURE dormantMember(
+    p_mid IN member.mid%TYPE )
+IS
+BEGIN
+    update member set chkyn='N' where mid=p_mid;
     commit;
 END;
 
