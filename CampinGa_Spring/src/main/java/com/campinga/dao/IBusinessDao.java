@@ -34,7 +34,7 @@ public interface IBusinessDao {
 	void dormantBusiness(HashMap<String, Object> paramMap);
 	
 	void returnBid(HashMap<String, Object> paramMap);
-	void confirmMid(HashMap<String, Object> paramMap);
+	void confirmBid(HashMap<String, Object> paramMap);
 	void updateNewPw(String bid, String newPw);
 	
 	

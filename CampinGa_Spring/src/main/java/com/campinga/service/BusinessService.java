@@ -175,8 +175,8 @@ public class BusinessService {
 		bdao.returnBid(paramMap);		
 	}
 
-	public void confirmMid(HashMap<String, Object> paramMap) {
-		bdao.confirmMid(paramMap);		
+	public void confirmBid(HashMap<String, Object> paramMap) {
+		bdao.confirmBid(paramMap);		
 	}
 
 	public void updateNewPw(String bid, String newPw) {
