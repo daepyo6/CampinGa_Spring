@@ -28,6 +28,10 @@ public class BusinessService {
 		bdao.updateBusiness(paramMap);
 
 	}
+  
+  public void dormantBusiness(HashMap<String, Object> paramMap) {
+		 bdao.dormantBusiness(paramMap);
+	}
 
 	public void deleteBusiness(HashMap<String, Object> paramMap) {
 		bdao.deleteBusiness(paramMap);
@@ -167,9 +171,19 @@ public class BusinessService {
 		bdao.BsCampingInfoUpdate(paramMap);
 	}
 
-	public void dormantBusiness(HashMap<String, Object> paramMap) {
-		 bdao.dormantBusiness(paramMap);
+	public void returnBid(HashMap<String, Object> paramMap) {
+		bdao.returnBid(paramMap);		
 	}
+
+	public void confirmMid(HashMap<String, Object> paramMap) {
+		bdao.confirmMid(paramMap);		
+	}
+
+	public void updateNewPw(String bid, String newPw) {
+		bdao.updateNewPw(bid, newPw);		
+  }
+  
+
 
 
 

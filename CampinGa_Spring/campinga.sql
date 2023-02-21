@@ -874,3 +874,65 @@ BEGIN
     END IF;
 END;
 
+
+-- get Mid
+CREATE OR REPLACE PROCEDURE returnMid(
+    p_name IN member.name%type,
+    p_mphone IN member.mphone%type,
+    p_mid OUT member.mid%type
+)
+IS
+BEGIN
+    SELECT mid INTO p_mid FROM member WHERE name=p_name and mphone=p_mphone;
+    EXCEPTION 
+    when no_data_found then p_mid := '';
+END;
+
+
+
+-- get Bid
+CREATE OR REPLACE PROCEDURE returnBid(
+    p_name IN businessman.name%type,
+    p_phone IN businessman.phone%type,
+    p_bid OUT businessman.bid%type
+)
+IS
+BEGIN
+    SELECT bid INTO p_bid FROM businessman WHERE name=p_name and phone=p_phone;
+    EXCEPTION 
+    when no_data_found then p_bid := '';
+END;
+
+
+
+
+-- 본인확인 일반회원
+CREATE OR REPLACE PROCEDURE confirmMid(
+    p_mid IN member.mid%type,
+    p_email IN member.email%type,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+    SELECT * FROM member WHERE mid=p_mid and email=p_email;
+    EXCEPTION 
+    when no_data_found then p_rc := NULL;
+END;
+
+
+
+
+-- 본인확인 사업자회원
+CREATE OR REPLACE PROCEDURE confirmBid(
+    p_bid IN businessman.bid%type,
+    p_email IN businessman.email%type,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+    SELECT * FROM businessman WHERE bid=p_bid and email=p_email;
+    EXCEPTION 
+    when no_data_found then p_rc := NULL;
+END;

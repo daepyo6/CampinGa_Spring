@@ -124,10 +124,23 @@ public class MemberService {
 	public void deleteMyFavorites(HashMap<String, Object> paramMap) {
 		mdao.deleteMyFavorites(paramMap);		
 	}
-
-	public void dormantMember(HashMap<String, Object> paramMap) {
+  
+  public void dormantMember(HashMap<String, Object> paramMap) {
 		mdao.dormantMember(paramMap);	
 	}
+
+	public void returnMid(HashMap<String, Object> paramMap) {
+		mdao.returnMid(paramMap);		
+	}
+
+	public void confirmMid(HashMap<String, Object> paramMap) {
+		mdao.confirmMid(paramMap);		
+	}
+
+	public void updateNewPw(String mid, String newPw) {
+		mdao.updateNewPw(mid, newPw);		
+  }
+	
 
 	
 

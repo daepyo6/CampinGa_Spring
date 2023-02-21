@@ -3,6 +3,7 @@
 @import "admin.css";
 @import "business.css";
 @import "reserve.css";
+@import "idPw.css";
 .clear{
     clear: both;
 }

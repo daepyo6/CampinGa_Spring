@@ -88,6 +88,28 @@
 		 CALL deleteMyFavorites( #{fseq} )
 		}
 	</delete>
+	
+	<!-- id찾기 -->
+	<select id="returnMid" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL returnMid(
+				#{name}, #{phone},
+				#{id, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+	</select>
 
+	<select id="confirmMid" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL confirmMid(
+				#{id}, #{email},
+				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=memberMap}
+			)
+		}
+	</select>
+	
+	<update id="updateNewPw">
+		update member set pwd=#{param2} where mid=#{param1}
+	</update>
 
 </mapper>

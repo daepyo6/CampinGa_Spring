@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.campinga.dto.MemberVO;
 import com.campinga.dto.Paging;
+import com.campinga.service.BusinessService;
 import com.campinga.service.MemberService;
 
 @Controller
@@ -280,6 +281,138 @@ public class MemberController {
 		return "redirect:/myPage";
 	}
 	
+	
+	//아이디 비번 찾기 페이지 이동
+	@RequestMapping("/findIdPw")
+	public String findID() {
+		return "find/idPw";
+	}
+	
+	// 아이디 찾기 페이지
+	@RequestMapping("findID")
+	public ModelAndView findID(@RequestParam("idkey") String idkey,
+			@RequestParam("pwkey") String pwkey) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("idkey", idkey);
+		mav.addObject("pwkey", pwkey);
+		mav.setViewName("find/findID");
+		return mav;
+	}
+	
+	@Autowired
+	BusinessService bs;
+	
+	// 아이디 리턴
+	@RequestMapping("/returnID")
+	public ModelAndView returnID(HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		String idkey = request.getParameter("idkey");
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
+		HashMap<String, Object>paramMap = new HashMap<String, Object>();
+		paramMap.put("name", name);
+		paramMap.put("phone", phone);
+		paramMap.put("id", "");
+		if(idkey.equals("mid")) {
+			ms.returnMid(paramMap);
+			String mid = (String)paramMap.get("id");
+			if(mid==null) {
+				mav.addObject("findResult", "해당 id가 없습니다.");
+			}else {
+				String idResult = "회원님의 ID는 '"+mid+"' 입니다";
+				mav.addObject("findResult", idResult);
+			}			
+			mav.setViewName("find/findID");
+		}else if(idkey.equals("bid")){
+			bs.returnBid(paramMap);
+			String bid = (String)paramMap.get("id");
+			if(bid==null) {
+				mav.addObject("findResult", "해당 id가 없습니다.");
+			}else {
+				String idResult = "회원님의 ID는 '"+bid+"' 입니다";
+				mav.addObject("findResult", idResult);
+			}			
+			mav.setViewName("find/findID");			
+		}else {
+			mav.addObject("message", "알 수 없는 오류입니다.");
+			mav.setViewName("loginForm");
+		}
+		mav.addObject("idkey",idkey);
+		return mav;
+	}
+	
+	
+	// 새 비밀번호 설정 페이지
+	@RequestMapping("/findPW")
+	public ModelAndView findPW(@RequestParam("idkey") String idkey,
+			@RequestParam("pwkey") String pwkey) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("idkey", idkey);
+		mav.addObject("pwkey", pwkey);
+		mav.setViewName("find/findPW");
+		return mav;
+	}
+	
+	
+	// 비밀번호 업데이트를 위한 본인 확인
+	@RequestMapping("/confirmPW")
+	public ModelAndView confirmPW(HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		String pwkey = request.getParameter("pwkey");
+		String email = request.getParameter("email");
+		String id = request.getParameter("id");
+		HashMap<String, Object>paramMap = new HashMap<String, Object>();
+		paramMap.put("id", id);
+		paramMap.put("email", email);
+		paramMap.put("ref_cursor", null);
+		if(pwkey.equals("mpw")) {
+			ms.confirmMid(paramMap);
+			ArrayList<HashMap<String, Object>>list
+			=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			if(list.size()==0) {
+				mav.addObject("findResult", "no");
+			}else {
+				mav.addObject("findResult", "yes");
+				mav.addObject("mORb", "mid");
+				mav.addObject("inputId", id);
+			}			
+			mav.setViewName("find/findPW");
+		}else if(pwkey.equals("bpw")){
+			bs.confirmMid(paramMap);
+			ArrayList<HashMap<String, Object>>list
+			=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			if(list.size()==0) {
+				mav.addObject("findResult", "no");
+			}else {
+				mav.addObject("findResult", "yes");
+				mav.addObject("mORb", "bid");
+				mav.addObject("inputId", id);
+			}
+			mav.setViewName("find/findPW");
+		}else {
+			mav.addObject("message", "알 수 없는 오류입니다.");
+			mav.setViewName("loginForm");
+		}
+		mav.addObject("pwkey", pwkey);
+		return mav;
+	}
+	
+	
+	// 새 비번 설정
+	@RequestMapping("/updateNewPw")
+	public String updateNewPw(HttpServletRequest request) {
+		String newPw = request.getParameter("nPw");
+		if(request.getParameter("mid")!=null) {
+			String mid = request.getParameter("mid");
+			ms.updateNewPw(mid, newPw);
+		}else if(request.getParameter("bid")!=null) {
+			String bid = request.getParameter("bid");
+			bs.updateNewPw(bid, newPw);
+		}		
+		return "redirect:/loginForm";
+	}
 	
 
 }
