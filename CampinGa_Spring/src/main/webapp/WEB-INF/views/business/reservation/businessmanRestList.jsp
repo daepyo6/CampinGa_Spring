@@ -7,6 +7,8 @@
       <table class="rentList">
          <tr>
             <th>예약일자</th>
+            <th>예약자</th>
+            <th>전화번호</th>
             <th>예약장소</th>
             <th>인원</th>
             <th>체크인</th>
@@ -17,6 +19,8 @@
             <tr>
                <td><fmt:formatDate value="${resVO.RES_DATE}" type="both" 
                      dateStyle="short" timeStyle="short"/></td>
+               <td>${resVO.NAME}</td>
+               <td>${resVO.MPHONE}</td>
                <td>${resVO.CNAME}&nbsp;${resVO.C_CLASS}</td>
                <td>${resVO.PEOPLE}명</td>
                <td>
@@ -28,7 +32,7 @@
             	  <fmt:formatDate type = "date" value="${check_out}"/>
                 </td>
                	<td>
-                   <fmt:formatNumber value="${resVO.PRICE}" pattern="#,###"/>
+                   <fmt:formatNumber value="${resVO.PRICE}" pattern="#,###"/>원
                 </td>
             </tr>
          </c:forEach>
