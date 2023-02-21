@@ -869,6 +869,26 @@ IS
 BEGIN
     SELECT mid INTO p_mid FROM member WHERE name=p_name and mphone=p_mphone;
     EXCEPTION 
-    when no_data_found then p_mid := null;
+    when no_data_found then p_mid := '';
 END;
+
+
+
+-- get Bid
+CREATE OR REPLACE PROCEDURE returnBid(
+    p_name IN businessman.name%type,
+    p_phone IN businessman.phone%type,
+    p_bid OUT businessman.bid%type
+)
+IS
+BEGIN
+    SELECT bid INTO p_bid FROM businessman WHERE name=p_name and phone=p_phone;
+    EXCEPTION 
+    when no_data_found then p_bid := '';
+END;
+
+
+
+
+
 

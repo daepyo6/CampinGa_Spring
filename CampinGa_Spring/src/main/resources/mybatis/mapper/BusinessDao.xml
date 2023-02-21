@@ -137,7 +137,16 @@
          ) 
          }
    </update>
-	
+
+	<!-- id찾기 -->
+	<select id="returnBid" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL returnBid(
+				#{name}, #{phone},
+				#{id, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+	</select>
 
 
 </mapper>

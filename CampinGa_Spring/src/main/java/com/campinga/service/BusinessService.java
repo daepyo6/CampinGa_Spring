@@ -167,6 +167,10 @@ public class BusinessService {
 		bdao.BsCampingInfoUpdate(paramMap);
 	}
 
+	public void returnBid(HashMap<String, Object> paramMap) {
+		bdao.returnBid(paramMap);		
+	}
+
 
 
 

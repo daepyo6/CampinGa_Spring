@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.campinga.dto.MemberVO;
 import com.campinga.dto.Paging;
+import com.campinga.service.BusinessService;
 import com.campinga.service.MemberService;
 
 @Controller
@@ -301,6 +302,9 @@ public class MemberController {
 		return mav;
 	}
 	
+	@Autowired
+	BusinessService bs;
+	
 	// 아이디 리턴
 	@RequestMapping("/returnID")
 	public ModelAndView returnID(HttpServletRequest request) {
@@ -324,7 +328,15 @@ public class MemberController {
 			}			
 			mav.setViewName("find/findID");
 		}else if(idkey.equals("bid")){
-			
+			bs.returnBid(paramMap);
+			String bid = (String)paramMap.get("id");
+			if(bid==null) {
+				mav.addObject("findResult", "해당 id가 없습니다.");
+			}else {
+				String idResult = "회원님의 ID는 '"+bid+"' 입니다";
+				mav.addObject("findResult", idResult);
+			}			
+			mav.setViewName("find/findID");			
 		}else {
 			mav.addObject("message", "알 수 없는 오류입니다.");
 			mav.setViewName("loginForm");
