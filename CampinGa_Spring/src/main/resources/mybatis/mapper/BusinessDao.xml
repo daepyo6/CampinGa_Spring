@@ -147,6 +147,19 @@
 			)
 		}
 	</select>
+	
+	<select id="confirmBid" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL confirmBid(
+				#{id}, #{email},
+				#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=memberMap}
+			)
+		}
+	</select>
+	
+	<update id="updateNewPw">
+		update businessman set pwd=#{param2} where bid=#{param1}
+	</update>
 
 
 </mapper>

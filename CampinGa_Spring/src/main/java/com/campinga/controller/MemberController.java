@@ -345,5 +345,77 @@ public class MemberController {
 		return mav;
 	}
 	
+	
+	// 새 비밀번호 설정 페이지
+	@RequestMapping("/findPW")
+	public ModelAndView findPW(@RequestParam("idkey") String idkey,
+			@RequestParam("pwkey") String pwkey) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("idkey", idkey);
+		mav.addObject("pwkey", pwkey);
+		mav.setViewName("find/findPW");
+		return mav;
+	}
+	
+	
+	// 비밀번호 업데이트를 위한 본인 확인
+	@RequestMapping("/confirmPW")
+	public ModelAndView confirmPW(HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		String pwkey = request.getParameter("pwkey");
+		String email = request.getParameter("email");
+		String id = request.getParameter("id");
+		HashMap<String, Object>paramMap = new HashMap<String, Object>();
+		paramMap.put("id", id);
+		paramMap.put("email", email);
+		paramMap.put("ref_cursor", null);
+		if(pwkey.equals("mpw")) {
+			ms.confirmMid(paramMap);
+			ArrayList<HashMap<String, Object>>list
+			=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			if(list.size()==0) {
+				mav.addObject("findResult", "no");
+			}else {
+				mav.addObject("findResult", "yes");
+				mav.addObject("mORb", "mid");
+				mav.addObject("inputId", id);
+			}			
+			mav.setViewName("find/findPW");
+		}else if(pwkey.equals("bpw")){
+			bs.confirmMid(paramMap);
+			ArrayList<HashMap<String, Object>>list
+			=(ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+			if(list.size()==0) {
+				mav.addObject("findResult", "no");
+			}else {
+				mav.addObject("findResult", "yes");
+				mav.addObject("mORb", "bid");
+				mav.addObject("inputId", id);
+			}
+			mav.setViewName("find/findPW");
+		}else {
+			mav.addObject("message", "알 수 없는 오류입니다.");
+			mav.setViewName("loginForm");
+		}
+		mav.addObject("pwkey", pwkey);
+		return mav;
+	}
+	
+	
+	// 새 비번 설정
+	@RequestMapping("/updateNewPw")
+	public String updateNewPw(HttpServletRequest request) {
+		String newPw = request.getParameter("nPw");
+		if(request.getParameter("mid")!=null) {
+			String mid = request.getParameter("mid");
+			ms.updateNewPw(mid, newPw);
+		}else if(request.getParameter("bid")!=null) {
+			String bid = request.getParameter("bid");
+			bs.updateNewPw(bid, newPw);
+		}		
+		return "redirect:/loginForm";
+	}
+	
 
 }

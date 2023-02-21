@@ -129,6 +129,14 @@ public class MemberService {
 		mdao.returnMid(paramMap);		
 	}
 
+	public void confirmMid(HashMap<String, Object> paramMap) {
+		mdao.confirmMid(paramMap);		
+	}
+
+	public void updateNewPw(String mid, String newPw) {
+		mdao.updateNewPw(mid, newPw);		
+	}
+
 	
 
 }

@@ -890,5 +890,33 @@ END;
 
 
 
+-- 본인확인 일반회원
+CREATE OR REPLACE PROCEDURE confirmMid(
+    p_mid IN member.mid%type,
+    p_email IN member.email%type,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+    SELECT * FROM member WHERE mid=p_mid and email=p_email;
+    EXCEPTION 
+    when no_data_found then p_rc := NULL;
+END;
 
 
+
+
+-- 본인확인 사업자회원
+CREATE OR REPLACE PROCEDURE confirmBid(
+    p_bid IN businessman.bid%type,
+    p_email IN businessman.email%type,
+    p_rc OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_rc FOR
+    SELECT * FROM businessman WHERE bid=p_bid and email=p_email;
+    EXCEPTION 
+    when no_data_found then p_rc := NULL;
+END;

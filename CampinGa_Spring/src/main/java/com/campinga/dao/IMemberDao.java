@@ -21,5 +21,7 @@ public interface IMemberDao {
 	void cancelReservate(HashMap<String, Object> paramMap);
 	void deleteMyFavorites(HashMap<String, Object> paramMap);
 	void returnMid(HashMap<String, Object> paramMap);
+	void confirmMid(HashMap<String, Object> paramMap);
+	void updateNewPw(String mid, String newPw);
 
 }

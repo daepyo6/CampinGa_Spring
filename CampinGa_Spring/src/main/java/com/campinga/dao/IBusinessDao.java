@@ -33,6 +33,8 @@ public interface IBusinessDao {
 	void BsCampingInfoUpdate(HashMap<String, Object> paramMap);
 	
 	void returnBid(HashMap<String, Object> paramMap);
+	void confirmMid(HashMap<String, Object> paramMap);
+	void updateNewPw(String bid, String newPw);
 	
 	
 	
