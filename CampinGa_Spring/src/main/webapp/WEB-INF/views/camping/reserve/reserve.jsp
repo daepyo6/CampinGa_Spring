@@ -78,9 +78,9 @@
       
       <div id="reserveInfo">
       <div id="reserveInfo1">
-         <table>
+         <table style="vertical-align:middle;">
             <tr>
-            <th style="font-size: 30px">예약자 정보</th>
+            <th colspan="2"><div id="res_table_title">예약자 정보</div></th>            
             </tr>
             <tr>
                <th>예약자 이름</th>
@@ -122,15 +122,15 @@
                <td><input id="endDate" name="chk_out" onchange="call()" readonly></td>
             </tr>
             <tr class="chk2">
-               <th>인원</th>
+               <th>인원<br>[${campVO.MIN_PEOPLE} ~ ${campVO.MAX_PEOPLE}명]</th>
                <td><input type="text" name="people" size="4">명</td>
             </tr>
             <tr>
-               <th>결제금액</th>
+               <th>결제금액<br>[일 X <fmt:formatNumber value="${campVO.PRICE}" pattern="#,###"/>원]</th>
                <td><span id="totalPrice">0</span>원</td>
             </tr>
          </table>
-           <div id="reservebtn" >
+           <div id="reservebtn" style="margin-top:40px;">
             <input type="button" value="예약하기" onclick="go_reserve();">
             </div>
       </div>

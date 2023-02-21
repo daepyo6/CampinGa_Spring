@@ -299,18 +299,21 @@ header{
 }
 .newCampName{
 	width: 285px;
-  	height: 35px;
+	padding-top:5px;
+  	height: 30px;
   	font-size:1.2rem;
   	font-weight:600;
 	line-height:1.5;
 	background-color:#48cae4;
 	color:white;
 	margin-top:15px;
+	border-radius: 5px 5px 0 0;
 }
+
 .newCampInfo{	
-	width: 280px;
-  	height: 70px;
-  	padding: 5px 0 0 5px;
+	width: 265px;
+  	height: 59px;
+  	padding: 10px;
   	font-size:0.9rem;
 	line-height:1.5;
 	background-color:#caf0f8;
@@ -322,6 +325,7 @@ header{
 	text-overflow: ellipsis;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
+	border-radius:0 0 5px 5px;
 }
 
 /*추천 캠핑장*/
@@ -555,14 +559,16 @@ footer{
     border-radius:3px;
     box-shadow: 2px 2px 6px gray;
 }
+#campInfo:hover{
+	cursor:pointer;
+	margin: 5px 15px 25px 15px;
+	
+}
 #campInfo_img{    
     width: 300px;
     height: 200px;
     display: block;
     /*box-shadow: 1px 1px 4px gray;*/
-}
-#campInfo_img:hover{
-	cursor:pointer;
 }
 #campInfo_text{
 	margin-top:10px;
@@ -1419,15 +1425,24 @@ h1 {
 }
 #reserveInfo2{
    width:500px;
-   height:700px;
+   height:600px;
    line-height: 30px;
    background-color:#e6eaed;
    padding:2%;
 }
 #reserveInfo2 table{
-    width:100%;
+   width:100%;
    height:500px;
    font-size:20px;
+}
+#res_table_title{
+	width:200px;
+	height:45px;
+	font-size:32px;
+	text-align:center;
+	border-bottom:2px solid #b1c0cd;
+	margin: auto;
+	color: black;
 }
 
 #reserveInfo1 table th, #reserveInfo2 table th{
@@ -1464,7 +1479,7 @@ h1 {
     outline: none;
   border-radius:5px;
    width: 100%;
-  height: 30px;
+  height: 40px;
   border: 0;
    color: white;
   font-size: 1.2em;
