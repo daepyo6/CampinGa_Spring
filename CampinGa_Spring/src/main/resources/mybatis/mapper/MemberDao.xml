@@ -83,6 +83,16 @@
 		 CALL deleteMyFavorites( #{fseq} )
 		}
 	</delete>
+	
+	<!-- id찾기 -->
+	<select id="returnMid" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			CALL returnMid(
+				#{name}, #{phone},
+				#{id, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+	</select>
 
 
 </mapper>

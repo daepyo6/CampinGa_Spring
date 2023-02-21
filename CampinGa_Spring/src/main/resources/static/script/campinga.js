@@ -527,3 +527,14 @@ function delBanner(mbseq){
 		return;
 	}	
 }
+
+
+// ID, PW 찾기
+$(function(){
+	$('.findBtn').mouseenter(function() {
+		$(this).children('span').css('color','#fff329')
+	});
+	$('.findBtn').mouseleave(function() {
+		$(this).children('span').css('color','#44caef')
+	});	
+});

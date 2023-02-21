@@ -125,6 +125,10 @@ public class MemberService {
 		mdao.deleteMyFavorites(paramMap);		
 	}
 
+	public void returnMid(HashMap<String, Object> paramMap) {
+		mdao.returnMid(paramMap);		
+	}
+
 	
 
 }

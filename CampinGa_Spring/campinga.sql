@@ -858,3 +858,17 @@ BEGIN
     END IF;
 END;
 
+
+-- get Mid
+CREATE OR REPLACE PROCEDURE returnMid(
+    p_name IN member.name%type,
+    p_mphone IN member.mphone%type,
+    p_mid OUT member.mid%type
+)
+IS
+BEGIN
+    SELECT mid INTO p_mid FROM member WHERE name=p_name and mphone=p_mphone;
+    EXCEPTION 
+    when no_data_found then p_mid := null;
+END;
+

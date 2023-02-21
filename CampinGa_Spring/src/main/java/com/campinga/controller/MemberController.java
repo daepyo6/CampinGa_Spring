@@ -284,5 +284,54 @@ public class MemberController {
 	}
 	
 	
+	//아이디 비번 찾기 페이지 이동
+	@RequestMapping("/findIdPw")
+	public String findID() {
+		return "find/idPw";
+	}
+	
+	// 아이디 찾기 페이지
+	@RequestMapping("findID")
+	public ModelAndView findID(@RequestParam("idkey") String idkey,
+			@RequestParam("pwkey") String pwkey) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("idkey", idkey);
+		mav.addObject("pwkey", pwkey);
+		mav.setViewName("find/findID");
+		return mav;
+	}
+	
+	// 아이디 리턴
+	@RequestMapping("/returnID")
+	public ModelAndView returnID(HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		String idkey = request.getParameter("idkey");
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
+		HashMap<String, Object>paramMap = new HashMap<String, Object>();
+		paramMap.put("name", name);
+		paramMap.put("phone", phone);
+		paramMap.put("id", "");
+		if(idkey.equals("mid")) {
+			ms.returnMid(paramMap);
+			String mid = (String)paramMap.get("id");
+			if(mid==null) {
+				mav.addObject("findResult", "해당 id가 없습니다.");
+			}else {
+				String idResult = "회원님의 ID는 '"+mid+"' 입니다";
+				mav.addObject("findResult", idResult);
+			}			
+			mav.setViewName("find/findID");
+		}else if(idkey.equals("bid")){
+			
+		}else {
+			mav.addObject("message", "알 수 없는 오류입니다.");
+			mav.setViewName("loginForm");
+		}
+		mav.addObject("idkey",idkey);
+		return mav;
+	}
+	
 
 }
