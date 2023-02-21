@@ -113,7 +113,7 @@ BEGIN
     SELECT * FROM camping_view WHERE cseq=p_cseq;
     OPEN p_resdate FOR
     select to_char(chk_in,'yyyy-mm-dd') as chk_in, to_char(chk_out,'yyyy-mm-dd') as chk_out from reservation
-	where cseq=81 and chk_out>=sysdate order by chk_in;
+	where cseq=p_cseq and chk_out>=sysdate order by chk_in;
 END;
 
 
@@ -484,6 +484,7 @@ BEGIN
 END;
 
 
+SELECT * FROM reservation;
 -- Member Mypage
 -- count
 CREATE OR REPLACE PROCEDURE getMyPageCount(
