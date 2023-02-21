@@ -213,10 +213,10 @@ public class BusinessController {
 		} else {
 			HashMap<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("bid", loginBusinessman.get("BID"));
-			bs.deleteBusiness(paramMap);
+			bs.dormantBusiness(paramMap);
 			session.removeAttribute("loginBusinessman");
 		}
-		return "main";
+		return "member/login";
 	}
 
 	// 사업자 예약 확인

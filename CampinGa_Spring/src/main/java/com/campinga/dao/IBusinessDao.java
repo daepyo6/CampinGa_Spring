@@ -31,6 +31,7 @@ public interface IBusinessDao {
 	void updateCampingRoom(HashMap<String, Object> paramMap);
 	
 	void BsCampingInfoUpdate(HashMap<String, Object> paramMap);
+	void dormantBusiness(HashMap<String, Object> paramMap);
 	
 	void returnBid(HashMap<String, Object> paramMap);
 	void confirmMid(HashMap<String, Object> paramMap);

@@ -26,6 +26,15 @@
 		}
 	</update>
 	
+	
+	<update id="dormantBusiness" statementType="CALLABLE" parameterType="java.util.HashMap" >
+		{ 
+			CALL dormantBusiness( 
+				#{bid}
+			) 
+		}
+	</update>
+	
 	<delete id="deleteBusiness" statementType="CALLABLE" parameterType="java.util.HashMap" >
 		{ CALL deleteBusiness( #{bid} ) }
 	</delete>
