@@ -10,8 +10,10 @@ BEGIN
         from (select * from businessman order by bseq desc) where chkyn='Y' and rownum<=4;
     open p_cur2 for
         select cname, image, bseq 
-        from businessman where chkyn='Y' and rownum<=8;
+        from businessman where chkyn='Y' and rownum<=8 ORDER BY rownum DESC;
 END;
+
+select * from businessman;
 
 -- 메인에서 캠핑장 검색
 create or replace procedure getSearchResult(
@@ -888,7 +890,7 @@ BEGIN
     when no_data_found then p_mid := '';
 END;
 
-
+select * from member;
 
 -- get Bid
 CREATE OR REPLACE PROCEDURE returnBid(

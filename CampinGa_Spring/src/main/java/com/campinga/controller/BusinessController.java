@@ -136,7 +136,7 @@ public class BusinessController {
 			System.out.println(businessvo.getCaddress1()); 
 			bs.insertBusinessCam(businessvo);
 
-			mav.addObject("message", "회원가입이 완료되었습니다. 로그인하세요");
+			mav.addObject("message", "회원가입이 완료되었습니다.");
 			mav.setViewName("member/login");
 		}
 		return mav;

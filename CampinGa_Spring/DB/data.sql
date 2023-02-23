@@ -1,3 +1,38 @@
+-- favorites 안의 사용자아이디와 캠핑장번호로 즐겨찾기 된 캠핑장정보를 조회하는 view 생성
+create or replace view favorites_view
+as
+select rownum as rn, f.fseq, f.bseq, m.mid, b.cname, b.image, b.phone, f.fav_check  
+from favorites f, member m, businessman b
+where f.mid = m.mid and f.bseq = b.bseq
+
+
+-- reservation 안의 사용자아이디와 캠핑장번호로 예약정보와 캠핑장정보를 조회하는 view를 생성
+create or replace view reservate_view
+as
+select r.reseq, b.bseq, c.cseq, b.bid, c.cname, c.c_class, c.res_sta, r.mid, 
+m.name, m.mphone, r.price, r.people, r.res_date, r.chk_in, r.chk_out
+from reservation r, businessman b, camping c, member m
+where r.cseq = c.cseq and b.bseq=c.bseq and m.mid = r.mid
+
+
+-- camping 안의 캠핑장 이름으로 정보 조회하는 view
+create or replace view camping_view
+as
+select c.cseq, c.bseq, c.cname, b.caddress1, b.caddress2, b.caddress3, b.facilities,
+		b.phone, b.image, c.c_image, b.content, c.c_content, b.category, c.c_class, c.res_sta, c.price,
+		c.min_people, c.max_people, c.c_indate
+from businessman b, camping c
+where b.bseq = c.bseq
+
+
+
+
+
+
+
+
+
+
 -- 사용자
 insert into member(mid, pwd, name, mphone, email)
 values('qndrl12', '1234', '이준표', '010-8010-4755', 'qndrl12@naver.com');

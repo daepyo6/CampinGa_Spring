@@ -16,6 +16,7 @@
          <th>전화번호</th>
          <th>이메일</th>
          <th>휴면설정</th>
+         <th>삭제</th>
       </tr>
        <c:forEach items="${memberList}" var="memberVO">
           <tr>
@@ -37,6 +38,9 @@
 	             	</td> 
 	             </c:otherwise>
              </c:choose>     
+             <td>
+				<input type="button" value="삭제" >
+			 </td>
           </tr>
      </c:forEach>
    </table>
